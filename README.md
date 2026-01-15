@@ -6,14 +6,20 @@ Analytical Chemist | Data Scientist | 15+ Years HPLC/GC-MS Experience
 
 ## 👨‍🔬 About Me
 
-Senior analytical chemist transitioning to data science with 15+ years of experience in analytical instrumentation, method development, and quality systems. Specialized in applying machine learning to analytical chemistry, metabolomics, and predictive maintenance.
+Analytical chemist with 15+ years of HPLC/GC-MS experience transitioning to data science. I combine domain expertise in analytical instrumentation with machine learning to solve real-world problems in pharma, manufacturing, and predictive maintenance. My background in method validation and regulatory compliance (GxP, FDA 21 CFR Part 11) gives me a unique perspective on building trustworthy, explainable ML systems.
 
-**Core Strengths:**
-- Domain expertise in analytical chemistry, HPLC, GC-MS, and metabolomics
-- Statistical analysis and experimental design
-- Machine learning model development and validation
-- GxP and regulatory compliance (FDA 21 CFR Part 11, EU IVDR)
-- Stakeholder communication and technical presentations
+---
+
+## 💡 What Makes This Portfolio Different
+
+Unlike typical bootcamp projects, every analysis here:
+- ✅ **Solves a real business problem** with quantified ROI (€1.6M-€18M savings)
+- ✅ **Leverages domain expertise** from 15 years in analytical chemistry
+- ✅ **Emphasizes explainability** (SHAP, feature importance) over black-box accuracy
+- ✅ **Includes rigorous validation** (stratified CV, multiple metrics, not just train/test)
+- ✅ **Bridges disciplines** (analytical instrumentation ↔ machine learning ↔ business impact)
+
+I'm not learning data science from scratch—I'm adding ML to 15 years of analytical thinking, experimental design, and stakeholder communication.
 
 ---
 
@@ -95,24 +101,17 @@ Senior analytical chemist transitioning to data science with 15+ years of experi
 
 ---
 
-## 🎯 Target Industries
 
-- **Pharmaceutical & Biotech:** Analytical R&D, metabolomics, drug development
-- **Chemical Manufacturing:** Process optimization, quality control, sensor analytics
-- **Automotive:** Emissions monitoring, predictive maintenance, sensor systems
-- **Aerospace:** Predictive maintenance, reliability engineering, data analytics
 
----
+## 📫 Let's Connect
 
-## 📫 Contact
+**Looking for:** Data Scientist roles in pharmaceutical, manufacturing, or analytical industries
 
-- **Email:** alexdbatista@gmail.com
-- **GitHub:** [github.com/alexdbatista](https://github.com/alexdbatista)
-- **LinkedIn:** [Connect with me](https://linkedin.com/in/alex-domingues-batista)
+📧 **Email:** alexdbatista@gmail.com  
+🔗 **LinkedIn:** [linkedin.com/in/alex-domingues-batista](https://linkedin.com/in/alex-domingues-batista)  
+💻 **GitHub:** [github.com/alexdbatista](https://github.com/alexdbatista)
 
-**Languages:** Portuguese (native), English (fluent), German (learning)
-
-**Availability:** Open to data science opportunities in Germany (Munich, Hamburg, Stuttgart, Berlin, Frankfurt)
+**Languages:** Portuguese (native) | English (fluent) | German (learning)
 
 ---
 
