@@ -19,7 +19,7 @@ Senior analytical chemist transitioning to data science with 15+ years of experi
 
 ## 📊 Featured Projects
 
-### 1. [HPLC Metabolomics Biomarker Discovery](./hplc/)
+### 1. [HPLC Metabolomics Biomarker Discovery](./metabolomics-biomarker-discovery/)
 **Objective:** Identify cachexia biomarkers using machine learning on metabolomics data
 
 **Highlights:**
@@ -33,7 +33,7 @@ Senior analytical chemist transitioning to data science with 15+ years of experi
 
 **Business Impact:** Method validation cost savings of €1.6M per study for pharma R&D
 
-**[View Project →](./hplc/)**
+**[View Project →](./metabolomics-biomarker-discovery/)**
 
 ---
 
@@ -121,7 +121,7 @@ Senior analytical chemist transitioning to data science with 15+ years of experi
 ```
 data-science-portfolio/
 ├── README.md (this file)
-├── hplc/                                    # Metabolomics biomarker project
+├── metabolomics-biomarker-discovery/    # Metabolomics biomarker project
 │   ├── 01_chemometric_eda.ipynb
 │   ├── 02_biomarker_ml.ipynb
 │   ├── 03_shap_interpretation.ipynb
