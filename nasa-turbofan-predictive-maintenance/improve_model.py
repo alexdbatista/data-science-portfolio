@@ -4,11 +4,13 @@ Improved NASA Turbofan RUL Prediction with Enhanced Feature Engineering
 Goal: Reduce RMSE from 55.54 to ~30-40 cycles
 """
 
-import pandas as pd
-import numpy as np
-from sklearn.ensemble import RandomForestRegressor, GradientBoostingRegressor
-from sklearn.metrics import mean_squared_error, mean_absolute_error, r2_score
 import warnings
+
+import numpy as np
+import pandas as pd
+from sklearn.ensemble import GradientBoostingRegressor, RandomForestRegressor
+from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score
+
 warnings.filterwarnings('ignore')
 
 print("="*70)
