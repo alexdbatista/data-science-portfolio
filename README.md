@@ -6,27 +6,28 @@ Analytical Chemist | Data Scientist | 10+ Years in Research & Diagnostics
 
 ## 👨‍🔬 About Me
 
-I am an Analytical Chemist (PhD, USP-Brazil) with a research career spanning academic leadership and applied industrial R&D. After 6 years as **Professor Adjunto at Universidade Federal de Uberlândia** (2015-2021) and 2+ years as **Research Group Leader at Hahn-Schickard Institute, Germany** (2022-2024), I now apply my expertise in **analytical instrumentation and data science** to solve complex problems in pharma, diagnostics, and industrial analytics.
+I am an Analytical Chemist (PhD, USP-Brazil) applying my research expertise to **data science and machine learning** in industry. My background includes 6 years as **Professor at Universidade Federal de Uberlândia** (2015-2021) and 2+ years as **Research Group Leader at Hahn-Schickard Institute, Germany** (2022-2024), where I developed analytical methods and led R&D projects.
 
-My research background includes **50 peer-reviewed publications** (1,266 citations, h-index 18) in analytical chemistry, with expertise in molecularly imprinted polymers (MIPs), biosensors, and green analytical methods. I bring a **validation-first mindset** from a decade of managing analytical laboratories, where verifying data quality and understanding measurement uncertainty are fundamental—principles often missing in standard data science workflows.
+Now, I'm focused on **applied data science**—using my domain knowledge in instrumentation, chemistry, and experimental design to build better ML models for real-world problems in pharma, diagnostics, and industrial analytics. My research background (50 publications, 1,266 citations, h-index 18) gives me a unique advantage: I understand the **physical systems behind the data**, enabling me to build more robust and interpretable models.
 
 ---
 
 ## 💡 What Makes This Portfolio Different
 
-This portfolio bridges **analytical chemistry rigor** with **modern data science**. With a background that includes:
-- 6 years as university professor teaching analytical chemistry
-- 50+ peer-reviewed publications in analytical method development
-- Leadership of EU-funded research projects in Germany
-- Expertise in designing and validating analytical instruments
+This portfolio showcases **data science with deep domain knowledge**. My analytical chemistry background gives me an advantage that typical data scientists lack:
 
-Every analysis here applies the same experimental rigor I used in laboratory research:
-- ✅ **Physics-Informed Modeling:** Understanding sensor behavior, drift, and measurement uncertainty.
-- ✅ **Validation-First Approach:** Cross-validation, stability testing, and statistical rigor—not just accuracy scores.
-- ✅ **Explainability:** Using SHAP and chemometric techniques to understand "why," not just "what."
-- ✅ **Domain Translation:** Applying concepts from instrument calibration and method validation to ML pipelines.
+- **I understand the physical systems generating the data** (sensors, instruments, chemical processes)
+- **I know when models are wrong** (from years of validating analytical methods and troubleshooting instruments)
+- **I think in experiments** (hypothesis testing, controls, validation—not just train/test splits)
+- **I can bridge technical teams** (from lab scientists to data engineers)
 
-This is not a bootcamp portfolio—it's analytical chemistry expertise applied to data science problems.
+Every project here demonstrates how domain expertise makes data science better:
+- ✅ **Physics-Informed Features:** Engineering features based on how sensors actually behave
+- ✅ **Rigorous Validation:** Applying laboratory QA/QC thinking to ML model validation
+- ✅ **Explainable Models:** Using SHAP and chemometric techniques to build trust with domain experts
+- ✅ **Real-World Robustness:** Accounting for drift, noise, and measurement uncertainty
+
+I'm not just doing data science—I'm doing **better data science** because I understand what the data means.
 
 ---
 
@@ -135,7 +136,7 @@ data-science-portfolio/
 
 📫 Let's Connect
 
-Looking for: Senior Data Scientist / Research Scientist roles in Industrial Analytics, Pharma R&D, or Diagnostics. Open to academic positions combining research and teaching.
+Looking for: Applied Data Scientist / Data Scientist roles in Industrial Analytics, Pharma, Diagnostics, or Manufacturing. Seeking opportunities to apply domain expertise to solve complex data problems.
 
 📧 Email: alexdbatista@gmail.com
 
