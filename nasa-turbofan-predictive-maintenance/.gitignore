@@ -22,6 +22,8 @@ ENV/
 *.txt
 *.csv
 *.zip
+# But keep requirements.txt
+!requirements.txt
 
 # Project specific - keep only essential files
 6. Turbofan Engine Degradation Simulation Data Set/

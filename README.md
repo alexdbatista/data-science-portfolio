@@ -99,23 +99,28 @@ I am not learning data science from scratch—I am adding ML to a decade of anal
 ```text
 data-science-portfolio/
 ├── README.md (this file)
+├── data/
+│   └── human_cachexia.csv              # Shared data folder
 ├── metabolomics-biomarker-discovery/    # Project 1: Pharma/Biotech
-│   ├── 00_data_loader.ipynb
 │   ├── 01_chemometric_eda.ipynb
 │   ├── 02_biomarker_ml.ipynb
 │   ├── 03_shap_interpretation.ipynb
-│   └── data/
+│   ├── README.md
+│   └── requirements.txt
 ├── gas-sensor-drift-monitoring/         # Project 2: QA/Industrial IoT
 │   ├── 01_visualizing_the_drift.ipynb
 │   ├── 02_model_decay_analysis.ipynb
 │   ├── 03_adaptive_calibration.ipynb
-│   └── data/
+│   ├── README.md
+│   └── requirements.txt
 └── nasa-turbofan-predictive-maintenance/# Project 3: Engineering
     ├── 01_data_exploration.ipynb
     ├── 02_data_quality_and_drift.ipynb
     ├── 03_predictive_modeling.ipynb
-    └── data/
+    └── README.md
 ```
+
+**Note:** Data files for gas-sensor and nasa-turbofan projects need to be downloaded separately (see individual project READMEs for links).
 ---
 
 📫 Let's Connect

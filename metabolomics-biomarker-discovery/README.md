@@ -1,4 +1,4 @@
-# 🧬 HPLC Metabolomics — Biomarker Discovery with Explainable AI
+# 🧬 LC-MS Metabolomics — Biomarker Discovery with Explainable AI
 ## From Analytical Chemistry to Interpretable Machine Learning
 
 [![Python](https://img.shields.io/badge/Python-3.10-blue.svg)](https://www.python.org/)
@@ -10,9 +10,9 @@
 
 ## 1. Executive Summary
 
-**From HPLC Chromatograms to Clinical Biomarkers.**
+**From LC-MS Chromatograms to Clinical Biomarkers.**
 
-Leveraging my 10+ years of analytical chemistry and HPLC experience, this project demonstrates an **end-to-end metabolomics pipeline** from raw metabolite measurements to **explainable AI-driven biomarker discovery** for cachexia (muscle wasting disease).
+Leveraging my 10+ years of analytical chemistry and LC-MS experience, this project demonstrates an **end-to-end metabolomics pipeline** from raw metabolite measurements to **explainable AI-driven biomarker discovery** for cachexia (muscle wasting disease).
 
 By applying chemometric techniques and interpretable machine learning (SHAP values), I:
 - ✅ Analyzed 63 metabolites from 76 plasma samples (Cachexia vs Control)
