@@ -5,5 +5,3 @@ requests
 scikit-learn
 rdkit
 matplotlib
-libxrender1
-libxext6
