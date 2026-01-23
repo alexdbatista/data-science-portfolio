@@ -131,8 +131,7 @@ data-science-portfolio/
 - 🏭 Industry 4.0 / IIoT (Siemens, Bosch, SAP)
 - 🧪 Analytical Instrumentation (PerkinElmer, Agilent)
 
-**Based in:** Germany (2020-2024) | Open to relocation within Germany  
-**Work Authorization:** [Specify: EU Blue Card eligible / Current visa status]
+**Based in:** Germany (2020-2024) | Open to relocation within Germany, Netherlands, Denmark
 
 **Contact:**
 - 📧 **Email:** [alexdbatista@gmail.com](mailto:alexdbatista@gmail.com)
