@@ -10,6 +10,11 @@
 
 > **Designed for MedTech, pharma, and digital health roles in Germany and Europe.**
 
+> **📌 Note:** Some interactive Plotly visualizations in notebook 01 may not render on GitHub's notebook viewer. For full visualization support, please:
+> - Clone the repository and run notebooks locally in VS Code or Jupyter
+> - Or view via [nbviewer](https://nbviewer.org/) for better rendering
+> - All analytical figures (Clarke Grid, SHAP plots, model comparisons) in notebooks 02-03 display correctly as static images
+
 **Key Features:**
 - **Clinical-grade signal processing:** Savitzky-Golay filtering with chemistry/electrochemistry context
 - **Advanced feature engineering:** Velocity, acceleration, volatility, and metabolic memory biomarkers
