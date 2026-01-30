@@ -4,17 +4,42 @@ __pycache__/
 *$py.class
 
 # Jupyter Notebook checkpoints
-.ipynb_checkpoints
+.ipynb_checkpoints/
+*.ipynb_checkpoints
 
-# Data and model artifacts
+# Data and model artifacts (excluded from repo - too large)
 /data/
 /models/
 *.csv
 *.pkl
 *.joblib
 
+# Logs and reports (generated at runtime)
+/logs/
+/reports/
+*.log
+
 # Environment files
 .env
 .venv
 venv/
 ENV/
+guardian_env/
+
+# Operating System files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+Thumbs.db
+
+# IDE and editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Nested portfolio folder (cleanup artifact)
+/Portifolio/
