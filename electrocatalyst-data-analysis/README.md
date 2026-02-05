@@ -1,7 +1,7 @@
 # ⚡ Electrocatalyst Data Analysis: Experimental Campaign Intelligence
 
-**Target Role:** Chemical Data Scientist at Dunia  
-**Domain:** Electrochemistry • Materials Discovery • Experimental Data QA
+**Domain:** Electrochemistry • Materials Discovery • Experimental Data QA  
+**Role:** Chemical Data Scientist | Materials Informatics
 
 ---
 
@@ -32,8 +32,8 @@ This project demonstrates end-to-end data analysis for **high-throughput electro
 - Missing data patterns (sensor failures, measurement gaps)
 - Statistical outlier detection with electrochemical context
 
-**Why this matters for Dunia:**  
-Shows ability to interrogate experimental data and distinguish real effects from artifacts - critical for the "Be the scientific sense-maker" aspect of the role.
+**Impact:**  
+Demonstrates ability to interrogate experimental data and distinguish real chemical effects from measurement artifacts - essential for reliable materials discovery.
 
 ---
 
@@ -49,8 +49,8 @@ Shows ability to interrogate experimental data and distinguish real effects from
 - Success rate metrics and failure mode classification
 - Recommendation prioritization for next experiments
 
-**Why this matters for Dunia:**  
-Demonstrates "Make learning compound, not fragment" - tracking understanding across campaigns, not just within them.
+**Impact:**  
+Shows how to build cumulative knowledge across experimental campaigns - making learning compound rather than analyzing each campaign in isolation.
 
 ---
 
@@ -65,8 +65,8 @@ Demonstrates "Make learning compound, not fragment" - tracking understanding acr
 - **ML feature recommendations** - Which signals should inform model design
 - **Computational validation priorities** - Which discrepancies merit DFT/simulation follow-up
 
-**Why this matters for Dunia:**  
-Shows ability to "Raise the bar for how scientific progress is communicated internally" - translating complex analysis into actionable insights.
+**Impact:**  
+Demonstrates stakeholder-specific communication - translating complex analysis into actionable insights for different audiences (leadership, experimentalists, ML engineers).
 
 ---
 
@@ -135,22 +135,20 @@ RDKit                     # Molecular descriptors (for molecular catalysts)
 
 ---
 
-## 🔗 Relevance to Dunia's Mission
+## � Chemical Data Scientist Skills Demonstrated
 
-**Your mission:** *"Turn Dunia's experimental output into an understanding that drives better decisions"*
+**Core competencies for materials discovery:**
 
-**How this project aligns:**
-
-| Dunia Requirement | Demonstrated in This Project |
-|-------------------|------------------------------|
-| Interrogate electrocatalyst campaign data | Notebook 1: Systematic data quality assessment |
-| Identify patterns, anomalies, failure modes | Notebook 1: Artifact detection, outlier analysis |
-| Develop intuition for where experiments lie | Throughout: Electrochemical context in interpretation |
-| Decide which signals inform ML features | Notebook 2: Feature importance, descriptor evolution |
-| Give lab teams feedback on quality | Notebook 3: Actionable experimental recommendations |
-| Track understanding evolution across campaigns | Notebook 2: Multi-campaign comparison framework |
-| Create clear, concise digests | Notebook 3: Stakeholder-specific reporting |
-| Influence data pipelines by using them | Analysis suggests "analysis-ready" data requirements |
+| Skill Area | Demonstrated In This Project |
+|------------|------------------------------|
+| Experimental data interrogation | Notebook 1: Systematic data quality assessment |
+| Anomaly & artifact detection | Notebook 1: Statistical outlier detection with domain context |
+| Electrochemical intuition | Throughout: Interpretation using Butler-Volmer kinetics |
+| Feature engineering for ML | Notebook 2: Feature importance, descriptor evolution |
+| Lab feedback loops | Notebook 3: Actionable experimental recommendations |
+| Multi-campaign learning | Notebook 2: Tracking understanding across campaigns |
+| Scientific communication | Notebook 3: Stakeholder-specific reporting |
+| Data infrastructure influence | Analysis defines requirements for analysis-ready data |
 
 ---
 
@@ -175,20 +173,21 @@ electrocatalyst-data-analysis/
 
 ---
 
-## 🎯 Target Audience
+## 🎯 Target Roles & Industries
 
-**Roles this project is designed to impress:**
-- Chemical Data Scientist (Dunia)
+**Relevant positions:**
+- Chemical Data Scientist
 - Materials Informatics Engineer
 - Computational Chemistry / ML Scientist
-- R&D Data Science (electrochemistry/energy materials focus)
+- R&D Data Scientist (electrochemistry/energy materials)
+- Experimental Data Analyst
 
-**Companies:**
-- Dunia (clean energy materials discovery)
-- Acceleration Consortium (self-driving labs)
-- Materials Project / National Lab partnerships
-- Battery companies (QuantumScape, Solid Power)
-- Catalyst companies (Johnson Matthey, BASF)
+**Industries:**
+- Clean energy materials discovery
+- Self-driving laboratories & automation
+- Battery development & optimization
+- Catalyst design & manufacturing
+- National labs & academic research
 
 ---
 
