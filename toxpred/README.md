@@ -46,12 +46,19 @@
 
 3.  **Generate the AI Models:**
     ```bash
-    python setup_models.py
+    python step_models.py
     ```
+    
+    **Note:** This will download datasets from DeepChem and train three Random Forest models:
+    - `solubility_model.pkl` (~9 MB)
+    - `toxicity_model.pkl` (~3 MB)
+    - `bbb_model.pkl` (~5 MB)
+    
+    These models are not tracked in git due to their size. You must generate them locally before running the app.
 
 4.  **Run the App:**
     ```bash
-    streamlit run app.py
+    streamlit run toxpred_app.py
     ```
 
 ## 🧪 Example Use Cases

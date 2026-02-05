@@ -2,6 +2,8 @@
 **Alex Domingues Batista, PhD**  
 **Digital Biomarker Data Scientist | CGM & Health Time-Series | Python • ML • Regulatory-aware Validation**
 
+> 📖 **New to this repo?** Check out [CONTRIBUTING.md](CONTRIBUTING.md) for repository structure and guidelines.
+
 Portfolio of end-to-end projects focused on **healthcare/clinical AI**, **sensor/measurement data**, **concept drift**, **predictive maintenance**, and **diagnostics analytics** — built with a validation-first mindset (clinical safety, reproducibility, explainability).
 
 ---
@@ -155,7 +157,11 @@ Portfolio of end-to-end projects focused on **healthcare/clinical AI**, **sensor
 ## Repository structure
 ```text
 data-science-portfolio/
-├── README.md
+├── README.md                                     # This file - portfolio overview
+├── CONTRIBUTING.md                               # Repository structure and guidelines
+├── LICENSE                                       # MIT License
+├── requirements.txt                              # Streamlit Cloud deployment dependencies
+├── packages.txt                                  # System packages for cloud deployment
 ├── data/
 │   └── human_cachexia.csv
 ├── GuardianCGM/                                     # 🩸 MedTech glucose prediction
@@ -195,6 +201,11 @@ data-science-portfolio/
 ```
 
 **Note:** Large data files (gas-sensor batches, turbofan datasets, retail data) are gitignored. For local reproduction, see individual project READMEs for data source links.
+
+**Repository Information:**
+- 📖 **[CONTRIBUTING.md](CONTRIBUTING.md)** - Project structure guidelines and development workflow
+- 📄 **[LICENSE](LICENSE)** - MIT License
+
 ---
 
 ## 📫 Let's Connect
