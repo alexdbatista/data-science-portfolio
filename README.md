@@ -238,6 +238,13 @@ data-science-portfolio/
 - 📖 **[CONTRIBUTING.md](CONTRIBUTING.md)** - Project structure guidelines and development workflow
 - 📄 **[LICENSE](LICENSE)** - MIT License
 
+**Getting Started:**
+1. **Browse projects**: Use the [Quick Project Navigation](#-quick-project-navigation) table above
+2. **Clone the repository**: `git clone https://github.com/alexdbatista/data-science-portfolio.git`
+3. **Navigate to a project**: `cd data-science-portfolio/[project-name]/`
+4. **Follow project README**: Each project has its own setup instructions and requirements.txt
+5. **Root-level files** (`requirements.txt`, `packages.txt`): Used for Streamlit Cloud deployment of ToxPred app
+
 ---
 
 ## 📫 Let's Connect

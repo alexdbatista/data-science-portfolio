@@ -123,8 +123,8 @@ The `.gitignore` file handles most exclusions, but be aware:
 
 ### Root-Level Files
 
-- **requirements.txt**: Streamlit dependencies for cloud deployment
-- **packages.txt**: System-level dependencies (Linux packages)
+- **requirements.txt**: Contains Streamlit and core dependencies for cloud deployment (Streamlit Cloud, Heroku, etc.). These are the minimal dependencies needed to run the ToxPred Streamlit app.
+- **packages.txt**: System-level Linux packages required for RDKit and other scientific libraries in cloud environments.
 
 ### Project-Level Files
 
