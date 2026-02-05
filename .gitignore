@@ -58,3 +58,6 @@ Thumbs.db
 # Personal notes (not for public repo)
 PORTFOLIO_IMPROVEMENT_SUMMARY.md
 DUNIA_APPLICATION_GUIDE.md
+
+# Generated outputs (notebooks generate these, no need to track)
+*/outputs/*.md
