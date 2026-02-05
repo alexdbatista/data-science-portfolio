@@ -6,11 +6,11 @@
 ![License](https://img.shields.io/badge/License-MIT-green)
 
 **Alex Domingues Batista, PhD**  
-**Electrochemistry & Data Science | Materials Discovery • Experimental Data QA • Python • ML**
+**Data Scientist | Python • ML • Experimental Analytics • Healthcare AI • Time-Series**
 
 > 📖 **New to this repo?** Check out [CONTRIBUTING.md](CONTRIBUTING.md) for repository structure and guidelines.
 
-Portfolio of end-to-end projects focused on **electrochemistry/materials science**, **experimental data analysis**, **healthcare/clinical AI**, **sensor/measurement data**, **concept drift**, and **diagnostics analytics** — built with a validation-first mindset emphasizing data quality, reproducibility, and explainability.
+Portfolio of end-to-end data science projects spanning **healthcare/clinical AI**, **predictive maintenance**, **sensor analytics & concept drift**, **experimental data QA**, **customer intelligence**, and **cheminformatics** — built with a validation-first mindset emphasizing data quality, reproducibility, and explainability across diverse domains.
 
 ---
 
@@ -31,49 +31,49 @@ Portfolio of end-to-end projects focused on **electrochemistry/materials science
 
 | Project | Domain | Key Tech | Documentation |
 |---------|--------|----------|---------------|
-| ⚡ **Electrocatalyst Data Analysis** | Electrochemistry / Materials | Campaign QA, Multi-campaign Learning | [README](electrocatalyst-data-analysis/) |
 | 🩸 **GuardianCGM** | Clinical AI / MedTech | CGM, SHAP, FastAPI, Regulatory | [README](GuardianCGM/) |
-| 🔬 **Metabolomics Biomarker** | Diagnostics / LC-MS | SHAP, Feature Selection | [README](metabolomics-biomarker-discovery/) |
-| 📊 **Gas Sensor Drift** | Concept Drift / IoT | PCA, Adaptive Learning | [README](gas-sensor-drift-monitoring/) |
 | 🔧 **NASA Turbofan RUL** | Predictive Maintenance | Time-series, Gradient Boosting | [README](nasa-turbofan-predictive-maintenance/) |
+| 📊 **Gas Sensor Drift** | Concept Drift / IoT | PCA, Adaptive Learning | [README](gas-sensor-drift-monitoring/) |
+| 🔬 **Metabolomics Biomarker** | Diagnostics / LC-MS | SHAP, Feature Selection | [README](metabolomics-biomarker-discovery/) |
 | 🛒 **Retail Segmentation** | Customer Analytics | RFM, K-Means, CLV | [README](retail-customer-segmentation/) |
 | 🧪 **ToxPred** | Cheminformatics | RDKit, Streamlit, ADMET | [README](toxpred/) |
+| ⚡ **Electrocatalyst Data Analysis** | Materials Science | Campaign QA, Multi-campaign Learning | [README](electrocatalyst-data-analysis/) |
 
 ---
 
 ## Start here (2 minutes)
-- **⚡ Electrocatalyst Data Analysis** — experimental data QA, anomaly detection, multi-campaign learning tracking for materials discovery  
-  → `./electrocatalyst-data-analysis/` **← NEW: Directly relevant to clean energy/materials roles**
-- **GuardianCGM: Clinical Glucose Prediction AI** — regulatory-aware MedTech pipeline with Clarke Error Grid validation + SHAP explainability  
+- **🩸 GuardianCGM: Clinical Glucose Prediction AI** — regulatory-aware MedTech pipeline with Clarke Error Grid validation + SHAP explainability  
   → `./GuardianCGM/`
-- **Gas Sensor Drift & Calibration Transfer** — concept drift + adaptive retraining to maintain performance over time  
-  → `./gas-sensor-drift-monitoring/`
-- **Predictive Maintenance (NASA Turbofan RUL)** — leakage-safe evaluation + interpretable monitoring outputs  
+- **🔧 Predictive Maintenance (NASA Turbofan RUL)** — leakage-safe time-series evaluation + interpretable monitoring outputs  
   → `./nasa-turbofan-predictive-maintenance/`
-- **LC–MS Metabolomics Biomarker Prioritization** — explainable ML + feature selection for diagnostics-style data  
+- **📊 Gas Sensor Drift & Calibration Transfer** — concept drift + adaptive retraining to maintain performance over time  
+  → `./gas-sensor-drift-monitoring/`
+- **🔬 LC–MS Metabolomics Biomarker Prioritization** — explainable ML + feature selection for diagnostics-style data  
   → `./metabolomics-biomarker-discovery/`
+- **⚡ Electrocatalyst Data Analysis** — experimental data QA, anomaly detection, multi-campaign learning for materials discovery  
+  → `./electrocatalyst-data-analysis/`
 
 ---
 
 ## Quick summary
-**10+ years** working with analytical measurement systems, electrochemistry, and experimental data; now building modern DS/ML solutions in Python/SQL.
+**10+ years** working with analytical measurement systems and experimental data; now building modern DS/ML solutions in Python/SQL across diverse domains.
 
 **Core strengths**
-- **Electrochemistry & materials science:** PhD background, 50+ publications, expertise in experimental artifacts, electrode kinetics, catalyst characterization
-- **Experimental data analysis:** high-throughput campaign QA, anomaly detection, artifact identification, multi-campaign learning
 - **ML & analytics:** scikit-learn, SHAP, feature engineering, model evaluation, uncertainty-aware thinking
-- **Sensor/time-series:** drift monitoring, anomaly detection, degradation patterns, early-warning signals
-- **Diagnostics & lab data:** high-dimensional assay pipelines (e.g., LC–MS), QC thinking and reproducibility
-- **Scientific communication:** translating complex analysis into actionable insights for lab scientists, ML engineers, and stakeholders
+- **Production-ready pipelines:** FastAPI deployment, regulatory validation (Clarke Error Grid), explainability (SHAP)
+- **Sensor/time-series:** drift monitoring, anomaly detection, degradation patterns, predictive maintenance, early-warning signals
+- **Healthcare & diagnostics:** clinical AI (CGM forecasting), high-dimensional assay pipelines (LC–MS), biomarker discovery
+- **Experimental data analysis:** PhD background (50+ publications), high-throughput campaign QA, artifact identification, multi-campaign learning
+- **Business analytics:** customer segmentation, CLV modeling, statistical validation (ANOVA), churn prevention insights
+- **Scientific communication:** translating complex analysis into actionable insights for technical and non-technical stakeholders
 
-**What I can deliver in 30–60 days:** a data-quality + drift monitoring baseline, an interpretable model, and a simple dashboard/report your team can use.
+**What I can deliver in 30–60 days:** a data-quality baseline, an interpretable model with validation metrics, and a dashboard/report your team can use.
 
-**Target industries:** 
-- 🌱 **Clean Energy & Materials Discovery** (Dunia, Materials Project, National Labs)
-- 🔋 **Battery & Energy Storage** (QuantumScape, Solid Power, CATL)
-- ⚗️ **Catalysis & Chemical Manufacturing** (BASF, Johnson Matthey, Clariant)
-- 🧬 **Life Sciences & Pharma** (Roche, Bayer, Merck, Sartorius)
-- 🔬 **Diagnostics & Medical Devices** (Siemens Healthineers, Bruker, Thermo Fisher)
+**🩺 **Healthcare & MedTech** (Siemens Healthineers, Roche, Abbott, Philips)
+- 🏭 **Industry 4.0 / IIoT** (Siemens, Bosch, SAP, ABB)
+- 🧬 **Life Sciences & Pharma** (Bayer, Merck, Sartorius, Bruker, Thermo Fisher)
+- 🌱 **Clean Energy & Materials** (Dunia, National Labs, Battery/Catalyst R&D)
+- 📊 **Data-Driven Enterprises** (Consulting, Analytics, Retail Techealthineers, Bruker, Thermo Fisher)
 - 🏭 **Industry 4.0 / IIoT** (Siemens, Bosch, SAP)
 
 **Software engineering practices:**
@@ -98,30 +98,6 @@ Portfolio of end-to-end projects focused on **electrochemistry/materials science
 ## Featured projects
 
 ### 1) ⚡ Electrocatalyst Data Analysis: Experimental Campaign Intelligence (Materials Discovery)
-**Objective:** Demonstrate end-to-end analysis of high-throughput electrocatalyst screening campaigns for materials discovery loops.
-
-**Highlights**
-- **Experimental data QA:** Systematic identification of artifacts (reference drift, temperature effects, electrode fouling).
-- **Multi-campaign learning:** Track understanding evolution across campaigns - how success rates improve as protocols are refined.
-- **Anomaly detection:** Statistical methods with electrochemical context to distinguish signal from noise.
-- **Scientific communication:** Executive digests, lab feedback reports, ML feature recommendations, computational validation priorities.
-- **Domain expertise applied:** PhD-level electrochemistry knowledge used to interpret patterns and guide analysis.
-
-**Relevance to Dunia / Materials Discovery Roles:**
-This project directly addresses the key requirements of a Chemical Data Scientist role:
-- Interrogating electrocatalyst campaign data
-- Identifying patterns, anomalies, and failure modes
-- Giving lab teams concrete feedback on experimental quality
-- Tracking how understanding evolves across campaigns
-- Creating clear, concise digests that align cross-functional teams
-
-**Tech stack:** Python, Pandas, scikit-learn, SciPy (statistical tests), Seaborn  
-**Target audience:** Materials discovery companies (Dunia, Acceleration Consortium, National Labs), battery/catalyst R&D  
-**Project:** `./electrocatalyst-data-analysis/`
-
----
-
-### 2) 🩸 GuardianCGM: Clinical Glucose Prediction AI (MedTech/Pharma)
 **Objective:** Build a regulatory-aware, end-to-end pipeline for 30-minute glucose forecasting using Continuous Glucose Monitoring (CGM) data.
 
 **Highlights**
@@ -163,10 +139,7 @@ This project directly addresses the key requirements of a Chemical Data Scientis
 
 **Tech stack:** Python, scikit-learn (PCA, tree-based models), drift analysis  
 **Project:** `./gas-sensor-drift-monitoring/`
-
----
-
-### 5) 🔧 NASA Turbofan Predictive Maintenance (RUL)
+2) 🔧 NASA Turbofan Predictive Maintenance (RUL)
 **Objective:** Predict Remaining Useful Life (RUL) from multivariate engine sensor time-series and create monitoring-ready outputs.
 
 **Highlights**
@@ -177,6 +150,9 @@ This project directly addresses the key requirements of a Chemical Data Scientis
 
 **Tech stack:** Python, time-series feature engineering, Gradient Boosting / Random Forest  
 **Project:** `./nasa-turbofan-predictive-maintenance/`
+
+---
+5ject:** `./nasa-turbofan-predictive-maintenance/`
 
 ---
 
@@ -197,7 +173,7 @@ This project directly addresses the key requirements of a Chemical Data Scientis
 
 ---
 
-### 7) 🧪 ToxPred AI: ADMET Screening Platform (Cheminformatics)
+### 6) 🧪 ToxPred AI: ADMET Screening Platform (Cheminformatics)
 **Objective:** Accelerate early-stage drug discovery by predicting molecular properties before synthesis.
 
 **Highlights**
@@ -210,6 +186,22 @@ This project directly addresses the key requirements of a Chemical Data Scientis
 **Tech stack:** Python, RDKit, scikit-learn, Streamlit, DeepChem datasets  
 **Target audience:** Pharma R&D, computational chemistry, medicinal chemistry  
 **Project:** `./toxpred/`
+
+---
+
+### 7) ⚡ Electrocatalyst Data Analysis: Experimental Campaign Intelligence
+**Objective:** Demonstrate end-to-end analysis of high-throughput screening campaigns with experimental data QA and multi-campaign learning.
+
+**Highlights**
+- **Experimental data QA:** Systematic identification of artifacts (reference drift, temperature effects, electrode fouling).
+- **Multi-campaign learning:** Track understanding evolution across campaigns - how success rates improve as protocols are refined.
+- **Anomaly detection:** Statistical methods with domain context to distinguish signal from noise.
+- **Scientific communication:** Executive digests, lab feedback reports, ML feature recommendations.
+- **Domain expertise applied:** PhD-level knowledge used to interpret patterns and guide analysis.
+
+**Tech stack:** Python, Pandas, scikit-learn, SciPy (statistical tests), Seaborn  
+**Target audience:** Materials discovery, catalyst/battery R&D, high-throughput experimental labs  
+**Project:** `./electrocatalyst-data-analysis/`
 
 ---
 
@@ -226,12 +218,13 @@ This project directly addresses the key requirements of a Chemical Data Scientis
 ## Repository structure
 ```text
 data-science-portfolio/
-├── README.md                                     # This file - portfolio overview
-├── CONTRIBUTING.md                               # Repository structure and guidelines
-├── LICENSE                                       # MIT License
-├── requirements.txt                              # Streamlit Cloud deployment dependencies
-├── packages.txt                                  # System packages for cloud deployment
-├── data/
+├── README.md                                     # This file - portfolio overviewFastAPI, Jupyter, VS Code, Linux/Bash  
+**ML & analytics:** regression/classification, tree-based models, SVM, cross-validation, explainability (SHAP), anomaly detection, PCA, statistical testing  
+**Time-series & sensors:** rolling/trend features, drift monitoring, predictive maintenance, RUL forecasting, stability analysis  
+**Healthcare & diagnostics:** clinical validation metrics (Clarke Error Grid), biomarker discovery, high-dimensional assay data (LC–MS), QC/QA workflows  
+**Business analytics:** customer segmentation (RFM, K-Means), CLV modeling, ANOVA validation, churn analysis  
+**Domain expertise:** analytical instrumentation (LC–MS, HPLC, spectroscopy, electrochemical systems), sensor systems, high-throughput screening  
+**Cheminformatics:** RDKit (molecular descriptors, fingerprints), ADMET prediction, exposure to pymatgen/ASE
 │   └── human_cachexia.csv
 ├── electrocatalyst-data-analysis/                  # ⚡ NEW: Materials discovery campaign analysis
 │   ├── 01_experimental_data_quality.ipynb
@@ -304,15 +297,14 @@ data-science-portfolio/
 - 🏭 **Industry 4.0 / IIoT** (Siemens, Bosch, SAP)
 
 **Based in:** Germany (2020-2024) | Open to relocation within Germany, Netherlands, Denmark, Switzerland
+Data Scientist / ML Engineer / Analytics roles across industries
 
-**Contact:**
-- 📧 **Email:** [alexdbatista@gmail.com](mailto:alexdbatista@gmail.com)
-- 🔗 **LinkedIn:** [linkedin.com/in/alexdbatista](https://linkedin.com/in/alexdbatista)
-- 💻 **GitHub:** [github.com/alexdbatista](https://github.com/alexdbatista)
-
----
-
-## 🎓 Academic Credentials Summary
+**Target Industries:** 
+- 🩺 **Healthcare & MedTech** (Siemens Healthineers, Roche, Abbott, Philips)
+- 🏭 **Industry 4.0 / IIoT / Manufacturing** (Siemens, Bosch, SAP, ABB)
+- 🧬 **Life Sciences & Pharma** (Bayer, Merck, Sartorius, Bruker, Thermo Fisher)
+- 🌱 **Clean Energy & Materials** (Dunia, National Labs, Battery/Catalyst R&D)
+- 📊 **Data-Driven Enterprises** (Tech, Consulting, Analytics, Retail Tech
 *For German employers familiar with academic titles:*
 
 - **Dr. rer. nat. (equivalent)** - PhD, Universidade de São Paulo (USP)

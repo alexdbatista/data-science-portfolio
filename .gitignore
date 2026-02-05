@@ -54,3 +54,7 @@ Thumbs.db
 
 # Logs
 *.log
+
+# Personal notes (not for public repo)
+PORTFOLIO_IMPROVEMENT_SUMMARY.md
+DUNIA_APPLICATION_GUIDE.md

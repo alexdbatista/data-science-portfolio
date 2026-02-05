@@ -1,315 +1,149 @@
-# ML Feature Engineering Recommendations
 
-**Campaign Analysis:** CAT-01 through CAT-03  
-**For:** ML Engineering Team  
-**From:** Alex Batista, PhD - Chemical Data Scientist  
-**Date:** April 1, 2025
+# ML FEATURE ENGINEERING RECOMMENDATIONS
 
----
-
-## 🎯 Purpose
-
-Based on analysis of Campaigns 1-3, this document recommends **which experimental signals should inform ML feature design** for predictive catalyst models. Focus is on features with strong electrochemical justification and demonstrated predictive power.
+**Date:** February 05, 2026  
+**Prepared by:** Alex Domingues Batista, PhD - Chemical Data Scientist  
+**For:** ML Engineering Team
 
 ---
 
-## 📊 Feature Importance: What the Data Tells Us
+## 🎯 OBJECTIVE
 
-### Tier 1: High-Impact Features (Include in all models)
+Provide data-driven guidance for feature engineering in next-generation catalyst activity prediction models, based on analysis of 330 validated experimental measurements.
 
-#### 1. **Composition Features**
-**Use:** Pt%, Ru%, Ir% (atomic percentages)
+---
 
-**Why it matters:**
-- Pt content shows **strong negative correlation** with overpotential (r = -0.68)
-- Ru content shows moderate positive correlation with kinetic activity
-- Ir improves stability (not captured in short-term screening but critical for durability)
+## 📊 CURRENT FEATURE IMPORTANCE (Random Forest)
 
-**Feature engineering recommendations:**
+1. **Pt_percent**: 0.517
+2. **Ru_percent**: 0.172
+5. **temperature_C**: 0.109
+6. **pH**: 0.069
+3. **Ir_percent**: 0.068
+4. **surface_area_m2_g**: 0.065
+
+
+**Key insights:**
+- **Composition features** (Pt_percent, Ru_percent) dominate prediction
+- Surface area shows moderate importance (physical property)
+- Experimental conditions (temp, pH) have lower but non-zero influence
+
+---
+
+## 🔬 RECOMMENDED FEATURE ENGINEERING
+
+### Priority 1: Composition-Derived Features (High Expected Value)
+
+Based on electrochemistry literature and our data patterns:
+
+1. **d-band center proxies:**
+   - `Pt_weighted_dband = Pt% * (-2.25 eV)`
+   - `Ru_weighted_dband = Ru% * (-1.05 eV)`
+   - `Composite_dband = sum of weighted values`
+   - **Why:** d-band theory correlates strongly with OER activity
+
+2. **Synergy terms:**
+   - `Pt_Ru_interaction = (Pt% * Ru%) / 100`
+   - `Ternary_mixing = (Pt% * Ru% * Ir%) / 10000`
+   - **Why:** Bimetallic synergy effects observed in data
+
+3. **Composition ratios:**
+   - `Pt_to_Ru_ratio = Pt% / (Ru% + 0.1)`
+   - `Noble_metal_fraction = (Pt% + Ir%) / 100`
+   - **Why:** Relative composition may matter more than absolute
+
+### Priority 2: Surface & Structural Features (Medium Expected Value)
+
+4. **Specific activity:**
+   - `Current_density_normalized = i_0 / surface_area`
+   - **Why:** Removes size effects, focuses on intrinsic activity
+
+5. **Electrochemical surface area (ECSA):**
+   - Request from lab: CV-derived ECSA measurements
+   - **Why:** Better proxy than geometric surface area
+
+### Priority 3: Non-linear Transformations
+
+6. **Polynomial features (degree 2):**
+   - `Pt%²`, `Ru%²`, cross-terms
+   - **Why:** Observed non-linear trends in composition space
+
+7. **Log-transforms for current density:**
+   - `log10(i_0)`, `log10(R_ct)`
+   - **Why:** Exchange current spans orders of magnitude
+
+---
+
+## ⚠️ DATA QUALITY FLAGS FOR ML MODELS
+
+### Samples to EXCLUDE from training:
+
+
+- 120 samples with quality issues
+- Criteria: `measurement_quality == 0` OR `replicate_std > 0.03`
+- CSV export: `data/ml_exclusion_list.csv`
+
+### Temperature normalization:
+
+Current data spans 23.9-26.3°C.
+
+**Recommendation:** Normalize overpotential to 25°C using Nernst correction:
 ```python
-# Basic features
-- Pt_percent, Ru_percent, Ir_percent
-
-# Derived features with physical meaning
-- Pt_to_Ru_ratio  # Captures balance between cost and activity
-- total_Pt_group_metals = Pt + Ru + Ir  # Should be ~100%, QC check
-- Ru_enrichment = Ru_percent / (Pt_percent + Ru_percent)  # 0 to 1 scale
-```
-
-**Electrochemical justification:**
-- Pt is the benchmark catalyst but expensive
-- Ru increases intrinsic activity (lower Tafel slopes observed)
-- Ir adds durability in acidic conditions
-
----
-
-#### 2. **Surface Area (m²/g)**
-**Use:** Measured BET surface area
-
-**Why it matters:**
-- Activity scales approximately linearly with surface area
-- Models need to distinguish between intrinsic activity and geometric effects
-
-**Feature engineering recommendations:**
-```python
-# Keep as direct feature (log-scale may help)
-- surface_area_m2_g
-- log_surface_area  # For models assuming multiplicative effects
-
-# Derived: specific activity (area-normalized)
-- specific_overpotential = overpotential / log(surface_area)
-```
-
-**Electrochemical justification:**
-- More surface area → more active sites → higher current
-- Need to normalize to find "best catalyst per site" not just "most surface area"
-
----
-
-#### 3. **Exchange Current Density (j₀)**
-**Use:** Measured electrochemically
-
-**Why it matters:**
-- Fundamental kinetic parameter (Butler-Volmer equation)
-- Directly relates to catalyst intrinsic activity
-- Strong correlation with overpotential (r = 0.72)
-
-**Feature engineering recommendations:**
-```python
-# Use log scale (spans orders of magnitude)
-- log_j0 = log10(exchange_current_A_cm2)
-
-# Derived: kinetic barrier estimate
-- activation_overpotential = (RT/F) * log(target_current / j0)  # Theoretical calculation
-```
-
-**Electrochemical justification:**
-- j₀ represents rate at equilibrium potential
-- Higher j₀ → faster kinetics → lower overpotential needed
-
----
-
-### Tier 2: Useful Features (Include if model complexity allows)
-
-#### 4. **Tafel Slope (mV/dec)**
-**Use:** Fitted from Tafel plot
-
-**Why it matters:**
-- Indicates reaction mechanism (Volmer-Heyrovsky vs Volmer-Tafel)
-- Lower slopes = better catalysts generally
-- Moderate correlation with overpotential (r = 0.45)
-
-**Feature engineering recommendations:**
-```python
-- tafel_slope_mV_dec  # Direct use
-- tafel_category = 'low' if slope < 60 else 'med' if slope < 90 else 'high'  # Categorical
-```
-
-**Electrochemical justification:**
-- Theoretical Tafel slope for single-electron transfer: 118 mV/dec (25°C)
-- Lower slopes indicate more efficient electron transfer
-- Very low slopes (< 40) may indicate mass transport artifacts
-
----
-
-#### 5. **Charge Transfer Resistance (Rct)**
-**Use:** From impedance spectroscopy (EIS)
-
-**Why it matters:**
-- Inversely related to kinetic activity
-- Complements j₀ measurement (different technique, cross-validation)
-- Helps identify samples with poor electrical contact
-
-**Feature engineering recommendations:**
-```python
-- log_Rct = log10(charge_transfer_resistance_Ohm_cm2)
-- kinetic_quality_flag = (Rct < 100)  # Flag samples with good electrical contact
-```
-
-**Electrochemical justification:**
-- Rct ∝ 1/j₀ (theoretical relationship)
-- High Rct → sluggish kinetics or contact issues
-
----
-
-### Tier 3: Contextual Features (For quality filtering, not prediction)
-
-#### 6. **Temperature & pH**
-**Use:** Experimental conditions
-
-**Why it matters:**
-- Should be tightly controlled (Campaign 3: ±0.1°C, pH 1.0 ± 0.2)
-- Large deviations indicate problematic measurements
-- Include as **QC filters** rather than predictive features
-
-**Feature engineering recommendations:**
-```python
-# QC flags
-- temp_deviation = abs(temperature_C - 25.0)
-- ph_deviation = abs(pH - 1.0)
-- measurement_valid = (temp_deviation < 0.5) & (ph_deviation < 0.3)
-
-# Don't use as predictive features (controlled variables, not material properties)
+eta_normalized = eta_measured - (T - 298.15) * 0.0008  # ~0.8 mV/K
 ```
 
 ---
 
-#### 7. **Replicate Variability**
-**Use:** Standard deviation across replicates
+## 🧪 EXPERIMENTAL DATA NEEDS FOR BETTER MODELS
 
-**Why it matters:**
-- High variability → low confidence in measurement
-- Use as **uncertainty estimate**, not predictor
+Based on feature importance and electrochemical theory:
 
-**Feature engineering recommendations:**
-```python
-- measurement_confidence = 1 / (1 + replicate_std)  # 0 to 1 scale
-- high_confidence_sample = (replicate_std < 0.015)  # Boolean flag
+### High Priority (Request for Campaign 4):
+1. **Electrochemical Surface Area (ECSA)** - CV-derived, for all samples
+2. **Crystallite size (XRD)** - Relates to active site density
+3. **Surface composition (XPS)** - May differ from bulk composition
 
-# Weight training samples by confidence
-- sample_weight = measurement_confidence  # In model training
-```
+### Medium Priority (Future):
+4. **Impedance spectroscopy** - Full Nyquist plots (not just R_ct)
+5. **Long-term stability** - Chronopotentiometry for top 10 catalysts
+6. **pH variation** - Test best catalysts at pH 12, 13, 14
 
----
-
-## 🧪 Features NOT to Use (Avoid These)
-
-### ❌ Timestamp
-**Why:** No physical meaning for catalyst activity  
-**Exception:** Can use for campaign/batch effects as categorical feature
-
-### ❌ Sample ID
-**Why:** Arbitrary labels, no predictive power  
-**Exception:** Can extract campaign number (CAT-01-XXX → Campaign 1)
-
-### ❌ Operator Name
-**Why:** Campaign 3 data shows no operator effect (good!)  
-**If operator effects existed:** Would indicate SOP problem, not material property
-
-### ❌ Instrument ID
-**Why:** Should be controlled/calibrated (systematic bias is a data quality issue, not a feature)
+### Nice to Have:
+7. **In-situ characterization** - Raman spectroscopy during OER
+8. **Computational descriptors** - DFT-derived OH* binding energies
 
 ---
 
-## 🎯 Recommended Feature Set for First Model
+## 📈 MODEL PERFORMANCE TARGETS
 
-### Minimal Viable Feature Set (Start Here)
-```python
-features = [
-    'Pt_percent',
-    'Ru_percent', 
-    'Ir_percent',
-    'surface_area_m2_g',
-    'log_j0'
-]
+Based on current RF baseline (R² ≈ 0.65 on Campaign 3 data):
 
-target = 'overpotential_V'
-```
+| Model Iteration | Target R² | Target MAE | Rationale |
+|-----------------|-----------|-----------|-----------|
+| v1.0 (baseline) | 0.65 | 25 mV | Current performance |
+| v2.0 (+engineered features) | 0.75 | 18 mV | With d-band & synergy terms |
+| v3.0 (+ECSA data) | 0.80 | 15 mV | With physical characterization |
+| v4.0 (+DFT descriptors) | 0.85 | 12 mV | Full multi-fidelity model |
 
-**Why minimal:** Only 5 features, all have clear physical interpretation, proven correlations
-
-**Expected performance:** R² > 0.70 based on correlation analysis
+**Success criterion:** MAE < 20 mV enables confident screening
 
 ---
 
-### Extended Feature Set (After Baseline)
-```python
-features = [
-    # Composition
-    'Pt_percent', 'Ru_percent', 'Ir_percent',
-    'Pt_to_Ru_ratio',
-    
-    # Kinetics
-    'log_j0',
-    'tafel_slope_mV_dec',
-    'log_Rct',
-    
-    # Geometry
-    'surface_area_m2_g',
-    'log_surface_area',
-    
-    # Quality indicators
-    'measurement_confidence'
-]
+## 🔄 FEEDBACK LOOP
 
-sample_weight = data['measurement_confidence']  # Weight high-quality measurements more
-```
+**What's working:**
+- Composition features are highly predictive ✓
+- Data quality improvements enable better models ✓
+
+**What to improve:**
+- Need more physical characterization data
+- Consider active learning for next campaign sample selection
+
+**Next steps:**
+1. Implement Priority 1 features in v2.0 model
+2. Coordinate with lab on ECSA measurements
+3. Monthly model performance review
 
 ---
 
-## 🔬 Feature Interactions to Test
-
-Based on electrochemical theory, these interactions may be important:
-
-```python
-# Synergistic effects
-- 'Pt_percent * surface_area'  # High Pt + high area = expensive but effective
-- 'Ru_enrichment * log_j0'  # Ru enhances kinetics
-
-# Composition sweet spots (non-linear)
-- 'Pt_percent^2'  # Quadratic term to capture optimal range
-- 'Ru_percent^2'
-```
-
----
-
-## 📊 Feature Validation Recommendations
-
-### Cross-validation strategy:
-1. **Campaign-based CV:** Train on Campaign 1+2, test on Campaign 3
-   - Tests generalization to improved protocols
-   
-2. **Composition-based CV:** Hold out certain composition ranges
-   - Tests interpolation vs extrapolation
-   
-3. **Random CV:** Standard k-fold
-   - Tests overall model stability
-
-### Feature importance analysis:
-```python
-# After training
-- SHAP values (global and local interpretation)
-- Permutation importance (which features hurt most when removed)
-- Partial dependence plots (how does overpotential change with Pt%?)
-```
-
----
-
-## 🎯 Next Steps for ML Team
-
-**Immediate (This Week):**
-1. ✅ Implement minimal viable feature set (5 features)
-2. ✅ Train baseline Random Forest / Gradient Boosting model
-3. ✅ Calculate SHAP values for interpretation
-
-**Short-term (Next 2 Weeks):**
-1. Add extended features and test improvement
-2. Try feature interactions
-3. Implement campaign-based cross-validation
-
-**Medium-term (Next Month):**
-1. Integrate with Campaign 4 data (online learning)
-2. Build confidence intervals for predictions
-3. Deploy model endpoint for real-time screening
-
----
-
-## 💬 Discussion Points
-
-**Questions for ML team:**
-1. What model architecture do you recommend? (Tree-based vs neural network vs linear?)
-2. How should we handle missing data? (Imputation vs exclusion?)
-3. What's your preferred uncertainty quantification method?
-
-**Let's collaborate:** I can provide electrochemical interpretation of model predictions and help identify problematic features.
-
----
-
-## 📧 Contact
-
-Alex Batista, PhD  
-Chemical Data Scientist  
-📧 alexdbatista@gmail.com
-
-**Data source:** Campaign 1-3 analysis  
-**Code:** `/electrocatalyst-data-analysis/02_campaign_comparison_learning.ipynb`
+*Questions on feature engineering? alexdbatista@materials-discovery.com*
