@@ -105,7 +105,7 @@ data-science-portfolio/
 
 ### Python Scripts
 - Use snake_case: `drift_monitoring.py`
-- Match the purpose: `setup_models.py`, `feature_engineering.py`
+- Match the purpose: `step_models.py`, `feature_engineering.py`
 
 ## 🚫 What NOT to Commit
 
