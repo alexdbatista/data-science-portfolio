@@ -1,8 +1,42 @@
 # Data Science Portfolio
+
+![Python](https://img.shields.io/badge/Python-3.9%2B-blue?logo=python&logoColor=white)
+![Machine Learning](https://img.shields.io/badge/ML-scikit--learn-orange?logo=scikit-learn&logoColor=white)
+![Healthcare AI](https://img.shields.io/badge/Healthcare-AI-red?logo=heart&logoColor=white)
+![License](https://img.shields.io/badge/License-MIT-green)
+
 **Alex Domingues Batista, PhD**  
 **Digital Biomarker Data Scientist | CGM & Health Time-Series | Python • ML • Regulatory-aware Validation**
 
+> 📖 **New to this repo?** Check out [CONTRIBUTING.md](CONTRIBUTING.md) for repository structure and guidelines.
+
 Portfolio of end-to-end projects focused on **healthcare/clinical AI**, **sensor/measurement data**, **concept drift**, **predictive maintenance**, and **diagnostics analytics** — built with a validation-first mindset (clinical safety, reproducibility, explainability).
+
+---
+
+## 📋 Table of Contents
+
+- [Quick Project Navigation](#-quick-project-navigation)
+- [Start Here (2 minutes)](#start-here-2-minutes)
+- [Quick Summary](#quick-summary)
+- [Germany Experience](#germany-experience-20202024)
+- [Featured Projects](#featured-projects)
+- [Technical Skills](#technical-skills)
+- [Repository Structure](#repository-structure)
+- [Contact](#-lets-connect)
+
+---
+
+## 📂 Quick Project Navigation
+
+| Project | Domain | Key Tech | Documentation |
+|---------|--------|----------|---------------|
+| 🩸 **GuardianCGM** | Clinical AI / MedTech | CGM, SHAP, FastAPI, Regulatory | [README](GuardianCGM/) |
+| 🔬 **Metabolomics Biomarker** | Diagnostics / LC-MS | SHAP, Feature Selection | [README](metabolomics-biomarker-discovery/) |
+| 📊 **Gas Sensor Drift** | Concept Drift / IoT | PCA, Adaptive Learning | [README](gas-sensor-drift-monitoring/) |
+| 🔧 **NASA Turbofan RUL** | Predictive Maintenance | Time-series, Gradient Boosting | [README](nasa-turbofan-predictive-maintenance/) |
+| 🛒 **Retail Segmentation** | Customer Analytics | RFM, K-Means, CLV | [README](retail-customer-segmentation/) |
+| 🧪 **ToxPred** | Cheminformatics | RDKit, Streamlit, ADMET | [README](toxpred/) |
 
 ---
 
@@ -155,7 +189,11 @@ Portfolio of end-to-end projects focused on **healthcare/clinical AI**, **sensor
 ## Repository structure
 ```text
 data-science-portfolio/
-├── README.md
+├── README.md                                     # This file - portfolio overview
+├── CONTRIBUTING.md                               # Repository structure and guidelines
+├── LICENSE                                       # MIT License
+├── requirements.txt                              # Streamlit Cloud deployment dependencies
+├── packages.txt                                  # System packages for cloud deployment
 ├── data/
 │   └── human_cachexia.csv
 ├── GuardianCGM/                                     # 🩸 MedTech glucose prediction
@@ -195,6 +233,18 @@ data-science-portfolio/
 ```
 
 **Note:** Large data files (gas-sensor batches, turbofan datasets, retail data) are gitignored. For local reproduction, see individual project READMEs for data source links.
+
+**Repository Information:**
+- 📖 **[CONTRIBUTING.md](CONTRIBUTING.md)** - Project structure guidelines and development workflow
+- 📄 **[LICENSE](LICENSE)** - MIT License
+
+**Getting Started:**
+1. **Browse projects**: Use the [Quick Project Navigation](#-quick-project-navigation) table above
+2. **Clone the repository**: `git clone https://github.com/alexdbatista/data-science-portfolio.git`
+3. **Navigate to a project**: `cd data-science-portfolio/[project-name]/`
+4. **Follow project README**: Each project has its own setup instructions and requirements.txt
+5. **Root-level files** (`requirements.txt`, `packages.txt`): Used for Streamlit Cloud deployment of ToxPred app
+
 ---
 
 ## 📫 Let's Connect
