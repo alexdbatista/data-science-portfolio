@@ -31,12 +31,24 @@
 * **Web Framework:** Streamlit
 * **Data Source:** DeepChem & PubChem PUG REST API
 
+## 📦 Pre-trained Models
+
+**Note:** This repository includes pre-trained model files (`*.pkl`, ~18MB total) tracked in git. While this is generally not recommended for large files, these models are necessary for:
+- **Streamlit Cloud deployment** - The app requires immediate access to models without training
+- **Demo purposes** - Users can run the app instantly without waiting for model training
+- **Reproducibility** - Ensures consistent predictions across deployments
+
+To regenerate models locally (requires internet access):
+```bash
+python step_models.py  # Downloads datasets and trains models (~2-5 minutes)
+```
+
 ## 💻 Installation & Usage
 
 1.  **Clone the repository:**
     ```bash
-    git clone [https://github.com/your-username/toxpred.git](https://github.com/your-username/toxpred.git)
-    cd toxpred
+    git clone https://github.com/alexdbatista/data-science-portfolio.git
+    cd data-science-portfolio/toxpred
     ```
 
 2.  **Install dependencies:**
@@ -44,22 +56,20 @@
     pip install -r requirements.txt
     ```
 
-3.  **Generate the AI Models:**
+3.  **Run the App** (models are pre-trained and included):
+    ```bash
+    streamlit run toxpred_app.py
+    ```
+
+4.  **(Optional) Regenerate models from scratch:**
     ```bash
     python step_models.py
     ```
     
-    **Note:** This will download datasets from DeepChem and train three Random Forest models:
+    **Note:** This downloads datasets from DeepChem and trains three Random Forest models:
     - `solubility_model.pkl` (~9 MB)
     - `toxicity_model.pkl` (~3 MB)
     - `bbb_model.pkl` (~5 MB)
-    
-    These models are not tracked in git due to their size. You must generate them locally before running the app.
-
-4.  **Run the App:**
-    ```bash
-    streamlit run toxpred_app.py
-    ```
 
 ## 🧪 Example Use Cases
 

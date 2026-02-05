@@ -87,8 +87,9 @@ data-science-portfolio/
    - Include data provenance and source information
 
 5. **Model Files**
-   - **NEVER** commit large model files (`.pkl`, `.h5`, `.joblib`)
-   - Provide training scripts to regenerate models
+   - **General Rule:** Do NOT commit large model files (`.pkl`, `.h5`, `.joblib`)
+   - **Exception:** `toxpred/*.pkl` models ARE tracked for Streamlit Cloud deployment
+   - Provide training scripts to regenerate models when possible
    - Document model generation in README
 
 ## 📝 Naming Conventions
@@ -111,13 +112,19 @@ data-science-portfolio/
 
 The `.gitignore` file handles most exclusions, but be aware:
 
-- **Large files** (>10MB)
-- **Model artifacts** (`.pkl`, `.h5`, `.joblib`)
+- **Large files** (>10MB) - Exception: ToxPred models are tracked for Streamlit deployment
+- **Model artifacts** (`.pkl`, `.h5`, `.joblib`) - Exception: `toxpred/*.pkl` included for deployment
 - **Virtual environments** (`venv/`, `env/`)
 - **IDE settings** (`.vscode/`, `.idea/`)
 - **Notebook checkpoints** (`.ipynb_checkpoints/`)
 - **Temporary files** (`*.log`, `*.tmp`)
 - **Sensitive data** (API keys, credentials)
+
+**Special Case - ToxPred Models:**  
+The `toxpred/*.pkl` files (~18MB) are tracked in git despite the general rule against model files. This exception exists because:
+- Required for Streamlit Cloud deployment (no model training step available)
+- Enables instant demo without waiting for model training
+- Ensures reproducible predictions across all deployments
 
 ## 📦 Dependencies
 

@@ -44,10 +44,13 @@ Thumbs.db
 # *.parquet
 # *.feather
 
-# Models
+# Models (exclude from git due to size)
 *.pkl
 *.h5
 *.joblib
+
+# Exception: ToxPred models are needed for Streamlit Cloud deployment
+!toxpred/*.pkl
 
 # Logs
 *.log
