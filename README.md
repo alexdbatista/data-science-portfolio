@@ -1,4 +1,4 @@
-# Data Science Portfolio
+# Applied Data Science Architectures
 
 ![Python](https://img.shields.io/badge/Python-3.9%2B-blue?logo=python&logoColor=white)
 ![Machine Learning](https://img.shields.io/badge/ML-scikit--learn-orange?logo=scikit-learn&logoColor=white)
@@ -10,7 +10,7 @@
 
 > 📖 **New to this repo?** Check out [CONTRIBUTING.md](CONTRIBUTING.md) for repository structure and guidelines.
 
-Portfolio of end-to-end data science projects spanning **healthcare/clinical AI**, **predictive maintenance**, **sensor analytics & concept drift**, **experimental data QA**, **customer intelligence**, and **cheminformatics** — built with a validation-first mindset emphasizing data quality, reproducibility, and explainability across diverse domains.
+A collection of end-to-end data science architectures spanning **healthcare/clinical AI**, **predictive maintenance**, **sensor analytics & concept drift**, **experimental data QA**, **customer intelligence**, and **cheminformatics** — built with a validation-first mindset emphasizing data quality, reproducibility, and explainability across diverse domains.
 
 ---
 
@@ -54,7 +54,7 @@ Portfolio of end-to-end data science projects spanning **healthcare/clinical AI*
 
 ---
 
-## Quick summary
+## Technical Overview
 **10+ years** working with analytical measurement systems and experimental data; now building modern DS/ML solutions in Python/SQL across diverse domains.
 
 **Core strengths**
@@ -66,13 +66,7 @@ Portfolio of end-to-end data science projects spanning **healthcare/clinical AI*
 - **Business analytics:** customer segmentation, CLV modeling, statistical validation (ANOVA), churn prevention insights
 - **Scientific communication:** translating complex analysis into actionable insights for technical and non-technical stakeholders
 
-**What I can deliver in 30–60 days:** a data-quality baseline, an interpretable model with validation metrics, and a dashboard/report your team can use.
 
-- **🩺 Healthcare & MedTech** (Siemens Healthineers, Roche, Abbott, Philips)
-- 🏭 **Industry 4.0 / IIoT** (Siemens, Bosch, SAP, ABB)
-- 🧬 **Life Sciences & Pharma** (Bayer, Merck, Sartorius, Bruker, Thermo Fisher)
-- 🌱 **Clean Energy & Materials** (Dunia, National Labs, Battery/Catalyst R&D)
-- 📊 **Data-Driven Enterprises** (Consulting, Analytics, Retail Tech)
 
 **Software engineering practices:**
 - **Version control:** Git workflow with clear commit messages and branch management
@@ -83,7 +77,7 @@ Portfolio of end-to-end data science projects spanning **healthcare/clinical AI*
 
 ---
 
-## Germany experience (2020–2024)
+## Scientific Background
 - **Humboldt Research Fellow — Ulm University (2020–2021)**  
   Applied ML-guided optimization in biosensing research; published results in peer-reviewed work.
 - **Research Group Leader — Hahn-Schickard Institute (2022–2024)**  
@@ -93,7 +87,7 @@ Portfolio of end-to-end data science projects spanning **healthcare/clinical AI*
 
 ---
 
-## Featured projects
+## System Architectures
 
 ### 1) 🌾 Sugarcane Canopy Weed Emergence Predictor (Agritech)
 **Objective:** Predict emergence timing of competitive weeds in sugarcane using microclimate telemetry and agronomically-grounded feature engineering.
@@ -105,7 +99,6 @@ Portfolio of end-to-end data science projects spanning **healthcare/clinical AI*
 - Deployed the model as an end-to-end containerised FastAPI service ready for precision agriculture integrations.
 
 **Tech stack:** Python, XGBoost, SHAP, FastAPI, Docker, scikit-learn  
-**Target audience:** Precision Agriculture, AgTech, Sustainability Analytics  
 **Project:** `./Sugarcane Canopy Weed Emergence Predictor/`
 
 ---
@@ -122,7 +115,6 @@ Portfolio of end-to-end data science projects spanning **healthcare/clinical AI*
 - **Production Ready:** FastAPI REST API example with Pydantic validation and async support.
 
 **Tech stack:** Python, SciPy, scikit-learn, SHAP, FastAPI, Plotly  
-**Target audience:** MedTech, pharma, digital health roles (Roche, Siemens Healthineers, Abbott)  
 **Project:** `./GuardianCGM/`
 
 ---
@@ -166,7 +158,6 @@ Portfolio of end-to-end data science projects spanning **healthcare/clinical AI*
 - **Streamlit web app:** Interactive deployment with real-time predictions and Lipinski Rule of Five.
 
 **Tech stack:** Python, RDKit, scikit-learn, Streamlit, DeepChem datasets  
-**Target audience:** Pharma R&D, computational chemistry, medicinal chemistry  
 **Project:** `./toxpred/`
 
 ---
@@ -182,7 +173,6 @@ Portfolio of end-to-end data science projects spanning **healthcare/clinical AI*
 - **Domain expertise applied:** PhD-level knowledge used to interpret patterns and guide analysis.
 
 **Tech stack:** Python, Pandas, scikit-learn, SciPy (statistical tests), Seaborn  
-**Target audience:** Materials discovery, catalyst/battery R&D, high-throughput experimental labs  
 **Project:** `./electrocatalyst-data-analysis/`
 
 ---
@@ -257,34 +247,13 @@ data-science-portfolio/
 
 ---
 
-## 📫 Let's Connect
+## Author
 
-**Seeking:** Chemical Data Scientist / Materials Informatics / ML Engineer roles
-
-**Target Industries:** 
-- 🌱 **Clean Energy & Materials Discovery** (Dunia, Materials Project, Acceleration Consortium, National Labs)
-- 🔋 **Battery & Energy Storage** (QuantumScape, Solid Power, CATL, Northvolt)
-- ⚗️ **Catalysis & Chemical Manufacturing** (BASF, Johnson Matthey, Clariant, Evonik)
-- 🧬 **Life Sciences & Pharma** (Roche, Bayer, Merck, Sartorius)
-- 🔬 **Diagnostics & Medical Devices** (Siemens Healthineers, Bruker, Thermo Fisher)
-- 🏭 **Industry 4.0 / IIoT** (Siemens, Bosch, SAP)
-
-**Based in:** Germany (2020-2024) | Open to relocation within Germany, Netherlands, Denmark, Switzerland
-Data Scientist / ML Engineer / Analytics roles across industries
-
-**Target Industries:** 
-- 🩺 **Healthcare & MedTech** (Siemens Healthineers, Roche, Abbott, Philips)
-- 🏭 **Industry 4.0 / IIoT / Manufacturing** (Siemens, Bosch, SAP, ABB)
-- 🧬 **Life Sciences & Pharma** (Bayer, Merck, Sartorius, Bruker, Thermo Fisher)
-- 🌱 **Clean Energy & Materials** (Dunia, National Labs, Battery/Catalyst R&D)
-- 📊 **Data-Driven Enterprises** (Tech, Consulting, Analytics, Retail Tech
-*For German employers familiar with academic titles:*
-
+**Alex Domingues Batista, PhD**
 - **Dr. rer. nat. (equivalent)** - PhD, Universidade de São Paulo (USP)
 - **Humboldt Research Fellow** - Alexander von Humboldt Foundation (2020-2021)
-- **Former Professor** (UFU, Brazil, 2015-2021) - 6 years teaching & research
+- **Former Professor** (UFU, Brazil, 2015-2021) 
 - **Research Group Leader** (Hahn-Schickard, Germany, 2022-2024)
 - **50 peer-reviewed publications** | h-index: 18 | 1,266 citations
 
 **Languages:** Portuguese (Native) | English (Fluent) | German (B1 Intermediate)
-

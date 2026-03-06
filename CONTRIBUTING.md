@@ -1,14 +1,14 @@
-# Contributing to Data Science Portfolio
+# Contributing to Applied Data Science Architectures
 
-This document provides guidelines for maintaining and contributing to this portfolio repository.
+This document provides guidelines for maintaining and contributing to this repository.
 
 ## 📁 Repository Structure
 
-This portfolio follows a project-based organization where each subdirectory is a self-contained data science project:
+This repository follows a project-based organization where each subdirectory is a self-contained data science project:
 
 ```
 data-science-portfolio/
-├── README.md                                  # Main portfolio overview
+├── README.md                                  # Main repository overview
 ├── CONTRIBUTING.md                            # This file
 ├── LICENSE                                    # Repository license
 ├── .gitignore                                 # Global ignore rules
@@ -181,11 +181,11 @@ Each project has its own `requirements.txt` for isolated environments.
 
 ## 📞 Contact
 
-For questions or suggestions about this portfolio structure:
+For questions or suggestions about this repository structure:
 - **Email**: alexdbatista@gmail.com
 - **LinkedIn**: [linkedin.com/in/alexdbatista](https://linkedin.com/in/alexdbatista)
 - **GitHub**: [github.com/alexdbatista](https://github.com/alexdbatista)
 
 ---
 
-*This portfolio is maintained by Alex Domingues Batista, PhD - Data Scientist specializing in healthcare AI, sensor data, and ML engineering.*
+*This repository is maintained by Alex Domingues Batista, PhD - Data Scientist specializing in healthcare AI, sensor data, and ML engineering.*
