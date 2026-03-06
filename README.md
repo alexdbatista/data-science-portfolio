@@ -221,7 +221,7 @@ data-science-portfolio/
 │   └── requirements.txt
 ├── toxpred/                                         # 🧪 Cheminformatics ADMET app
 │   ├── toxpred_app.py
-│   ├── setup_models.py
+│   ├── step_models.py
 │   ├── README.md
 │   └── requirements.txt
 └── electrocatalyst-data-analysis/                   # ⚡ Materials discovery campaign analysis
