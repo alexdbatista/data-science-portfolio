@@ -28,6 +28,36 @@ Small dataset, high dimensionality—exactly the situation where feature priorit
 
 ## 🛠️ Pipeline Architecture
 
+```mermaid
+flowchart TD
+    classDef data fill:#1e293b,stroke:#cbd5e1,stroke-width:1px,color:#fff
+    classDef process fill:#0f172a,stroke:#3b82f6,stroke-width:2px,color:#fff
+    classDef model fill:#450a0a,stroke:#ef4444,stroke-width:2px,color:#fff
+    classDef output fill:#14532d,stroke:#22c55e,stroke-width:2px,color:#fff
+
+    A[LC-MS Targeted Intensities]:::data --> B(01: Chemometric Preprocessing):::process
+    
+    subgraph QC & Normalization
+        direction TB
+        B1[Log2 Variance Stabilization]:::data
+        B2[PCA Batch Effect Check]:::data
+        B3[Volcano Plot Baseline]:::data
+    end
+    B --> B1 & B2 & B3
+    B1 & B2 & B3 --> C(02: Multivariate Feature Selection):::process
+    
+    subgraph Predictive Modeling
+        C1[Lasso L1 Logistic]:::model
+        C2[Random Forest]:::model
+    end
+    
+    C --> C1 & C2
+    C1 -->|Sparse Topology| D(03: SHAP Interpretation):::process
+    
+    D --> E[Top 10 Biomarker Candidates]:::output
+    E -->|Orthogonal Validation| F[Targeted MRM Assay Optimization]:::output
+```
+
 ### 1. Chemometric Preprocessing
 Standard transformation protocols for liquid chromatography-mass spectrometry peak intensities:
 - Log₂ transformation to stabilize variance (standardizing multiplicative noise in MS detectors)
