@@ -6,7 +6,8 @@
 ![License](https://img.shields.io/badge/License-MIT-green)
 
 **Alex Domingues Batista, PhD**  
-**Data Scientist | Python • ML • Experimental Analytics • Healthcare AI • Time-Series**
+**Data Scientist | Python • ML • Experimental Analytics • Healthcare AI • Time-Series**  
+📍 **Based in Germany** | 🇪🇺 Full EU Working Rights
 
 > 📖 **New to this repo?** Check out [CONTRIBUTING.md](CONTRIBUTING.md) for repository structure and guidelines.
 
@@ -68,12 +69,12 @@ A collection of end-to-end data science architectures spanning **healthcare/clin
 
 
 
-**Software engineering practices:**
-- **Version control:** Git workflow with clear commit messages and branch management
-- **Code quality:** PEP8 style compliance, modular architecture, reusable functions
-- **Reproducibility:** Requirements files, virtual environments, documented dependencies
-- **Documentation:** Inline comments, docstrings, and comprehensive README files
-- **Testing mindset:** Validation checks, data quality assertions, and reproducible results
+**Software Engineering & Compliance (EU/Germany Focus):**
+- **Regulatory Awareness:** EU AI Act, Medical Device Regulation (EU-MDR), and DIN EN ISO 13485 workflows.
+- **Data Privacy:** Designed pipelines with explicit DSGVO/GDPR compliance and data minimization principles.
+- **Code Quality:** strict PEP8 compliance, modular architectures, and formal NumPy docstrings.
+- **Reproducibility:** Containerized environments (Docker), requirements management, and explicit random seeds.
+- **Testing & QA:** Validation checks, data quality assertions, and unit-testing mentalities to ensure robust deployments.
 
 ---
 
@@ -83,7 +84,7 @@ A collection of end-to-end data science architectures spanning **healthcare/clin
 - **Research Group Leader — Hahn-Schickard Institute (2022–2024)**  
   Led an applied diagnostics R&D team; collaborated with engineering and research stakeholders; built analytics workflows for sensor performance monitoring, data quality, and comparison across conditions.
 
-**Languages:** Portuguese (Native) • English (Fluent) • German (B1)
+**Languages:** Portuguese (Native) | English (Full Professional) | German (B1 — Actively pursuing B2)
 
 ---
 
@@ -256,4 +257,4 @@ data-science-portfolio/
 - **Research Group Leader** (Hahn-Schickard, Germany, 2022-2024)
 - **50 peer-reviewed publications** | h-index: 18 | 1,266 citations
 
-**Languages:** Portuguese (Native) | English (Fluent) | German (B1 Intermediate)
+**Languages:** Portuguese (Native) | English (Full Professional) | German (B1 — Actively pursuing B2)

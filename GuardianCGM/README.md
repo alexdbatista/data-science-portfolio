@@ -57,11 +57,12 @@ This project implements a **complete regulatory compliance stack**:
 - ✅ **Mitigation Strategies:** Documented recommendations for subgroup-specific training
 - ✅ **Continuous Monitoring:** Bias drift detection in production (Module 05)
 
-#### 3. Post-Market Surveillance (EU MDR Annex XIV, FDA §820.100)
-- ✅ **Drift Detection:** Statistical tests (KS, PSI) with configurable thresholds
-- ✅ **Performance Monitoring:** Real-time RMSE, MAE, Clarke Grid tracking
-- ✅ **PMCF Reporting:** Automated report generation for regulatory submissions
-- ✅ **Retraining Logic:** Automated alerts trigger model updates before clinical impact
+#### 3. Data Privacy & Post-Market Surveillance (DSGVO/GDPR & EU MDR Annex XIV)
+- ✅ **Data Minimization:** Compliant with DSGVO/GDPR principles via secure 128-patient synthetic profiles.
+- ✅ **Drift Detection:** Statistical tests (KS, PSI) with configurable thresholds.
+- ✅ **Performance Monitoring:** Real-time RMSE, MAE, Clarke Grid tracking.
+- ✅ **PMCF Reporting:** Automated report generation for regulatory submissions.
+- ✅ **Retraining Logic:** Automated alerts trigger model updates before clinical impact.
 
 #### 4. Explainability & Transparency (EU AI Act Article 13)
 - ✅ **SHAP Analysis:** Feature-level contribution explanations for each prediction
