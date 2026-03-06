@@ -66,7 +66,7 @@ python 05_Drift_Monitoring_Strategy.py --model models/glucose_rf_v1.pkl --data d
 
 ## 🔒 Data Privacy Note
 
-This project uses **synthetic data** only for portfolio demonstration purposes. No real patient data is included. For production deployment with real CGM data:
+This repository utilizes **synthetic cohort data** for system demonstration. No real patient data is included. For production deployment with real CGM traces:
 
 - Implement HIPAA/GDPR compliance measures
 - Use secure data storage (encrypted at rest)

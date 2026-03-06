@@ -1,8 +1,6 @@
 """
 GuardianCGM: Module 05 - Production Drift Monitoring & Alerting System
 
-Author: Alex Domingues Batista, PhD
-
 Purpose:
 --------
 Production-ready drift monitoring system for continuous glucose monitoring (CGM) 

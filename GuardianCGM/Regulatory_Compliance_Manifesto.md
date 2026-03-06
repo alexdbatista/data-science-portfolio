@@ -442,7 +442,7 @@ All critical regulatory requirements are addressed. The following enhancements w
 
 | Gap | Regulatory Impact | Recommended Action | Priority |
 |-----|------------------|-------------------|----------|
-| Limited real-world clinical data | Low (synthetic data acceptable for portfolio) | Collaborate with clinical sites for validation study | Medium |
+| Limited real-world clinical data | Low (synthetic data validates system architecture) | Collaborate with clinical sites for validation study | Medium |
 | No formal FMEA documentation | Low (risk controls implemented) | Create FMEA spreadsheet mapping risks to mitigations | Low |
 | Manual PMCF report review | Low (automated generation works) | Add automated compliance scoring | Low |
 | Cybersecurity documentation | Medium (input validation present) | Add penetration testing results | Medium |
