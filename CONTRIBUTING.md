@@ -168,7 +168,7 @@ Each project has its own `requirements.txt` for isolated environments.
 ## 📞 Contact
 
 For questions or suggestions about this repository structure:
-- **Email**: alexdbatista@gmail.com
+- **Email**: alex.domin.batista@gmail.com
 - **LinkedIn**: [linkedin.com/in/alexdbatista](https://linkedin.com/in/alexdbatista)
 - **GitHub**: [github.com/alexdbatista](https://github.com/alexdbatista)
 
