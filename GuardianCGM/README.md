@@ -99,6 +99,41 @@ This project implements a **complete regulatory compliance stack**:
 
 The project is structured as a modular, three-stage pipeline:
 
+```mermaid
+flowchart TD
+    classDef data fill:#1e293b,stroke:#cbd5e1,stroke-width:1px,color:#fff
+    classDef process fill:#0f172a,stroke:#3b82f6,stroke-width:2px,color:#fff
+    classDef model fill:#450a0a,stroke:#ef4444,stroke-width:2px,color:#fff
+    classDef monitor fill:#14532d,stroke:#22c55e,stroke-width:2px,color:#fff
+
+    A[Raw CGM Telemetry]:::data --> B(01: Signal Processing & EDA):::process
+    
+    subgraph Feature Engineering
+        direction TB
+        B1[Savitzky-Golay Filtering]:::data
+        B2[Velocity / Acceleration]:::data
+        B3[Metabolic Memory Lags]:::data
+    end
+    B --> B1 & B2 & B3
+    B1 & B2 & B3 -->|processed_biomarkers.csv| C(02: Model Training & Validation):::process
+
+    subgraph Prediction & Safety
+        direction TB
+        C1[Random Forest Regressor]:::model
+        C2[Clarke Error Grid Validation]:::monitor
+        C3[SHAP Explainability]:::monitor
+    end
+    
+    C --> C1 --> C2 & C3
+    
+    C1 -->|glucose_rf.pkl| D(03: FastAPI Deployment):::process
+    D -->|Real-time Predictions & Uncertainty| E[Clinical Decision Support]:::data
+
+    C1 --> F(04: Bias & Fairness Audit):::monitor
+    D -.-> G(05: Drift Monitoring):::monitor
+    G -->|Alerts & PMCF Reports| H[Regulatory Compliance]:::data
+```
+
 ### 1. Signal Processing & Feature Engineering
 - **Data Simulation:** Realistic, synthetic CGM data with physiological oscillations and sensor noise
 - **Chemistry Context:** Electrochemical sensor principles and analytical chemistry insights

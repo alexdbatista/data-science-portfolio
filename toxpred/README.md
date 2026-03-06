@@ -33,6 +33,26 @@
 
 ## 📦 Deployment Architecture
 
+```mermaid
+flowchart LR
+    classDef ui fill:#0f172a,stroke:#3b82f6,stroke-width:2px,color:#fff
+    classDef backend fill:#1e293b,stroke:#10b981,stroke-width:2px,color:#fff
+    classDef model fill:#450a0a,stroke:#ef4444,stroke-width:2px,color:#fff
+
+    A[SMILES String Input]:::ui --> B(RDKit Feature Extraction):::backend
+    B --> C{Random Forest Ensembles}:::model
+    
+    subgraph Prediction Tasks
+        direction TB
+        C -->|LogS| C1[Solubility Model]:::model
+        C -->|FDA ClinTox| C2[Toxicity Model]:::model
+        C -->|CNS Penetration| C3[BBBP Model]:::model
+    end
+    
+    C1 & C2 & C3 --> D(Streamlit Dashboard):::ui
+    D --> E[Interactive Pharmacokinetics Report]:::ui
+```
+
 The repository contains pre-trained Random Forest models serialized via joblib in the `*.pkl` format. While model artifacts are typically housed in blob storage rather than git, tracking these specific baseline models (~18MB total) enables:
 - **Zero-cold-start inference** in Streamlit Cloud environments.
 - Immediate deterministic reproducibility without requiring users to pull from DeepChem.

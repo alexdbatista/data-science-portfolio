@@ -36,47 +36,41 @@ Pre-emergent herbicide application is only effective within a 5–10 day window 
 
 ## Technical Architecture
 
-```
-┌─────────────────────────────────────────────────────────────┐
-│                     DATA LAYER                              │
-│  NASA POWER API → 01_data_ingestion.py → nasa_power_raw.csv│
-└──────────────────────────┬──────────────────────────────────┘
-                           │
-┌──────────────────────────▼──────────────────────────────────┐
-│                  FEATURE ENGINEERING                         │
-│  02_feature_engineering.py                                   │
-│                                                              │
-│  • Growing Degree Days (GDD)     • Hydrothermal Time (HTT) │
-│  • Vapour Pressure Deficit (VPD) • Soil moisture bucket     │
-│  • Canopy density simulation     • Rolling 3/7/14-day stats │
-└──────────────────────────┬──────────────────────────────────┘
-                           │
-┌──────────────────────────▼──────────────────────────────────┐
-│                PREDICTIVE ENGINE                             │
-│  03_model_training.py                                        │
-│                                                              │
-│  XGBoost Classifier                                          │
-│  • Time-series CV (5-fold rolling window)                   │
-│  • scale_pos_weight for class imbalance                     │
-│  • SHAP TreeExplainer — global + local explanations         │
-│  → models/xgb_weed_emergence.joblib                         │
-└──────────────────────────┬──────────────────────────────────┘
-                           │
-┌──────────────────────────▼──────────────────────────────────┐
-│                  REST API (FastAPI)                          │
-│  app/main.py                                                 │
-│                                                              │
-│  POST /predict        → single zone risk + SHAP drivers     │
-│  POST /predict/batch  → fleet telemetry ingestion           │
-│  GET  /health         → liveness probe                      │
-└──────────────────────────┬──────────────────────────────────┘
-                           │
-┌──────────────────────────▼──────────────────────────────────┐
-│               CONTAINER DEPLOYMENT                           │
-│  Dockerfile (multi-stage) + docker-compose.yml              │
-│  Production-grade Uvicorn ASGI server                        │
-│  Non-root user, healthcheck, volume-mounted artefacts        │
-└─────────────────────────────────────────────────────────────┘
+```mermaid
+flowchart TD
+    %% Define Styles
+    classDef api fill:#0f172a,stroke:#3b82f6,stroke-width:2px,color:#fff
+    classDef script fill:#1e293b,stroke:#10b981,stroke-width:2px,color:#fff
+    classDef data fill:#334155,stroke:#475569,stroke-width:1px,color:#cbd5e1
+    classDef model fill:#450a0a,stroke:#ef4444,stroke-width:2px,color:#fff
+
+    A[NASA POWER API]:::api -->|Daily Telemetry| B(01_data_ingestion.py):::script
+    B -->|nasa_power_raw.csv| C(02_feature_engineering.py):::script
+    
+    subgraph Feature Engineering
+        direction TB
+        F1[Growing Degree Days]:::data
+        F2[Hydrothermal Time]:::data
+        F3[Canopy Density Sim]:::data
+    end
+    
+    C --> F1 & F2 & F3
+    F1 & F2 & F3 -->|features.csv| D(03_model_training.py):::script
+    
+    subgraph Predictive Engine
+        M1[XGBoost Classifier]:::model
+        M2[SHAP TreeExplainer]:::model
+    end
+    
+    D --> M1
+    M1 --> M2
+    
+    M2 -->|xgb.joblib| E(FastAPIREST Service):::api
+    
+    subgraph Deployment
+        E --> E1[POST /predict]:::data
+        E --> E2[Streamlit Dashboard]:::data
+    end
 ```
 
 ---

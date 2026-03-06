@@ -36,6 +36,32 @@ This is a worst-case scenario for concept drift—perfect for studying the probl
 
 ## 🛠️ Pipeline Architecture
 
+```mermaid
+flowchart TD
+    classDef raw fill:#1e293b,stroke:#cbd5e1,stroke-width:1px,color:#fff
+    classDef compute fill:#0f172a,stroke:#3b82f6,stroke-width:2px,color:#fff
+    classDef warn fill:#450a0a,stroke:#ef4444,stroke-width:2px,color:#fff
+    classDef fix fill:#14532d,stroke:#22c55e,stroke-width:2px,color:#fff
+
+    A[Batched Sensor Data]:::raw --> B(01: Statistical Drift Tracking):::compute
+    B --> C{Kolmogorov-Smirnov Test}:::compute
+    
+    C -->|Distribution Shifted| D(02: Model Decay Analysis):::warn
+    D -->|100% -> 33% Accuracy| E[Silent Failure Risk]:::warn
+    
+    E --> F(03: Adaptive Calibration Strategies):::fix
+    
+    subgraph Adaptive Retraining
+        direction TB
+        F1[Static Model: 33%]:::warn
+        F2[Cumulative Model: 97%]:::compute
+        F3[Windowed Model N-3: 99.8%]:::fix
+    end
+    
+    F --> F1 & F2 & F3
+    F3 --> G[Production Stable Deployment]:::fix
+```
+
 ### 1. Statistical Proof of Drift Tracking
 
 Before engineering a heavy retraining pipeline, it is crucial to mathematically prove that the data distribution is shifting (rather than assuming performance loss is purely combinatorial noise).
