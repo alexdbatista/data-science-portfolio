@@ -55,8 +55,26 @@ def load_models():
 models = load_models()
 
 # --- 3. HELPER FUNCTIONS ---
-def calculate_druggability_score(res):
-    """Calculate overall druggability score (0-100)"""
+def calculate_druggability_score(res: dict) -> int:
+    """
+    Calculate an aggregate druggability heuristic score (0-100).
+
+    Computes a weighted scoring matrix based on Lipinski's Rule of Five,
+    Veber's rules for oral bioavailability, predicted aqueous solubility (LogS),
+    and clinical toxicity probabilities.
+
+    Parameters
+    ----------
+    res : dict
+        A dictionary containing computed physicochemical descriptors and 
+        machine learning toxicity/solubility predictions.
+
+    Returns
+    -------
+    int
+        An integer score out of 100 representing the composite oral druggability 
+        potential of the molecule.
+    """
     score = 0
     max_score = 100
     
@@ -90,7 +108,29 @@ def calculate_druggability_score(res):
     return min(score, max_score)
 
 # --- 4. ANALYSIS LOGIC ---
-def analyze_compound(compound_name, is_smiles=False):
+def analyze_compound(compound_name: str, is_smiles: bool = False) -> dict:
+    """
+    Execute the cheminformatics property extraction and machine learning pipeline.
+
+    Parses standard chemical names via the PubChem PUG REST API or directly 
+    accepts SMILES strings. Computes 2048-bit Morgan Fingerprints (ECFP4) and 
+    passes the molecular vector through pre-trained Random Forest architectures 
+    for ADMET prediction.
+
+    Parameters
+    ----------
+    compound_name : str
+        The common chemical name (e.g., 'Aspirin') or precise SMILES string.
+    is_smiles : bool, optional
+        Flag indicating whether `compound_name` should be parsed directly 
+        as a SMILES string, by default False.
+
+    Returns
+    -------
+    dict
+        A structured clinical assay dict containing molecular weight, lipophilicity 
+        (LogP), topology (TPSA), toxicity/BBB probabilities, and error status.
+    """
     result = {"Compound": compound_name}
     smiles = None
     

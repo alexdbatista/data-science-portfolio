@@ -81,23 +81,22 @@ The critical design choice was encoding the *biophysical mechanism* of germinati
 
 ### Hydrothermal Time (HTT) — the primary signal
 
-HTT accumulates only when temperature *and* moisture are simultaneously above threshold. A hot dry week contributes nothing; a cool wet week contributes nothing. Only their co-occurrence triggers germination progress.
+HTT accumulates only when temperature *and* moisture are simultaneously above biological thresholds. A hot dry week contributes nothing; a cool wet week contributes nothing. Only their co-occurrence triggers germination progress, governed by the following integration:
 
-```
-HTT_daily = GDD_today × (soil_moisture / field_capacity)
-HTT_cumsum = Σ HTT_daily
-```
+$$ GDD_{t} = \max(T_{t} - T_{b}, 0) $$
 
-*B. decumbens* requires HTT ≈ 38 MPa·°C·day for 50% germination probability (Bradford 2002 hydrotime model).
+$$ HTT_{t} = \left[ GDD_{t} \cdot \left(\frac{\psi_{t}}{\psi_{c}}\right) \right] \cdot \mathbf{1}_{\{\psi_t > \psi_{base}\}} $$
+
+$$ HTT_{cumulative} = \sum_{t=0}^{n} HTT_{t} $$
+
+Where $T_b$ is the base temperature for biological activity, $\psi_t$ is soil moisture tension, and $\psi_c$ is field capacity. *B. decumbens* requires an integrated HTT of $\approx 38$ MPa·°C·day for 50% germination probability ( Bradford 2002 hydrotime model).
 
 ### Canopy Density Simulation
 
-Rather than using raw solar irradiance, I modelled the **sub-canopy light reaching the soil surface** using a sinusoidal canopy closure curve calibrated to Ribeirão Preto's typical planting calendar (harvest March, ratoon April, peak canopy late August).
+Rather than using raw solar irradiance, I modelled the **sub-canopy light reaching the soil surface** using a sinusoidal canopy closure curve calibrated to Ribeirão Preto's typical planting calendar:
 
-```
-canopy_density = sin(π × phase)     # 0 = open, 1 = fully closed
-sub_canopy_rad = irradiance × (1 - canopy_density)
-```
+$$ \Phi_{canopy}(t) = \sin(\pi \cdot \omega_t)^{k} $$
+$$ I_{sub}(t) = I_{raw}(t) \cdot (1 - \Phi_{canopy}(t)) $$
 
 This matters because *B. decumbens* seeds are strongly photoblastic — they germinate faster in inter-row zones where canopy gaps persist.
 

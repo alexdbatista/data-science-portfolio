@@ -135,6 +135,19 @@ RECOMMENDATIONS = {
 
 
 def classify_risk(probability: float) -> str:
+    """
+    Map an emergence probability to a categorical risk tier.
+
+    Parameters
+    ----------
+    probability : float
+        The predicted probability of weed emergence (bound between 0.0 and 1.0).
+
+    Returns
+    -------
+    str
+        Categorical risk label: 'LOW', 'MODERATE', or 'HIGH'.
+    """
     for level, (lo, hi) in RISK_THRESHOLDS.items():
         if lo <= probability < hi:
             return level
@@ -142,7 +155,22 @@ def classify_risk(probability: float) -> str:
 
 
 def compute_shap_drivers(feature_vector: np.ndarray, top_n: int = 5) -> List[dict]:
-    """Return top N SHAP contributors for a single prediction."""
+    """
+    Calculate the top-N local SHAP feature contributions for a single prediction.
+
+    Parameters
+    ----------
+    feature_vector : np.ndarray
+        A 1D array representing the scaled feature values for a single instance.
+    top_n : int, optional
+        The number of top driving features to return, by default 5.
+
+    Returns
+    -------
+    List[dict]
+        A sorted list of dictionaries containing feature names, SHAP values, 
+        and the directional impact on the emergence risk.
+    """
     sv = explainer.shap_values(feature_vector.reshape(1, -1))[0]
     driver_df = pd.DataFrame({
         "feature": FEATURE_NAMES,
@@ -161,6 +189,25 @@ def compute_shap_drivers(feature_vector: np.ndarray, top_n: int = 5) -> List[dic
 
 
 def predict_single(zone: FieldZoneFeatures) -> PredictionResponse:
+    """
+    Execute end-to-end inference logic for a single field zone payload.
+
+    Parameters
+    ----------
+    zone : FieldZoneFeatures
+        Validated Pydantic model containing the zone's agronomic feature set.
+
+    Returns
+    -------
+    PredictionResponse
+        A structured schema containing the emergence probability, risk tier,
+        SHAP explanation drivers, and actionable field recommendations.
+
+    Raises
+    ------
+    HTTPException
+        Status 503 if the ML model artefacts are missing from the filesystem.
+    """
     if not MODEL_LOADED:
         raise HTTPException(status_code=503,
                             detail="Model artefacts not found. Run 03_model_training.py first.")

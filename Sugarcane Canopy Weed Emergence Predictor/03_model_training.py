@@ -57,7 +57,24 @@ METRICS_PATH  = REPORTS_DIR / "model_metrics.json"
 # ---------------------------------------------------------------------------
 
 def load_and_split(path: Path, test_pct: float = 0.2):
-    """Chronological train/test split — 2021 train, 2022 test."""
+    """
+    Perform a chronological train/test split to prevent temporal data leakage.
+
+    Splits the dataset using a hard year boundary (2021 train, 2022 test) to 
+    respect the temporal autocorrelation inherent in microclimate telemetry.
+
+    Parameters
+    ----------
+    path : Path
+        Filesystem path to the engineered features CSV.
+    test_pct : float, optional
+        Target percentage for testing split (overridden by hard date boundaries).
+
+    Returns
+    -------
+    tuple
+        (X_train, X_test, y_train, y_test, features_list) holding the split arrays.
+    """
     df = pd.read_csv(path, index_col="Date", parse_dates=True)
     df = df.dropna()
 
@@ -86,8 +103,18 @@ def load_and_split(path: Path, test_pct: float = 0.2):
 
 def build_model(class_ratio: float) -> xgb.XGBClassifier:
     """
-    XGBoost with scale_pos_weight to handle class imbalance.
-    class_ratio = negative_count / positive_count
+    Construct an XGBoost classifier configured for imbalanced time-series forecasting.
+
+    Parameters
+    ----------
+    class_ratio : float
+        The ratio of negative to positive class instances, used to dynamically
+        scale the positive weight during gradient boosting.
+
+    Returns
+    -------
+    xgb.XGBClassifier
+        Compiled XGBoost estimator instance with regularized hyperparameters.
     """
     return xgb.XGBClassifier(
         n_estimators=300,
@@ -104,7 +131,24 @@ def build_model(class_ratio: float) -> xgb.XGBClassifier:
 
 
 def time_series_cv(X_train: pd.DataFrame, y_train: pd.Series) -> dict:
-    """5-fold rolling-window cross validation to tune & validate."""
+    """
+    Execute k-fold rolling-window cross-validation for time-series data.
+
+    Ensures that validation sets strictly succeed training sets in time.
+
+    Parameters
+    ----------
+    X_train : pd.DataFrame
+        Training feature matrix (must be chronologically ordered).
+    y_train : pd.Series
+        Training target vector.
+
+    Returns
+    -------
+    dict
+        Dictionary containing the mean and standard deviation of ROC-AUC
+        and Average Precision scores across all evaluated folds.
+    """
     tscv = TimeSeriesSplit(n_splits=5)
     aucs, aps = [], []
     neg = (y_train == 0).sum()

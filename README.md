@@ -27,16 +27,16 @@ A collection of end-to-end data science architectures spanning **healthcare/clin
 
 ---
 
-## 📂 Quick Project Navigation
+## 📂 Business Impact & Technical Complexity
 
-| Project | Domain | Key Tech | Documentation |
-|---------|--------|----------|---------------|
-| 🌾 **Sugarcane Weed Predictor** | Agritech / Precision Ag | XGBoost, SHAP, FastAPI | [README](Sugarcane%20Canopy%20Weed%20Emergence%20Predictor/) |
-| 🩸 **GuardianCGM** | Clinical AI / MedTech | CGM, SHAP, FastAPI, Regulatory | [README](GuardianCGM/) |
-| 📊 **Gas Sensor Drift** | Concept Drift / IoT | PCA, Adaptive Learning | [README](gas-sensor-drift-monitoring/) |
-| 🔬 **Metabolomics Biomarker** | Diagnostics / LC-MS | SHAP, Feature Selection | [README](metabolomics-biomarker-discovery/) |
-| 🧪 **ToxPred** | Cheminformatics | RDKit, Streamlit, ADMET | [README](toxpred/) |
-| ⚡ **Electrocatalyst Data Analysis** | Materials Science | Campaign QA, Multi-campaign Learning | [README](electrocatalyst-data-analysis/) |
+| Project | Business Output | Technical Complexity | Domain |
+|---------|-----------------|----------------------|--------|
+| 🌾 **[Sugarcane Weed Predictor](Sugarcane%20Canopy%20Weed%20Emergence%20Predictor/)** | Optimizes ag-chemical supply chains and maximizes yields via precision herbicide scheduling. | XGBoost, Sub-canopy Physics, FastAPI | Agritech / Precision Ag |
+| 🩸 **[GuardianCGM](GuardianCGM/)** | Enables preventative clinical intervention, improving patient outcomes through predictive analytics. | Regulatory-aware ML (Clarke Grid), Uncertainty Qty. | Clinical AI / MedTech |
+| 📊 **[Gas Sensor Drift](gas-sensor-drift-monitoring/)** | Prevents silent model failures in industrial IoT arrays, reducing unplanned maintenance costs. | Statistical drift tracking, Windowed adaptive retraining | Concept Drift / IoT |
+| 🔬 **[Metabolomics Biomarker](metabolomics-biomarker-discovery/)** | Accelerates diagnostic assay development, significantly reducing R&D costs by prioritizing key features. | Sparse linear models (Lasso), Network SHAP interpretation | Diagnostics / LC-MS |
+| 🧪 **[ToxPred](toxpred/)** | Filters non-viable drug candidates early in the pipeline, saving costly wet-lab synthesis resources. | Molecule parsing (RDKit), ADMET profiling, Model Inference | Cheminformatics |
+| ⚡ **[Electrocatalyst Data Analysis](electrocatalyst-data-analysis/)** | Detects experimental artifacts to accelerate self-driving laboratory loops. | Domain-grounded anomaly detection, Physical chemistries | Materials Science |
 
 ---
 

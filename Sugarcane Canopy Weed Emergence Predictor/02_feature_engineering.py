@@ -51,14 +51,39 @@ CANOPY_EMERGENCE_DOY = 90     # ~April — canopy closes over inter-rows
 # ---------------------------------------------------------------------------
 
 def growing_degree_days(t2m: pd.Series, t_base: float = T_BASE) -> pd.Series:
-    """Daily thermal contribution above germination base temperature."""
+    """
+    Calculate daily thermal contribution above the germination base temperature.
+
+    Parameters
+    ----------
+    t2m : pd.Series
+        Daily mean air temperature (°C).
+    t_base : float, optional
+        Base temperature for biological activity, by default T_BASE.
+
+    Returns
+    -------
+    pd.Series
+        Daily growing degree days (°C·day) clipped to a minimum of 0.
+    """
     return (t2m - t_base).clip(lower=0.0)
 
 
 def canopy_density(doy: pd.Series) -> pd.Series:
     """
-    Sinusoidal approximation of sugarcane canopy leaf area index (0–1 scale).
-    Uses a half-sine wave peaking at CANOPY_PEAK_DOY.
+    Compute sinusoidal approximation of sugarcane canopy leaf area index (0-1 scale).
+
+    Utilizes a half-sine wave peaking at CANOPY_PEAK_DOY to model crop phenology.
+
+    Parameters
+    ----------
+    doy : pd.Series
+        Day of the year (1-365).
+
+    Returns
+    -------
+    pd.Series
+        Estimated canopy density fraction (0.0 = open, 1.0 = fully closed).
     """
     phase = (doy - CANOPY_EMERGENCE_DOY) / (CANOPY_PEAK_DOY - CANOPY_EMERGENCE_DOY)
     density = np.sin(np.pi * phase.clip(0, 1))
@@ -67,9 +92,22 @@ def canopy_density(doy: pd.Series) -> pd.Series:
 
 def vapour_pressure_deficit(t2m: pd.Series, rh2m: pd.Series) -> pd.Series:
     """
-    Compute daily mean VPD (kPa) using the Tetens formula.
-    VPD = es × (1 - RH/100)
-    es = 0.6108 × exp(17.27 × T / (T + 237.3))  [Tetens, 1930]
+    Compute daily mean Vapour Pressure Deficit (kPa) using the Tetens formula.
+
+    VPD = es * (1 - RH/100)
+    es = 0.6108 * exp(17.27 * T / (T + 237.3))  [Tetens, 1930]
+
+    Parameters
+    ----------
+    t2m : pd.Series
+        Daily mean air temperature (°C).
+    rh2m : pd.Series
+        Daily mean relative humidity (%).
+
+    Returns
+    -------
+    pd.Series
+        Vapour Pressure Deficit (kPa) clipped to a minimum of 0.
     """
     es = 0.6108 * np.exp(17.27 * t2m / (t2m + 237.3))
     vpd = es * (1.0 - rh2m / 100.0)
@@ -81,12 +119,26 @@ def soil_moisture_bucket(precip: pd.Series,
                           capacity: float = SOIL_WATER_CAPACITY,
                           et_coeff: float = ET_COEFFICIENT) -> pd.Series:
     """
-    Simplified FAO-56 single-layer bucket model for daily soil moisture (mm).
+    Simplified FAO-56 single-layer bucket model for daily soil moisture.
 
-    SM[t] = SM[t-1] + P[t] − ETc[t],  clamped to [0, capacity]
+    SM[t] = SM[t-1] + P[t] - ETc[t], clamped to [0, capacity].
+    ETc is approximated from the Hargreaves-Samani temperature-driven formula.
 
-    ETc is approximated from the Hargreaves–Samani formula skeleton
-    (T-driven; full radiation data used for GDD only given data fidelity).
+    Parameters
+    ----------
+    precip : pd.Series
+        Daily total precipitation (mm).
+    t2m : pd.Series
+        Daily mean air temperature (°C).
+    capacity : float, optional
+        Maximum soil water capacity (mm), by default SOIL_WATER_CAPACITY.
+    et_coeff : float, optional
+        Crop coefficient for ET approximation, by default ET_COEFFICIENT.
+
+    Returns
+    -------
+    pd.Series
+        Continuous estimate of soil moisture depth in the root zone (mm).
     """
     etc_approx = et_coeff * (t2m - T_BASE).clip(lower=0) * 0.5   # crude proxy
     sm = np.empty(len(precip))
@@ -100,11 +152,24 @@ def soil_moisture_bucket(precip: pd.Series,
 def hydrothermal_time(gdd: pd.Series, sm: pd.Series,
                       capacity: float = SOIL_WATER_CAPACITY) -> pd.Series:
     """
-    Cumulative hydrothermal time index.
+    Calculate cumulative hydrothermal time index for weed emergence.
 
-    Daily HTT contribution = GDD × (SM / capacity)
-    This captures the joint requirement of warm temperatures AND adequate
-    moisture for B. decumbens germination triggering.
+    Daily HTT contribution = GDD * (SM / capacity).
+    Captures the joint thermodynamic requirement of heat and moisture for germination.
+
+    Parameters
+    ----------
+    gdd : pd.Series
+        Daily Growing Degree Days.
+    sm : pd.Series
+        Daily soil moisture (mm).
+    capacity : float, optional
+        Maximum soil water capacity (mm), by default SOIL_WATER_CAPACITY.
+
+    Returns
+    -------
+    pd.Series
+        Cumulative Hydrothermal Time (MPa·°C·day).
     """
     sm_frac = (sm / capacity).clip(0, 1)
     return (gdd * sm_frac).cumsum()
