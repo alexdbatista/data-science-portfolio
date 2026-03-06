@@ -39,20 +39,6 @@ data-science-portfolio/
 │   ├── 02_model_decay_analysis.ipynb
 │   └── 03_adaptive_calibration.ipynb
 │
-├── nasa-turbofan-predictive-maintenance/    # 🔧 Time-series RUL prediction
-│   ├── README.md
-│   ├── requirements.txt
-│   ├── 01_data_exploration.ipynb
-│   ├── 02_data_quality_and_drift.ipynb
-│   ├── 03_predictive_modeling.ipynb
-│   └── improve_model.py
-│
-├── retail-customer-segmentation/            # 🛒 RFM + K-Means segmentation
-│   ├── README.md
-│   ├── requirements.txt
-│   ├── RFM_Customer_Segmentation.ipynb
-│   └── RFM_Interview_Prep.ipynb
-│
 └── toxpred/                                  # 🧪 Cheminformatics ADMET app
     ├── README.md
     ├── requirements.txt
