@@ -31,21 +31,20 @@ Portfolio of end-to-end data science projects spanning **healthcare/clinical AI*
 
 | Project | Domain | Key Tech | Documentation |
 |---------|--------|----------|---------------|
+| 🌾 **Sugarcane Weed Predictor** | Agritech / Precision Ag | XGBoost, SHAP, FastAPI | [README](Sugarcane%20Canopy%20Weed%20Emergence%20Predictor/) |
 | 🩸 **GuardianCGM** | Clinical AI / MedTech | CGM, SHAP, FastAPI, Regulatory | [README](GuardianCGM/) |
-| 🔧 **NASA Turbofan RUL** | Predictive Maintenance | Time-series, Gradient Boosting | [README](nasa-turbofan-predictive-maintenance/) |
 | 📊 **Gas Sensor Drift** | Concept Drift / IoT | PCA, Adaptive Learning | [README](gas-sensor-drift-monitoring/) |
 | 🔬 **Metabolomics Biomarker** | Diagnostics / LC-MS | SHAP, Feature Selection | [README](metabolomics-biomarker-discovery/) |
-| 🛒 **Retail Segmentation** | Customer Analytics | RFM, K-Means, CLV | [README](retail-customer-segmentation/) |
 | 🧪 **ToxPred** | Cheminformatics | RDKit, Streamlit, ADMET | [README](toxpred/) |
 | ⚡ **Electrocatalyst Data Analysis** | Materials Science | Campaign QA, Multi-campaign Learning | [README](electrocatalyst-data-analysis/) |
 
 ---
 
 ## Start here (2 minutes)
+- **🌾 Sugarcane Canopy Weed Emergence Predictor** — microclimate-driven herbicide decision intelligence for Brazilian sugarcane  
+  → `./Sugarcane Canopy Weed Emergence Predictor/`
 - **🩸 GuardianCGM: Clinical Glucose Prediction AI** — regulatory-aware MedTech pipeline with Clarke Error Grid validation + SHAP explainability  
   → `./GuardianCGM/`
-- **🔧 Predictive Maintenance (NASA Turbofan RUL)** — leakage-safe time-series evaluation + interpretable monitoring outputs  
-  → `./nasa-turbofan-predictive-maintenance/`
 - **📊 Gas Sensor Drift & Calibration Transfer** — concept drift + adaptive retraining to maintain performance over time  
   → `./gas-sensor-drift-monitoring/`
 - **🔬 LC–MS Metabolomics Biomarker Prioritization** — explainable ML + feature selection for diagnostics-style data  
@@ -69,12 +68,11 @@ Portfolio of end-to-end data science projects spanning **healthcare/clinical AI*
 
 **What I can deliver in 30–60 days:** a data-quality baseline, an interpretable model with validation metrics, and a dashboard/report your team can use.
 
-**🩺 **Healthcare & MedTech** (Siemens Healthineers, Roche, Abbott, Philips)
+- **🩺 Healthcare & MedTech** (Siemens Healthineers, Roche, Abbott, Philips)
 - 🏭 **Industry 4.0 / IIoT** (Siemens, Bosch, SAP, ABB)
 - 🧬 **Life Sciences & Pharma** (Bayer, Merck, Sartorius, Bruker, Thermo Fisher)
 - 🌱 **Clean Energy & Materials** (Dunia, National Labs, Battery/Catalyst R&D)
-- 📊 **Data-Driven Enterprises** (Consulting, Analytics, Retail Techealthineers, Bruker, Thermo Fisher)
-- 🏭 **Industry 4.0 / IIoT** (Siemens, Bosch, SAP)
+- 📊 **Data-Driven Enterprises** (Consulting, Analytics, Retail Tech)
 
 **Software engineering practices:**
 - **Version control:** Git workflow with clear commit messages and branch management
@@ -97,7 +95,22 @@ Portfolio of end-to-end data science projects spanning **healthcare/clinical AI*
 
 ## Featured projects
 
-### 1) ⚡ Electrocatalyst Data Analysis: Experimental Campaign Intelligence (Materials Discovery)
+### 1) 🌾 Sugarcane Canopy Weed Emergence Predictor (Agritech)
+**Objective:** Predict emergence timing of competitive weeds in sugarcane using microclimate telemetry and agronomically-grounded feature engineering.
+
+**Highlights**
+- Engineered physical features (Hydrothermal Time, Vapour Pressure Deficit, Canopy Density) based on NASA POWER microclimate data.
+- Built a robust XGBoost classifier using strict time-series cross-validation (5-fold rolling window) to prevent data leakage.
+- Designed comprehensive SHAP analytics (global, dot, and waterfall plots) to deliver transparent, actionable insights for field advisors.
+- Deployed the model as an end-to-end containerised FastAPI service ready for precision agriculture integrations.
+
+**Tech stack:** Python, XGBoost, SHAP, FastAPI, Docker, scikit-learn  
+**Target audience:** Precision Agriculture, AgTech, Sustainability Analytics  
+**Project:** `./Sugarcane Canopy Weed Emergence Predictor/`
+
+---
+
+### 2) 🩸 GuardianCGM: Clinical Glucose Prediction AI (MedTech)
 **Objective:** Build a regulatory-aware, end-to-end pipeline for 30-minute glucose forecasting using Continuous Glucose Monitoring (CGM) data.
 
 **Highlights**
@@ -114,7 +127,21 @@ Portfolio of end-to-end data science projects spanning **healthcare/clinical AI*
 
 ---
 
-### 3) 🔬 Explainable AI for Biomarker Prioritization (LC–MS Metabolomics)
+### 3) 📊 Gas Sensor Drift & Calibration Transfer (Concept Drift)
+**Objective:** Quantify long-term drift and evaluate strategies to keep sensor models stable over time.
+
+**Highlights**
+- Analyzed a longitudinal sensor dataset and visualized drift behavior with PCA and performance decay curves.
+- Measured how static models degrade as sensors age (concept drift).
+- Implemented adaptive calibration / windowed retraining strategies to maintain performance under drift.
+- Clear takeaway: how to design a practical monitoring + retraining policy for long-lived sensor deployments.
+
+**Tech stack:** Python, scikit-learn (PCA, tree-based models), drift analysis  
+**Project:** `./gas-sensor-drift-monitoring/`
+
+---
+
+### 4) 🔬 Explainable AI for Biomarker Prioritization (LC–MS Metabolomics)
 **Objective:** Build an interpretable ML pipeline to prioritize candidate biomarkers from high-dimensional assay data.
 
 **Highlights**
@@ -128,52 +155,7 @@ Portfolio of end-to-end data science projects spanning **healthcare/clinical AI*
 
 ---
 
-### 4) 📊 Gas Sensor Drift & Calibration Transfer (Concept Drift)
-**Objective:** Quantify long-term drift and evaluate strategies to keep sensor models stable over time.
-
-**Highlights**
-- Analyzed a longitudinal sensor dataset and visualized drift behavior with PCA and performance decay curves.
-- Measured how static models degrade as sensors age (concept drift).
-- Implemented adaptive calibration / windowed retraining strategies to maintain performance under drift.
-- Clear takeaway: how to design a practical monitoring + retraining policy for long-lived sensor deployments.
-
-**Tech stack:** Python, scikit-learn (PCA, tree-based models), drift analysis  
-**Project:** `./gas-sensor-drift-monitoring/`
-2) 🔧 NASA Turbofan Predictive Maintenance (RUL)
-**Objective:** Predict Remaining Useful Life (RUL) from multivariate engine sensor time-series and create monitoring-ready outputs.
-
-**Highlights**
-- Processed run-to-failure sensor time series from multiple engines (NASA C-MAPSS).
-- Engineered rolling/trend features to capture degradation patterns.
-- Trained and evaluated models with **engine-level splitting** to prevent data leakage.
-- Achieved strong RUL predictive performance and translated outputs into early-warning/maintenance planning signals.
-
-**Tech stack:** Python, time-series feature engineering, Gradient Boosting / Random Forest  
-**Project:** `./nasa-turbofan-predictive-maintenance/`
-
----
-5ject:** `./nasa-turbofan-predictive-maintenance/`
-
----
-
-### 6) 🛒 RFM Customer Segmentation (Retail Analytics)
-**Objective:** Create actionable customer segments with statistical validation and business-ready insights.
-
-**Highlights**
-- Segmented **4,372 customers** from UCI Online Retail dataset (~540k transactions) into **5 groups**.
-- **Revenue concentration:** Top segment contributes ~60% of revenue.
-- **Statistical validation:** ANOVA p < 0.001 confirms segments are significantly different.
-- **Method comparison:** 70-80% agreement between RFM scoring and K-Means clustering.
-- **Stability testing:** >80% assignment consistency when changing parameters (quartiles → quintiles).
-- **CLV insight:** Champions £6,732 vs Hibernating £222 (~30× difference).
-
-**Tech stack:** Python, Pandas, scikit-learn, SciPy (ANOVA), Seaborn  
-**Business value:** Retention prioritization, lifecycle marketing, churn prevention  
-**Project:** `./retail-customer-segmentation/`
-
----
-
-### 6) 🧪 ToxPred AI: ADMET Screening Platform (Cheminformatics)
+### 5) 🧪 ToxPred AI: ADMET Screening Platform (Cheminformatics)
 **Objective:** Accelerate early-stage drug discovery by predicting molecular properties before synthesis.
 
 **Highlights**
@@ -189,7 +171,7 @@ Portfolio of end-to-end data science projects spanning **healthcare/clinical AI*
 
 ---
 
-### 7) ⚡ Electrocatalyst Data Analysis: Experimental Campaign Intelligence
+### 6) ⚡ Electrocatalyst Data Analysis: Experimental Campaign Intelligence
 **Objective:** Demonstrate end-to-end analysis of high-throughput screening campaigns with experimental data QA and multi-campaign learning.
 
 **Highlights**
@@ -218,19 +200,12 @@ Portfolio of end-to-end data science projects spanning **healthcare/clinical AI*
 ## Repository structure
 ```text
 data-science-portfolio/
-├── README.md                                     # This file - portfolio overviewFastAPI, Jupyter, VS Code, Linux/Bash  
-**ML & analytics:** regression/classification, tree-based models, SVM, cross-validation, explainability (SHAP), anomaly detection, PCA, statistical testing  
-**Time-series & sensors:** rolling/trend features, drift monitoring, predictive maintenance, RUL forecasting, stability analysis  
-**Healthcare & diagnostics:** clinical validation metrics (Clarke Error Grid), biomarker discovery, high-dimensional assay data (LC–MS), QC/QA workflows  
-**Business analytics:** customer segmentation (RFM, K-Means), CLV modeling, ANOVA validation, churn analysis  
-**Domain expertise:** analytical instrumentation (LC–MS, HPLC, spectroscopy, electrochemical systems), sensor systems, high-throughput screening  
-**Cheminformatics:** RDKit (molecular descriptors, fingerprints), ADMET prediction, exposure to pymatgen/ASE
-│   └── human_cachexia.csv
-├── electrocatalyst-data-analysis/                  # ⚡ NEW: Materials discovery campaign analysis
-│   ├── 01_experimental_data_quality.ipynb
-│   ├── 02_campaign_comparison_learning.ipynb
-│   ├── 03_scientific_communication.ipynb
-│   ├── data/campaign_*.csv
+├── README.md                                        # This file - portfolio overview
+├── Sugarcane Canopy Weed Emergence Predictor/       # 🌾 Agritech spatial weed prediction
+│   ├── 01_data_ingestion.py
+│   ├── 02_feature_engineering.py
+│   ├── 03_model_training.py
+│   ├── app/main.py
 │   ├── README.md
 │   └── requirements.txt
 ├── GuardianCGM/                                     # 🩸 MedTech glucose prediction
@@ -241,35 +216,33 @@ data-science-portfolio/
 │   ├── models/glucose_rf_v1.pkl
 │   ├── README.md
 │   └── requirements.txt
-├── metabolomics-biomarker-discovery/                # 🔬 Diagnostics biomarker ML
-│   ├── 01_chemometric_eda.ipynb
-│   ├── 02_biomarker_ml.ipynb
-│   ├── 03_shap_interpretation.ipynb
-│   ├── README.md
-│   └── requirements.txt
 ├── gas-sensor-drift-monitoring/                     # 📊 Concept drift analytics
 │   ├── 01_visualizing_the_drift.ipynb
 │   ├── 02_model_decay_analysis.ipynb
 │   ├── 03_adaptive_calibration.ipynb
 │   ├── README.md
 │   └── requirements.txt
-├── nasa-turbofan-predictive-maintenance/            # 🔧 Time-series RUL prediction
-│   ├── 01_data_exploration.ipynb
-│   ├── 02_data_quality_and_drift.ipynb
-│   ├── 03_predictive_modeling.ipynb
-│   └── README.md
-├── retail-customer-segmentation/                    # 🛒 RFM + K-Means segmentation
-│   ├── RFM_Customer_Segmentation.ipynb
+├── metabolomics-biomarker-discovery/                # 🔬 Diagnostics biomarker ML
+│   ├── 01_chemometric_eda.ipynb
+│   ├── 02_biomarker_ml.ipynb
+│   ├── 03_shap_interpretation.ipynb
 │   ├── README.md
 │   └── requirements.txt
-└── toxpred/                                         # 🧪 Cheminformatics ADMET app
-    ├── toxpred_app.py
-    ├── setup_models.py
+├── toxpred/                                         # 🧪 Cheminformatics ADMET app
+│   ├── toxpred_app.py
+│   ├── setup_models.py
+│   ├── README.md
+│   └── requirements.txt
+└── electrocatalyst-data-analysis/                   # ⚡ Materials discovery campaign analysis
+    ├── 01_experimental_data_quality.ipynb
+    ├── 02_campaign_comparison_learning.ipynb
+    ├── 03_scientific_communication.ipynb
+    ├── data/campaign_*.csv
     ├── README.md
     └── requirements.txt
 ```
 
-**Note:** Large data files (gas-sensor batches, turbofan datasets, retail data) are gitignored. For local reproduction, see individual project READMEs for data source links.
+**Note:** Large data files (gas-sensor batches) are gitignored. For local reproduction, see individual project READMEs for data source links.
 
 **Repository Information:**
 - 📖 **[CONTRIBUTING.md](CONTRIBUTING.md)** - Project structure guidelines and development workflow
