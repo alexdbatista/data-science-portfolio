@@ -5,13 +5,13 @@
 ![Streamlit](https://img.shields.io/badge/Frontend-Streamlit-red)
 ![Status](https://img.shields.io/badge/Status-Live-success)
 
-**ToxPred** is a Machine Learning application designed to accelerate early-stage drug discovery. It predicts critical physicochemical and biological properties of small molecules before synthesis, helping chemists "fail early" and prioritize viable drug candidates.
+**ToxPred** is a Machine Learning application designed to accelerate early-stage drug discovery protocols. It predicts critical physicochemical and biological properties of small molecules before physical synthesis, enabling computational chemists to filter out non-viable candidates early in the pipeline.
 
 ## 🚀 Key Features
 
-* **💧 Solubility Prediction (LogS):** Regressor trained on the **Delaney (ESOL)** dataset to predict aqueous solubility.
-* **☠️ Toxicity Screening:** Classifier trained on the **ClinTox** dataset to flag compounds that failed clinical trials.
-* **🧠 Blood-Brain Barrier (BBB) Permeability:** Classifier trained on **BBBP** data to predict CNS penetration (crucial for Neuro-drug discovery).
+* **💧 Solubility Prediction (LogS):** Rigorous regressor trained on the **Delaney (ESOL)** dataset predicting aqueous solubility boundaries.
+* **☠️ Toxicity Screening:** Binary classifier trained on the **ClinTox (FDA)** dataset to flag structural motifs associated with clinical trial failures.
+* **🧠 Blood-Brain Barrier (BBB) Permeability:** Classifier trained on **BBBP** data to predict CNS penetration—a critical assay for neuropharmacology.
 * **💊 Drug-Likeness:** Automatic calculation of **Lipinski’s Rule of Five** to assess oral bioavailability.
 * **🧬 Structural Intelligence:** Uses **Morgan Fingerprints (ECFP4)** to analyze chemical substructures (2,048-bit vectors) rather than simple molecular weights.
 
@@ -31,16 +31,15 @@
 * **Web Framework:** Streamlit
 * **Data Source:** DeepChem & PubChem PUG REST API
 
-## 📦 Pre-trained Models
+## 📦 Deployment Architecture
 
-**Note:** This repository includes pre-trained model files (`*.pkl`, ~18MB total) tracked in git. While this is generally not recommended for large files, these models are necessary for:
-- **Streamlit Cloud deployment** - The app requires immediate access to models without training
-- **Demo purposes** - Users can run the app instantly without waiting for model training
-- **Reproducibility** - Ensures consistent predictions across deployments
+The repository contains pre-trained Random Forest models serialized via joblib in the `*.pkl` format. While model artifacts are typically housed in blob storage rather than git, tracking these specific baseline models (~18MB total) enables:
+- **Zero-cold-start inference** in Streamlit Cloud environments.
+- Immediate deterministic reproducibility without requiring users to pull from DeepChem.
 
-To regenerate models locally (requires internet access):
+To safely retrain the architecture locally via the data pipeline:
 ```bash
-python step_models.py  # Downloads datasets and trains models (~2-5 minutes)
+python step_models.py  # Fetches DeepChem datasets & rebuilds RF ensembles (~2-5 minutes)
 ```
 
 ## 💻 Installation & Usage
@@ -74,8 +73,5 @@ python step_models.py  # Downloads datasets and trains models (~2-5 minutes)
 ## 🧪 Example Use Cases
 
 * **Aspirin:** Predicted as **Safe** and **Soluble**.
-* **Dopamine:** Predicted as **BBB Impermeable** (correctly identifying it cannot treat Parkinson's directly).
-* **Dieldrin (Pesticide):** Flagged as **Toxic** due to chlorinated ring substructures.
-
----
-*Created by Alex as a Capstone Project for Data Science.*
+* **Dopamine:** Predicted as **BBB Impermeable** (correctly identifying the pharmacokinetic barrier that necessitates L-DOPA delivery systems in Parkinson's).
+* **Dieldrin (Pesticide):** Explicitly flagged as **Toxic**, driven by the highly chlorinated ring substructures recognized by the structural fingerprint.

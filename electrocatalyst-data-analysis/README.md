@@ -1,72 +1,58 @@
 # ⚡ Electrocatalyst Data Analysis: Experimental Campaign Intelligence
 
-**Domain:** Electrochemistry • Materials Discovery • Experimental Data QA  
-**Role:** Chemical Data Scientist | Materials Informatics
+This repository details an end-to-end data analysis pipeline for **high-throughput electrocatalyst screening campaigns**, bridging the gap between raw electrochemical measurements and machine learning models.
 
----
-
-## 🎯 Project Overview
-
-This project demonstrates end-to-end data analysis for **high-throughput electrocatalyst screening campaigns**, showcasing skills directly relevant to materials discovery loops and experimental data science.
-
-**Key capabilities demonstrated:**
-- ✅ **Experimental data quality assessment** - Identifying artifacts, anomalies, and failure modes
-- ✅ **Multi-campaign learning** - Tracking understanding evolution across experiments
-- ✅ **Signal vs noise discrimination** - Statistical methods for reliable trend detection
-- ✅ **Scientific communication** - Clear, concise digests for cross-functional teams
-- ✅ **Electrochemistry expertise** - Domain knowledge applied to data interpretation
+**Core Pipeline Capabilities:**
+- **Experimental Data Quality Assurance:** Programmatic identification of electrochemical artifacts (e.g., electrode fouling, reference drift, uncompensated resistance).
+- **Multi-Campaign Learning:** Tracking evolutionary understanding and feature stability across iterative experimental batches.
+- **Signal Definition:** Statistical isolation of authentic catalytic trends from combinatorial noise.
+- **Cross-Functional Scientific Reporting:** Translating complex electrochemical/chemometric findings into actionable directives for synthetic chemists and ML engineers.
 
 ---
 
 ## 📊 What's Inside
 
-### Notebook 1: Experimental Data QA & Anomaly Detection
+### Module 1: Experimental Data QA & Anomaly Detection
 **File:** `01_experimental_data_quality.ipynb`
 
-**Objective:** Assess data quality from an electrocatalyst screening campaign and identify experimental artifacts.
+**Objective:** Systematically assess data quality from an electrocatalyst screening campaign and flag physical artifacts before they corrupt downstream models.
 
-**Key analyses:**
-- Voltage/current stability checks (detecting electrode fouling, reference drift)
-- Temperature drift effects on electrochemical measurements
-- Replicate consistency (CV reproducibility, charge transfer resistance)
-- Missing data patterns (sensor failures, measurement gaps)
-- Statistical outlier detection with electrochemical context
+**Technical Workflow:**
+- Voltage/current stability monitoring (detecting surface poisoning and reference electrode drift).
+- Temperature coefficient modeling on electrochemical kinetics.
+- Replicate consistency scoring (Cyclic Voltammetry reproducibility, charge transfer resistance stability via EIS).
+- Missing data physics (differentiating sensor failures from LOD truncation).
+- Statistical outlier detection explicitly weighted by electrochemical context.
 
-**Impact:**  
-Demonstrates ability to interrogate experimental data and distinguish real chemical effects from measurement artifacts - essential for reliable materials discovery.
+*Impact: Ensures downstream ML models learn actual surface chemistry rather than fitting to measurement artifacts.*
 
 ---
 
-### Notebook 2: Multi-Campaign Comparison & Learning
+### Module 2: Multi-Campaign Comparison & Learning
 **File:** `02_campaign_comparison_learning.ipynb`
 
-**Objective:** Compare results across multiple experimental campaigns and track how understanding evolves.
+**Objective:** Quantify the evolution of experimental understanding across sequential high-throughput campaigns.
 
-**Key analyses:**
-- Campaign-to-campaign performance trends
-- Batch effects and systematic biases
-- Feature importance evolution (which descriptors predict activity)
-- Success rate metrics and failure mode classification
-- Recommendation prioritization for next experiments
+**Technical Workflow:**
+- Campaign-to-campaign performance baseline tracking.
+- Batch effect quantification and systematic bias correction.
+- Feature importance evolution (monitoring which molecular descriptors selectively predict catalytic activity over time).
+- Statistical classification of failure modes vs. success rates.
 
-**Impact:**  
-Shows how to build cumulative knowledge across experimental campaigns - making learning compound rather than analyzing each campaign in isolation.
+*Impact: Establishes a compound-learning framework necessary for "self-driving" laboratory loops, rather than analyzing experimental batches in isolation.*
 
 ---
 
-### Notebook 3: Scientific Digest & Reporting
+### Module 3: Scientific Digest & Reporting
 **File:** `03_scientific_communication.ipynb`
 
-**Objective:** Create clear, actionable summaries that align cross-functional teams.
+**Objective:** Standardize the interface between automated analysis and human-in-the-loop laboratory decisions.
 
-**Deliverables:**
-- **Executive digest** - Key findings in 1 page for program managers
-- **Lab feedback report** - Specific recommendations on experimental design and quality
-- **ML feature recommendations** - Which signals should inform model design
-- **Computational validation priorities** - Which discrepancies merit DFT/simulation follow-up
-
-**Impact:**  
-Demonstrates stakeholder-specific communication - translating complex analysis into actionable insights for different audiences (leadership, experimentalists, ML engineers).
+**Outputs Generated:**
+- **Executive Digests:** Rapid assessment of campaign yield.
+- **Laboratory Feedback Loops:** Direct, data-backed recommendations for refining experimental design.
+- **ML Feature Scoping:** Identifying which physical signals contain sufficient variance for predictive modeling.
+- **Computational Validation Targets:** Highlighting experimental anomalies that warrant DFT/computational investigation.
 
 ---
 
@@ -98,103 +84,32 @@ RDKit                     # Molecular descriptors (for molecular catalysts)
 
 ---
 
-## 🎓 Domain Expertise Applied
+## 🎓 Domain Translation: Physical Chemistry to ML
 
-**From PhD in Electrochemistry:**
-- Understanding of electrode kinetics and mass transport
-- Recognition of common artifacts (iR drop, double-layer charging, surface poisoning)
-- Knowledge of reference electrode stability and measurement protocols
-- Awareness of environmental effects (temperature, pH, electrolyte composition)
+A major friction point in materials informatics is the uncritical application of ML to raw sensor data. With 10+ years of electrochemistry research experience, this pipeline explicitly hard-codes physical constraints:
 
-**Data science approach:**
-- Statistical rigor in experimental comparison
-- Uncertainty quantification for concentration estimates
-- Reproducibility assessment and batch effect correction
-- Clear communication of limitations and confidence levels
+- **Electrode Kinetics:** Recognizing that non-linearities often map to strict Butler-Volmer kinetics or mass-transport limitations, not arbitrary data drift.
+- **Artifact Flagging:** Preemptively filtering out ohmic drop (iR), double-layer capacitive charging masquerading as Faradaic current, and working electrode poisoning. 
+- **Environmental Context:** Building specific data checks for reference electrode shifts (e.g., Ag/AgCl stability) and localized pH gradients at the interface.
+- **Algorithmic Rigor:** Using standard ML stacks (scikit-learn, scipy) strictly constrained by physical boundaries and uncertainty quantification.
 
 ---
 
-## 🚀 Key Takeaways for Hiring Managers
-
-**What this project proves:**
-
-1. **Chemistry + Data Science integration**  
-   Not just applying ML blindly - using electrochemical intuition to interpret patterns
-
-2. **Experimental data maturity**  
-   Understanding that raw data ≠ analysis-ready data; QA is critical
-
-3. **Scientific judgment**  
-   Distinguishing real trends from noise, identifying when more data is needed
-
-4. **Communication excellence**  
-   Creating outputs useful for lab scientists, ML engineers, and program managers
-
-5. **Systems thinking**  
-   Not just analyzing data - influencing pipelines, experimental design, and infrastructure
-
----
-
-## � Chemical Data Scientist Skills Demonstrated
-
-**Core competencies for materials discovery:**
-
-| Skill Area | Demonstrated In This Project |
-|------------|------------------------------|
-| Experimental data interrogation | Notebook 1: Systematic data quality assessment |
-| Anomaly & artifact detection | Notebook 1: Statistical outlier detection with domain context |
-| Electrochemical intuition | Throughout: Interpretation using Butler-Volmer kinetics |
-| Feature engineering for ML | Notebook 2: Feature importance, descriptor evolution |
-| Lab feedback loops | Notebook 3: Actionable experimental recommendations |
-| Multi-campaign learning | Notebook 2: Tracking understanding across campaigns |
-| Scientific communication | Notebook 3: Stakeholder-specific reporting |
-| Data infrastructure influence | Analysis defines requirements for analysis-ready data |
-
----
-
-## 📁 Project Structure
+## 📁 Pipeline Architecture
 
 ```
 electrocatalyst-data-analysis/
-├── README.md                           # This file
-├── 01_experimental_data_quality.ipynb  # Data QA & anomaly detection
-├── 02_campaign_comparison_learning.ipynb # Multi-campaign analysis
-├── 03_scientific_communication.ipynb   # Reporting & digests
+├── README.md                           
+├── 01_experimental_data_quality.ipynb  # Data QA & artifact flagging
+├── 02_campaign_comparison_learning.ipynb # Multi-campaign statistical analysis
+├── 03_scientific_communication.ipynb   # Automated reporting schemas
 ├── data/
-│   ├── campaign_1_results.csv         # Simulated electrocatalyst data
+│   ├── campaign_1_results.csv         
 │   ├── campaign_2_results.csv
 │   └── campaign_3_results.csv
 ├── outputs/
-│   ├── executive_digest.md            # 1-page summary for managers
-│   ├── lab_feedback_report.md         # Experimental recommendations
-│   └── figures/                        # Key visualizations
-└── requirements.txt                    # Project dependencies
+│   ├── executive_digest.md            
+│   ├── lab_feedback_report.md         
+│   └── figures/                        
+└── requirements.txt                    
 ```
-
----
-
-## 🎯 Target Roles & Industries
-
-**Relevant positions:**
-- Chemical Data Scientist
-- Materials Informatics Engineer
-- Computational Chemistry / ML Scientist
-- R&D Data Scientist (electrochemistry/energy materials)
-- Experimental Data Analyst
-
-**Industries:**
-- Clean energy materials discovery
-- Self-driving laboratories & automation
-- Battery development & optimization
-- Catalyst design & manufacturing
-- National labs & academic research
-
----
-
-## 📧 Contact
-
-**Alex Domingues Batista, PhD**  
-📧 alexdbatista@gmail.com  
-🔗 [LinkedIn](https://linkedin.com/in/alexdbatista) | [GitHub](https://github.com/alexdbatista)
-
-**Background:** 10+ years electrochemistry research, PhD in Analytical Chemistry, former Humboldt Fellow, Research Group Leader at Hahn-Schickard Institute (Germany)

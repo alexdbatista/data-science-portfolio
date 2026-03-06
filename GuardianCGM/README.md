@@ -1,19 +1,12 @@
-
 # 🩸 GuardianCGM: Predictive Glucose Monitoring AI
 
 ![Python](https://img.shields.io/badge/Python-3.9%2B-blue)
 ![Pandas](https://img.shields.io/badge/Data_Science-Pandas-orange)
 ![Scikit-Learn](https://img.shields.io/badge/Machine_Learning-Scikit--Learn-yellow)
-![Status](https://img.shields.io/badge/Status-Portfolio_Ready-brightgreen)
 
-**GuardianCGM** is an end-to-end, regulatory-aware data science pipeline for forecasting blood glucose levels using Continuous Glucose Monitoring (CGM) data. It combines advanced signal processing, robust machine learning, and explainability to deliver clinically meaningful, auditable predictions—demonstrating best practices for MedTech and pharma applications.
+**GuardianCGM** is an end-to-end, regulatory-aware data science pipeline for forecasting blood glucose levels using Continuous Glucose Monitoring (CGM) data. It combines advanced signal processing, robust machine learning, and explainability to deliver clinically meaningful, auditable predictions.
 
-> **Designed for MedTech, pharma, and digital health roles in Germany and Europe.**
-
-> **📌 Note:** Some interactive Plotly visualizations in notebook 01 may not render on GitHub's notebook viewer. For full visualization support, please:
-> - Clone the repository and run notebooks locally in VS Code or Jupyter
-> - Or view via [nbviewer](https://nbviewer.org/) for better rendering
-> - All analytical figures (Clarke Grid, SHAP plots, model comparisons) in notebooks 02-03 display correctly as static images
+> **Note on Visualizations:** Some interactive Plotly figures in notebook 01 may not render natively in GitHub's viewer. For full interactivity, clone the repository or view via [nbviewer](https://nbviewer.org/). All analytical figures in notebooks 02-03 (Clarke Grid, SHAP plots) display correctly as static images.
 
 **Key Features:**
 - **Clinical-grade signal processing:** Savitzky-Golay filtering with chemistry/electrochemistry context
@@ -33,9 +26,9 @@
 
 ## 🏥 Clinical Safety & Regulatory Framework
 
-### Why This Matters for Production Medical AI
+### Designing for Production Medical Systems
 
-Moving beyond academic experimentation, this project demonstrates **production-grade regulatory awareness** essential for deploying medical AI systems in clinical settings. Each technical decision is mapped to specific regulatory requirements.
+Moving beyond unconstrained predictive modeling, this project implements the rigor required for deploying analytical systems in clinical settings. Technical decisions are mapped against regulatory requirements for medical devices.
 
 ### Safety Validation Results
 
@@ -92,34 +85,13 @@ This project implements a **complete regulatory compliance stack**:
 📋 **Complete documentation for regulatory submissions:**
 - **[Regulatory_Compliance_Manifesto.md](Regulatory_Compliance_Manifesto.md)** - Technical-to-regulatory mapping with code-level evidence
 - **[DATA_README.md](DATA_README.md)** - Data provenance and artifact management
-- **Module 04** - Algorithmic fairness clinical evaluation report
-- **Module 05** - Post-market surveillance system specification
-- **Module 06** - Drift monitoring validation protocol
 
-### Regulatory Readiness Assessment
+### Current Validation Status
 
-**Current Status: 85% Submission-Ready**
-
-| Approval Component | Status | Evidence Location |
-|-------------------|--------|------------------|
-| Technical Documentation | ✅ Complete | README, manifesto, notebooks |
-| Design Controls | ✅ Complete | Modules 01-05 |
-| Clinical Validation | ⏳ Synthetic data | Module 02, 04 (real trial needed) |
-| Risk Management File | ✅ Complete | Drift monitoring system |
-| Post-Market Surveillance | ✅ Complete | Module 05 (PMCF ready) |
-| Quality Management System | ✅ Documented | ISO 13485 compliance mapping |
-
-**Gap to 100%:** Prospective clinical trial with real patient data from FDA-approved CGM devices.
-
-### Interview Discussion Points
-
-For **MedTech/Pharma/Digital Health** hiring managers:
-
-1. **Regulatory Strategy:** How would you navigate FDA 510(k) vs. PMA pathways for this device?
-2. **Clinical Validation:** What study design would you propose for real-world validation?
-3. **Bias Mitigation:** How would you address the 93.6% RMSE disparity in elderly+obese patients?
-4. **Post-Market Surveillance:** How would you integrate this drift monitoring into existing quality systems?
-5. **Cross-Functional Collaboration:** How would clinical, regulatory, and engineering teams coordinate on model updates?
+- **Technical Documentation**: Complete (README, manifesto, notebooks)
+- **Design Controls**: Addressed in Modules 01-05
+- **Clinical Validation**: Currently validated on synthetic physiological data. *Gap: Prospective clinical trial with real patient data from FDA-approved CGM devices.*
+- **Post-Market Surveillance**: Implemented in Module 05 (PMCF framework ready)
 
 ---
 
@@ -294,17 +266,14 @@ monitor.generate_pmcf_report(output_path='reports/pmcf_january_2026.txt')
 ```
 
 **Key Outputs to Review:**
-- Feature importance bar chart (notebook 02)
-- Clarke Error Grid with zone breakdown (notebook 02)
-- Model comparison table (notebook 02)
-- Uncertainty calibration plot (notebook 02)
-- Real-time inference with clinical zones (notebook 03)
+- Feature importance ranking and biological rationale (notebook 02)
+- Clarke Error Grid with clinical risk zone analysis (notebook 02)
+- Uncertainty calibration evaluation (notebook 02)
+- Real-time inference simulating streaming data ingestion (notebook 03)
 - SHAP explainability visualizations (notebooks 02 & 03)
-- Fairness metrics and disparity heatmaps (notebook 04)
-- Drift alerts and PMCF reports (script 05)
-- **Regulatory_Compliance_Manifesto.md** with complete ISO/FDA/EU compliance mapping
-
-> **For MedTech/pharma interviews:** Emphasize Clarke Error Grid results (99.4% Zone A), uncertainty quantification, SHAP explainability, **algorithmic fairness audit** (ISO/IEC TR 24027:2021), **production drift monitoring** with automated retraining, **regulatory compliance manifesto** demonstrating deep understanding of ISO 13485, EU AI Act, and FDA requirements, and FastAPI production deployment—showcasing end-to-end MLOps and regulatory awareness.
+- Fairness metrics examining demographic disparity (notebook 04)
+- Statistical drift measurement logs (script 05)
+- **Regulatory_Compliance_Manifesto.md** mapping technical artifacts to ISO 13485 / FDA requirements
 
 ---
 
@@ -350,38 +319,6 @@ monitor.generate_pmcf_report(output_path='reports/pmcf_january_2026.txt')
 - **Explainability:** SHAP provides transparent, auditable feature contributions
 - **Fairness Audit:** Algorithmic bias assessment across patient demographics
 
-**Traceability & Reproducibility:**
-- Chronological data splits prevent look-ahead bias
-- Random seeds ensure reproducible model training
-- Environment versioning captured in notebooks
-- Model artifacts saved with version identifiers
-- Automated audit logging for regulatory inspection
-
-**Regulatory Readiness: 85%**
-- ✅ Complete technical documentation
-- ✅ Design controls and validation evidence
-- ✅ Post-market surveillance system operational
-- ✅ Bias mitigation documented
-- ⏳ Prospective clinical trial (real patient data needed)
-
-**Limitations & Next Steps:**
-- Current results based on synthetic data (realistic but simplified)
-- Real-world validation needed with FDA-approved CGM devices (Dexcom, Abbott FreeStyle Libre)
-- Patient-specific calibration and personalization
-- Prospective clinical trials for regulatory submission
-- Edge case handling (sensor failures, rapid glucose changes)
-
-**Chemistry/Analytical Science Perspective:**
-- CGM sensors use glucose oxidase electrochemistry
-- Signal processing accounts for sensor drift and lag time
-- Feature engineering informed by glucose metabolism kinetics
-- Analytical validation (precision, accuracy, LOD) required for clinical deployment
-
----
-
-## 👤 Author
-
-**Alex Domingues Batista, PhD**  
-Academic leader, researcher, and educator with a proven track record in Chemistry, Sustainability, and Data Science. Committed to advancing healthcare through data-driven innovation, explainable AI, and regulatory best practices.
-
-> _Ready to drive impactful solutions in MedTech and pharma._
+**Analytical Chemistry Perspective:**
+- CGM sensors rely on glucose oxidase electrochemistry; signal processing must account for sensor drift, temperature coefficients, and physiological lag time between blood and interstitial fluid.
+- Feature engineering in this pipeline is explicitly informed by these glucose metabolism kinetic constraints.
