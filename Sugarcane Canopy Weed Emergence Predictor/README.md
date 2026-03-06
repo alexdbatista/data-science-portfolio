@@ -15,7 +15,7 @@ This project models the emergence probability of *Brachiaria decumbens* (signal 
 
 The system ingests daily microclimate telemetry from the NASA POWER Agroclimatology API, engineers agronomically meaningful features grounded in seed germination physics, and produces a 14-day emergence risk forecast via an XGBoost classifier. SHAP explainability surfaces the specific meteorological or soil drivers behind each prediction, and a FastAPI service containerised in Docker exposes the model for integration into field advisory platforms.
 
-**The result:** a precision herbicide scheduling tool that reduces unnecessary applications while ensuring interventions land within the optimal pre-emergence window.
+**Operational Objective:** A precision herbicide scheduling tool that minimizes unnecessary chemical applications while ensuring interventions land strictly within the thermodynamically optimal pre-emergence window.
 
 ---
 
@@ -279,19 +279,19 @@ Sugarcane Canopy Weed Emergence Predictor/
 
 ---
 
-## What I Learned
+## 🔬 Agronomic Data Science Principles
 
-**1. The label engineering problem is the modelling problem.**
-Building the binary target (`emergence_risk_14d`) from first principles — combining HTT threshold, soil moisture, and light availability — was more consequential than any hyperparameter choice. The model learns whatever signal the labels contain; weak labels produce weak models regardless of architecture.
+**1. Latent Target Definition**
+Building the binary target (`emergence_risk_14d`) from first principles — combining exact HTT thresholds, soil moisture constraints, and sub-canopy light availability — is the core of this pipeline. The model learns whatever signal the labels contain; unphysical agronomic labels produce mathematically meaningless models regardless of the ML architecture.
 
-**2. Temporal validation is non-negotiable for environmental data.**
-My first version used a random 80/20 split. The autocorrelation in daily meteorological data meant the model could "see" neighbouring days trivially. Switching to year-boundary splits and time-series CV dropped apparent performance significantly — but the result is actually deployable.
+**2. Temporal Non-Stationarity in Environmental Data**
+Standard k-fold cross-validation is fundamentally flawed for meteorological data due to high temporal autocorrelation. Utilizing `TimeSeriesSplit` with strict year-boundary splits prevents data leakage and provides an honest estimate of the model's out-of-sample inferential power for future growing seasons.
 
-**3. Physical constraints belong in the feature space, not just the model.**
-Encoding the germination base temperature directly (GDD = max(T - Tb, 0)) removes the model's burden of re-learning a biophysical threshold from data. The model then only needs to learn the nonlinear combinations between features, which it does well.
+**3. Hard-Coding Physical Constraints**
+Encoding the germination base temperature directly (GDD = max(T - Tb, 0)) removes the algorithm's burden of re-learning established biophysical thresholds. The gradient booster is mathematically reserved only for learning the nonlinear interdependencies between the feature matrices.
 
-**4. SHAP creates stakeholder trust, not just interpretability.**
-In agronomic advisory, recommendations without explanation are often ignored. The per-prediction SHAP waterfall gives the agronomist a concrete, verifiable reason to act — or to question the model when local conditions differ from training data.
+**4. Explainability as an Operational Requirement**
+In agronomy, recommendations without causal explanation are un-deployable. The per-prediction SHAP waterfall provides the field agronomist with a concrete, verifiable biophysical reason to trigger an application pass—or the data needed to override the model when localized micro-conditions deviate from satellite telemetry.
 
 ---
 
@@ -299,16 +299,5 @@ In agronomic advisory, recommendations without explanation are often ignored. Th
 
 - **NASA POWER Agroclimatology API** — [power.larc.nasa.gov](https://power.larc.nasa.gov/)
   Daily meteorological data for agricultural applications, globally available
-- *B. decumbens* germination parameters from Bradford (2002) hydrotime model framework
-- Sugarcane canopy phenology calibrated to Ribeirão Preto, SP agroclimatic zone
-
----
-
-## Strategic Context
-
-This project demonstrates technical alignment with precision agriculture platforms (xarvio / BASF Digital Farming) by:
-- Processing **localized microclimate telemetry** from globally accessible remote sensing infrastructure
-- Translating raw meteorological data into **field-zone-specific herbicide timing intelligence**
-- Delivering **explainable predictions** that field advisors can act on and verify
-- Proving deployment readiness via **containerised REST API** with CI-compatible healthchecks
-- Using a dominant Brazilian crop (*Saccharum officinarum*) to demonstrate authentic agronomic domain expertise
+- *B. decumbens* germination parameters derived from the Bradford (2002) hydrotime model framework.
+- Sugarcane canopy phenology calibrated to the Ribeirão Preto, SP agroclimatic zone.
