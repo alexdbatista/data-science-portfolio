@@ -212,6 +212,8 @@ data-science-portfolio/
 │   ├── 01_data_ingestion.py
 │   ├── 02_spectral_dimensionality_reduction.ipynb
 │   ├── 03_spatial_cnn_segmentation.py
+│   ├── 04_model_training.py
+│   ├── DATA_README.md
 │   ├── README.md
 │   └── requirements.txt
 ├── Sugarcane Canopy Weed Emergence Predictor/       # 🌾 Agritech spatial weed prediction
