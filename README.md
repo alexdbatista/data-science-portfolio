@@ -32,6 +32,7 @@ A collection of end-to-end data science architectures spanning **healthcare/clin
 
 | Project | Business Output | Technical Complexity | Domain |
 |---------|-----------------|----------------------|--------|
+| 🔬 **[QCL Breast Cancer Diagnostics](qcl-breast-cancer-diagnostics/)** | Eliminates wet-lab staining via label-free IR optical readouts. | Spatial CNNs, Out-of-core Data | Digital Pathology |
 | 🌾 **[Sugarcane Weed Predictor](Sugarcane%20Canopy%20Weed%20Emergence%20Predictor/)** | Optimizes ag-chemical supply chains and maximizes yields via precision herbicide scheduling. | XGBoost, Sub-canopy Physics, FastAPI | Agritech / Precision Ag |
 | 🩸 **[GuardianCGM](GuardianCGM/)** | Enables preventative clinical intervention, improving patient outcomes through predictive analytics. | Regulatory-aware ML (Clarke Grid), Uncertainty Qty. | Clinical AI / MedTech |
 | 📊 **[Gas Sensor Drift](gas-sensor-drift-monitoring/)** | Prevents silent model failures in industrial IoT arrays, reducing unplanned maintenance costs. | Statistical drift tracking, Windowed adaptive retraining | Concept Drift / IoT |
@@ -42,6 +43,8 @@ A collection of end-to-end data science architectures spanning **healthcare/clin
 ---
 
 ## Start here (2 minutes)
+- **🔬 QCL Breast Cancer Diagnostics** — label-free spatial deep learning using Daylight Spero® infrared hyperspectral imaging  
+  → `./qcl-breast-cancer-diagnostics/`
 - **🌾 Sugarcane Canopy Weed Emergence Predictor** — microclimate-driven herbicide decision intelligence for Brazilian sugarcane  
   → `./Sugarcane Canopy Weed Emergence Predictor/`
 - **🩸 GuardianCGM: Clinical Glucose Prediction AI** — regulatory-aware MedTech pipeline with Clarke Error Grid validation + SHAP explainability  
@@ -90,7 +93,21 @@ A collection of end-to-end data science architectures spanning **healthcare/clin
 
 ## System Architectures
 
-### 1) 🌾 Sugarcane Canopy Weed Emergence Predictor (Agritech)
+### 1) 🔬 QCL Spatial Histopathology: Breast Cancer Diagnostics (Deep Tech)
+**Objective:** Automate pathological screening by identifying malignant stroma purely from Mid-IR vibrational signatures, eliminating standard H&E chemical staining.
+
+**Highlights**
+- **Hardware Integration:** Processes raw `.mat` hyperspectral data cubes from a Daylight Solutions Spero® QCL microscope.
+- **Dimensionality Reduction:** Uses Manifold Learning (PCA + UMAP) to cluster spatial phenotypes in the 912–1800 cm⁻¹ fingerprint region.
+- **Big Data Handling:** Custom Python ingestion pipeline to stream multi-gigabyte datasets via the Zenodo REST API.
+- **Regulatory Alignment:** Designed with complete DSGVO/GDPR compliance using anonymized Tissue Microarrays.
+
+**Tech stack:** Python, scikit-learn (UMAP, PCA), SciPy, Computer Vision  
+**Project:** `./qcl-breast-cancer-diagnostics/`
+
+---
+
+### 2) 🌾 Sugarcane Canopy Weed Emergence Predictor (Agritech)
 **Objective:** Predict emergence timing of competitive weeds in sugarcane using microclimate telemetry and agronomically-grounded feature engineering.
 
 **Highlights**
@@ -104,7 +121,7 @@ A collection of end-to-end data science architectures spanning **healthcare/clin
 
 ---
 
-### 2) 🩸 GuardianCGM: Clinical Glucose Prediction AI (MedTech)
+### 3) 🩸 GuardianCGM: Clinical Glucose Prediction AI (MedTech)
 **Objective:** Build a regulatory-aware, end-to-end pipeline for 30-minute glucose forecasting using Continuous Glucose Monitoring (CGM) data.
 
 **Highlights**
@@ -120,7 +137,7 @@ A collection of end-to-end data science architectures spanning **healthcare/clin
 
 ---
 
-### 3) 📊 Gas Sensor Drift & Calibration Transfer (Concept Drift)
+### 4) 📊 Gas Sensor Drift & Calibration Transfer (Concept Drift)
 **Objective:** Quantify long-term drift and evaluate strategies to keep sensor models stable over time.
 
 **Highlights**
@@ -134,7 +151,7 @@ A collection of end-to-end data science architectures spanning **healthcare/clin
 
 ---
 
-### 4) 🔬 Explainable AI for Biomarker Prioritization (LC–MS Metabolomics)
+### 5) 🔬 Explainable AI for Biomarker Prioritization (LC–MS Metabolomics)
 **Objective:** Build an interpretable ML pipeline to prioritize candidate biomarkers from high-dimensional assay data.
 
 **Highlights**
@@ -148,7 +165,7 @@ A collection of end-to-end data science architectures spanning **healthcare/clin
 
 ---
 
-### 5) 🧪 ToxPred AI: ADMET Screening Platform (Cheminformatics)
+### 6) 🧪 ToxPred AI: ADMET Screening Platform (Cheminformatics)
 **Objective:** Accelerate early-stage drug discovery by predicting molecular properties before synthesis.
 
 **Highlights**
@@ -163,7 +180,7 @@ A collection of end-to-end data science architectures spanning **healthcare/clin
 
 ---
 
-### 6) ⚡ Electrocatalyst Data Analysis: Experimental Campaign Intelligence
+### 7) ⚡ Electrocatalyst Data Analysis: Experimental Campaign Intelligence
 **Objective:** Demonstrate end-to-end analysis of high-throughput screening campaigns with experimental data QA and multi-campaign learning.
 
 **Highlights**
@@ -188,10 +205,14 @@ A collection of end-to-end data science architectures spanning **healthcare/clin
 
 ---
 
-## Repository structure
 ```text
 data-science-portfolio/
 ├── README.md                                        # This file - portfolio overview
+├── qcl-breast-cancer-diagnostics/                   # 🔬 QCL spatial deep learning & pathology
+│   ├── 01_data_ingestion.py
+│   ├── 02_spectral_dimensionality_reduction.ipynb
+│   ├── README.md
+│   └── requirements.txt
 ├── Sugarcane Canopy Weed Emergence Predictor/       # 🌾 Agritech spatial weed prediction
 │   ├── 01_data_ingestion.py
 │   ├── 02_feature_engineering.py
