@@ -34,11 +34,12 @@ from sklearn.preprocessing import StandardScaler
 # ---------------------------------------------------------------------------
 # Configuration
 # ---------------------------------------------------------------------------
-DATA_DIR      = Path("qcl-breast-cancer-diagnostics/data")
+BASE_DIR      = Path(__file__).parent
+DATA_DIR      = BASE_DIR / "data"
 RAW_DIR       = DATA_DIR / "raw"
 PROCESSED_DIR = DATA_DIR / "processed"
 LABELS_DIR    = DATA_DIR / "labels"
-FIGURES_DIR   = Path("qcl-breast-cancer-diagnostics/figures")
+FIGURES_DIR   = BASE_DIR / "figures"
 
 LABELS_DIR.mkdir(parents=True, exist_ok=True)
 

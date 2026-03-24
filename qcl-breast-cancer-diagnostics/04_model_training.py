@@ -45,15 +45,16 @@ random.seed(SEED)
 np.random.seed(SEED)
 torch.manual_seed(SEED)
 
-DATA_DIR      = Path("./data/processed")   # PCA-reduced .npy cubes
-LABEL_DIR     = Path("./data/labels")      # Ground-truth annotation masks
-MODELS_DIR    = Path("./models")
+BASE_DIR      = Path(__file__).parent
+DATA_DIR      = BASE_DIR / "data" / "processed"   # PCA-reduced .npy cubes
+LABEL_DIR     = BASE_DIR / "data" / "labels"      # Ground-truth annotation masks
+MODELS_DIR    = BASE_DIR / "models"
 MODELS_DIR.mkdir(parents=True, exist_ok=True)
 
 PATCH_SIZE    = 64       # Pixels — avoids VRAM exhaustion on large tissue cores
 BATCH_SIZE    = 8
 NUM_CLASSES   = 4
-BANDS         = 10       # PCA components retained in Module 02
+BANDS         = 15       # PCA components retained in Module 02
 EPOCHS        = 50
 LR            = 1e-4
 PATIENCE      = 10       # Early stopping patience (epochs without improvement)
