@@ -65,7 +65,7 @@ Metrics computed by sliding-window inference on 4 held-out validation tiles (sam
 | Metric | Value |
 |---|---|
 | **Overall Pixel Accuracy** | 96.5% |
-| **Mean IoU (4 classes)** | 85.9% |
+| **Mean IoU (4 classes)** | 86.6% |
 | **Mean Dice (4 classes)** | 92.3% |
 | **Malignant Stroma IoU** | 91.9% |
 | **Malignant Stroma Dice / F1** | 95.8% |
@@ -126,7 +126,7 @@ flowchart TD
 
     D3 --> E["Segmentation Mask\n4 Histological Classes"]:::output
     E --> F("04: Training\nAdamW + Cosine LR\nDice+CE Loss · Early Stopping"):::process
-    F --> G["best_unet_qcl.pth\nepoch 18 · mIoU 85.9%"]:::output
+    F --> G["best_unet_qcl.pth\nepoch 18 · mIoU 86.6%"]:::output
     G --> H["🖥️ app_dash.py\nInteractive Clinical Dashboard"]:::output
 ```
 
