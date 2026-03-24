@@ -131,7 +131,7 @@ if HISTORY.exists():
 # STEP 2: Load model & run full-tile inference
 # ---------------------------------------------------------------------------
 print("\n[STEP 2] Loading best checkpoint and running inference...")
-ckpt  = torch.load(str(CHECKPOINT), map_location=DEVICE)
+ckpt  = torch.load(str(CHECKPOINT), map_location=DEVICE, weights_only=True)
 model = HyperspectralUNet(in_channels=BANDS, num_classes=NUM_CLASSES).to(DEVICE)
 model.load_state_dict(ckpt["model_state_dict"])
 model.eval()

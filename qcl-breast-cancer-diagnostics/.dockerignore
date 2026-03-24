@@ -12,7 +12,7 @@ run_training.py
 train_*.py
 
 # Exclude docs, figures, alternative app versions, misc requirements
-figures/
+ 
 docs/
 README*.md
 DATA_README.md

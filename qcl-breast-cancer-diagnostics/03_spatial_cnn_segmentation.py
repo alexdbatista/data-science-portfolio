@@ -128,8 +128,8 @@ class HyperspectralUNet(nn.Module):
 # Sanity Check & Architecture Summary
 # ---------------------------------------------------------------------------
 if __name__ == "__main__":
-    # Example: 120 PCA-reduced spectral bands, predicting 4 tissue classes
-    BANDS = 120
+    # Example: 15 PCA-reduced spectral bands, predicting 4 tissue classes
+    BANDS = 15
     CLASSES = 4
     HEIGHT, WIDTH = 256, 256
     

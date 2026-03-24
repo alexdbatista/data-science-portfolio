@@ -1,3 +1,13 @@
+---
+title: QCL Breast Cancer Diagnostics
+emoji: 🔬
+colorFrom: blue
+colorTo: indigo
+sdk: docker
+app_port: 7860
+pinned: false
+---
+
 # 🔬 QCL Spatial Histopathology: Breast Cancer Diagnostics
 
 ![Python](https://img.shields.io/badge/Python-3.11%2B-blue?logo=python&logoColor=white)

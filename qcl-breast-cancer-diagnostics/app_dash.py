@@ -6,6 +6,7 @@ Dash / Plotly — production-grade, deploy with gunicorn / Render / Railway
 
 # ── Imports ─────────────────────────────────────────────────────────────────
 import base64
+import hashlib
 import io
 from datetime import datetime
 from pathlib import Path
@@ -248,6 +249,31 @@ body {
     box-shadow: 0 8px 24px rgba(0,61,130,0.3) !important;
 }
 
+/* ── Dropdown Theming ───────────────────────────────────────────────────── */
+.Select-control {
+    border-radius: 10px !important;
+    border: 2px solid var(--border) !important;
+    box-shadow: none !important;
+    font-size: 0.95rem;
+    transition: all 0.2s;
+    background-color: var(--card-bg) !important;
+}
+.is-focused:not(.is-open) > .Select-control {
+    border-color: var(--secondary) !important;
+    box-shadow: 0 0 0 3px rgba(0, 102, 204, 0.15) !important;
+}
+.Select-menu-outer {
+    border-radius: 10px !important;
+    border: 1px solid var(--border) !important;
+    box-shadow: var(--shadow-lg) !important;
+    overflow: hidden;
+}
+.Select-option.is-focused, .Select-option.is-selected {
+    background-color: var(--bg2) !important;
+    color: var(--primary) !important;
+    font-weight: 600;
+}
+
 /* ── Section headers ───────────────────────────────────────────────────── */
 .section-title {
     font-size: 1.8rem; font-weight: 800; color: var(--primary);
@@ -437,9 +463,44 @@ body {
 }
 #main-wrapper { flex: 1; min-width: 0; overflow-x: hidden; }
 #outer-flex   { display: flex; min-height: 100vh; }
+
+.mobile-nav {
+    display: none;
+    position: sticky;
+    top: 0;
+    z-index: 300;
+    background: rgba(255, 255, 255, 0.95);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 0.5rem 0.6rem;
+    margin-bottom: 0.8rem;
+    backdrop-filter: blur(4px);
+    gap: 0.35rem;
+    overflow-x: auto;
+    white-space: nowrap;
+}
+.mobile-nav-link {
+    text-decoration: none !important;
+    color: var(--primary);
+    border: 1px solid #bfdbfe;
+    background: #eff6ff;
+    border-radius: 999px;
+    font-size: 0.74rem;
+    font-weight: 700;
+    padding: 0.3rem 0.65rem;
+    display: inline-flex;
+    align-items: center;
+}
+.mobile-nav-link:hover {
+    color: white;
+    background: var(--primary);
+    border-color: var(--primary);
+}
+
 @media (max-width: 768px) {
     #sidebar { display: none; }
     #main-wrapper { width: 100%; }
+    .mobile-nav { display: flex; }
 }
 """
 
@@ -475,7 +536,7 @@ def build_sidebar():
         html.A("🚀  Run Analysis", href="#sec-analysis", className="sb-run"),
         html.Div([
             html.Div("A. Domingues Batista"),
-            html.Div("Portfolio · 2024"),
+            html.Div("Portfolio · 2026"),
         ], className="sb-footer"),
     ], id="sidebar")
 
@@ -531,7 +592,7 @@ def load_sample_data(sample_id):
         return cube, labels
 
     # Synthetic demo data
-    np.random.seed(hash(sample_id) % 2**32)
+    np.random.seed(stable_seed(sample_id))
     H, W, C = 128, 128, 15
     cube   = np.random.randn(H, W, C).astype(np.float32)
     labels = np.zeros((H, W), dtype=np.int64)
@@ -552,6 +613,12 @@ def load_sample_data(sample_id):
 def normalize_hs(arr):
     a = arr.astype(np.float32)
     return (a - a.min()) / (a.max() - a.min() + 1e-8)
+
+
+def stable_seed(sample_id):
+    """Create deterministic seed values independent of Python hash randomization."""
+    digest = hashlib.sha256(str(sample_id).encode("utf-8")).hexdigest()
+    return int(digest[:8], 16)
 
 
 # ── Load model once at startup ────────────────────────────────────────────────
@@ -624,7 +691,7 @@ def run_analysis(sample_id):
     else:
         # ── Fallback: coin-flip noise on ground truth (demo only) ─────────
         print("[QCL] No model — using noisy ground-truth fallback")
-        np.random.seed(hash(sample_id) % 2**32)
+        np.random.seed(stable_seed(sample_id))
         prediction = labels.copy()
         flip = np.random.random(labels.shape) < 0.08
         prediction[flip] = np.random.randint(0, 4, flip.sum())
@@ -731,7 +798,7 @@ def build_spectral_figure():
         legend=dict(orientation="h", y=1.04, x=0.5, xanchor="center",
                     font=dict(family="Inter", size=12), bgcolor="rgba(255,255,255,0.85)"),
         margin=dict(l=60, r=30, t=60, b=60), height=420,
-        paper_bgcolor="rgba(0,0,0,0)", plot_bgcolor="rgba(255,255,255,0.95)",
+        paper_bgcolor="rgba(0,0,0,0)", plot_bgcolor="rgba(0,0,0,0)",
         hovermode="x unified",
     )
     return fig
@@ -1016,7 +1083,7 @@ def build_spectral_heatmap():
         xaxis=dict(tickfont=dict(family="Inter", size=10), tickangle=-30),
         yaxis=dict(tickfont=dict(family="Inter", size=11)),
         margin=dict(l=160, r=90, t=60, b=90), height=250,
-        paper_bgcolor="rgba(0,0,0,0)", plot_bgcolor="white",
+        paper_bgcolor="rgba(0,0,0,0)", plot_bgcolor="rgba(0,0,0,0)",
         font=dict(family="Inter"),
     )
     return fig
@@ -1106,20 +1173,33 @@ def build_spero_comparison():
     return "data:image/png;base64," + base64.b64encode(buf.read()).decode()
 
 
-# ── Pre-compute static images once at startup ──────────────────────────────────
-print("[QCL] Generating reference images…")
-_IMG_PIPELINE = build_pipeline_image()
-_IMG_ATLAS    = build_tissue_atlas()
-_IMG_UNET     = build_unet_diagram()
-_IMG_SPERO    = build_spero_comparison()
-_FIG_SPECTRAL = build_spectral_figure()
-_FIG_HEATMAP  = build_spectral_heatmap()
-_FIG_RADAR    = build_validation_radar()
-print("[QCL] Reference images ready.")
+# ── Lazy static asset cache ────────────────────────────────────────────────────
+_STATIC_ASSETS = None
+
+
+def get_static_assets():
+    """Generate heavy static charts/images on demand instead of import time."""
+    global _STATIC_ASSETS
+    if _STATIC_ASSETS is not None:
+        return _STATIC_ASSETS
+
+    print("[QCL] Generating reference images…")
+    _STATIC_ASSETS = {
+        "img_pipeline": build_pipeline_image(),
+        "img_atlas": build_tissue_atlas(),
+        "img_unet": build_unet_diagram(),
+        "img_spero": build_spero_comparison(),
+        "fig_spectral": build_spectral_figure(),
+        "fig_heatmap": build_spectral_heatmap(),
+        "fig_radar": build_validation_radar(),
+    }
+    print("[QCL] Reference images ready.")
+    return _STATIC_ASSETS
 
 
 # ── Pre-analysis layout ───────────────────────────────────────────────────────
 def pre_analysis_content():
+    assets = get_static_assets()
 
     # ── INTRO BANNER ──────────────────────────────────────────────────────
     intro = html.Div([
@@ -1222,7 +1302,11 @@ def pre_analysis_content():
         html.P("From biopsy slide to AI-generated risk map — the end-to-end pipeline:",
                style={"color":"#475569","fontSize":"0.92rem","margin":"1.5rem 0 0.5rem",
                       "fontWeight":"600","textAlign":"center"}),
-        html.Div(html.Img(src=_IMG_PIPELINE, style={"width":"100%","borderRadius":"8px"}),
+        html.Div(html.Img(
+            src=assets["img_pipeline"],
+            alt="QCL end-to-end clinical pipeline from biopsy imaging to AI risk map",
+            style={"width":"100%","borderRadius":"8px"},
+        ),
                  className="img-container"),
     ])
 
@@ -1290,7 +1374,11 @@ def pre_analysis_content():
         html.P("SPERO-QT 340 vs. conventional hyperspectral imaging \u2014 acquisition speed & spectral throughput:",
                style={"color":"#475569","fontSize":"0.92rem","margin":"1.5rem 0 0.4rem",
                       "fontWeight":"600","textAlign":"center"}),
-        html.Div(html.Img(src=_IMG_SPERO, style={"width":"100%","borderRadius":"8px"}),
+        html.Div(html.Img(
+            src=assets["img_spero"],
+            alt="Performance comparison between SPERO-QT 340, FTIR, and Raman systems",
+            style={"width":"100%","borderRadius":"8px"},
+        ),
                  className="img-container"),
         # ── Why SPERO is Unique ───────────────────────────────────────────
         dbc.Row([
@@ -1351,7 +1439,7 @@ def pre_analysis_content():
         dbc.Row([
             dbc.Col(biomarkers_card, width=5),
             dbc.Col(dcc.Graph(
-                figure=_FIG_SPECTRAL,
+                figure=assets["fig_spectral"],
                 config={"displayModeBar":True,"modeBarButtonsToRemove":["lasso2d","select2d"]},
                 style={"height":"420px"},
             ), width=7),
@@ -1362,7 +1450,7 @@ def pre_analysis_content():
         html.Div([
             html.H4("Spectral Band Heatmap",
                     style={"fontSize":"1rem","fontWeight":"700","color":"#0f172a","marginBottom":"0.5rem"}),
-            dcc.Graph(figure=_FIG_HEATMAP, config={"displayModeBar":False}),
+            dcc.Graph(figure=assets["fig_heatmap"], config={"displayModeBar":False}),
             html.P("Normalised 0\u20131 across bands. Malignant Stroma shows characteristically elevated Amide I and Phosphate signals.",
                    style={"color":"#64748b","fontSize":"0.8rem","marginTop":"0.35rem","textAlign":"center"}),
         ], className="clinical-card"),
@@ -1405,7 +1493,11 @@ def pre_analysis_content():
                "These synthetic panels show the expected H&E-equivalent morphology of each class "
                "as an orientation reference.",
                style={"color":"#475569","marginBottom":"1rem"}),
-        html.Div(html.Img(src=_IMG_ATLAS, style={"width":"100%","borderRadius":"8px"}),
+        html.Div(html.Img(
+            src=assets["img_atlas"],
+            alt="Tissue atlas with representative morphology across classes",
+            style={"width":"100%","borderRadius":"8px"},
+        ),
                  className="img-container"),
         tissue_rows,
     ])
@@ -1552,7 +1644,11 @@ def pre_analysis_content():
         html.P("U-Net encoder-decoder with skip connections \u2014 each pixel classified independently:",
                style={"color":"#475569","fontSize":"0.92rem","margin":"1.5rem 0 0.4rem",
                       "fontWeight":"600","textAlign":"center"}),
-        html.Div(html.Img(src=_IMG_UNET, style={"width":"100%","borderRadius":"8px"}),
+        html.Div(html.Img(
+            src=assets["img_unet"],
+            alt="U-Net architecture used for QCL hyperspectral segmentation",
+            style={"width":"100%","borderRadius":"8px"},
+        ),
                  className="img-container"),
         dbc.Row([
             dbc.Col(html.Div([
@@ -1624,7 +1720,7 @@ def pre_analysis_content():
                style={"color":"#475569","marginBottom":"0.5rem"}),
         stat_pills,
         dbc.Row([
-            dbc.Col(dcc.Graph(figure=_FIG_RADAR, config={"displayModeBar":False}), width=5),
+            dbc.Col(dcc.Graph(figure=assets["fig_radar"], config={"displayModeBar":False}), width=5),
             dbc.Col(html.Div([
                 html.Div("\U0001f4cb Training Performance Summary", className="card-title"),
                 dash_table.DataTable(
@@ -1926,8 +2022,12 @@ def post_analysis_content(sample_id, cube, labels, results):
 
         dbc.Row([
             dbc.Col([
-                html.P("🔬 Original Tissue (False-Colour RGB)", className="img-caption"),
-                html.Img(src=img_orig, style={"width": "100%", "borderRadius": "10px", "border": "1px solid #e2e8f0"}),
+                html.P("🔬 PCA Spatial Map (False-Colour RGB)", className="img-caption"),
+                html.Img(
+                    src=img_orig,
+                    alt="Original hyperspectral tissue rendering mapped from PCA channels",
+                    style={"width": "100%", "aspectRatio": "1 / 1", "objectFit": "cover", "borderRadius": "10px", "border": "2px solid #cbd5e1"},
+                ),
             ], width=3),
             dbc.Col([
                 html.Div([
@@ -1939,8 +2039,11 @@ def post_analysis_content(sample_id, cube, labels, results):
                                                   "marginLeft": "6px", "verticalAlign": "middle",
                                                   "border": "1px solid #86efac"}),
                 ]),
-                html.Img(src=img_label, style={"width": "100%", "borderRadius": "10px",
-                                               "border": "2px solid #22c55e"}),
+                html.Img(
+                    src=img_label,
+                    alt="Expert pathologist segmentation labels for the selected sample",
+                    style={"width": "100%", "aspectRatio": "1 / 1", "objectFit": "cover", "borderRadius": "10px", "border": "2px solid #22c55e"},
+                ),
                 html.P([
                     html.Code(f"data/labels/{sample_id}_labels.npy"),
                     " — 480×480 uint8, classes 0–3",
@@ -1948,7 +2051,11 @@ def post_analysis_content(sample_id, cube, labels, results):
             ], width=3),
             dbc.Col([
                 html.P("🤖 AI Clinical Prediction", className="img-caption"),
-                html.Img(src=img_pred, style={"width": "100%", "borderRadius": "10px", "border": "1px solid #003d82"}),
+                html.Img(
+                    src=img_pred,
+                    alt="U-Net tissue class prediction map generated by the model",
+                    style={"width": "100%", "aspectRatio": "1 / 1", "objectFit": "cover", "borderRadius": "10px", "border": "1px solid #003d82"},
+                ),
             ], width=3),
             dbc.Col([
                 html.Div([
@@ -1961,8 +2068,11 @@ def post_analysis_content(sample_id, cube, labels, results):
                                      "marginLeft": "6px", "verticalAlign": "middle",
                                      "border": "1px solid #fcd34d"}),
                 ]),
-                html.Img(src=img_diff, style={"width": "100%", "borderRadius": "10px",
-                                              "border": "2px solid #f59e0b"}),
+                html.Img(
+                    src=img_diff,
+                    alt="Disagreement map highlighting AI vs pathologist differences",
+                    style={"width": "100%", "aspectRatio": "1 / 1", "objectFit": "cover", "borderRadius": "10px", "border": "2px solid #f59e0b"},
+                ),
                 html.P("Grey = correct · Colour = AI error (class-coloured)",
                        style={"fontSize": "0.72rem", "color": "#64748b",
                               "marginTop": "0.3rem", "textAlign": "center"}),
@@ -2138,6 +2248,14 @@ app.layout = html.Div([
     html.Div([
         build_sidebar(),
         html.Div([  # main content column
+        html.Div([
+            html.A("Overview", href="#sec-hero", className="mobile-nav-link"),
+            html.A("Problem", href="#sec-problem", className="mobile-nav-link"),
+            html.A("Instrument", href="#sec-instrument", className="mobile-nav-link"),
+            html.A("Signal", href="#sec-signal", className="mobile-nav-link"),
+            html.A("Model", href="#sec-model", className="mobile-nav-link"),
+            html.A("Run", href="#sec-analysis", className="mobile-nav-link"),
+        ], className="mobile-nav"),
 
     dbc.Container([
         # ── Header ──────────────────────────────────────────────────────
@@ -2178,7 +2296,7 @@ app.layout = html.Div([
                         html.Div([html.Span("✓", className="hdr-tick"),
                                   html.Span("Mean Dice 92.3%  \u00b7  Malignant IoU 91.9%")],  className="hdr-check"),
                         html.Div([html.Span("✓", className="hdr-tick"),
-                                  html.Span("Real 480\u00d7480\u00d715 QCL cubes loaded")],        className="hdr-check"),
+                                  html.Span("20 real 480\u00d7480\u00d715 QCL cubes loaded")],        className="hdr-check"),
                         html.Div([html.Span("✓", className="hdr-tick"),
                                   html.Span("Checkpoint epoch 18 / 28 \u00b7 val loss 0.1699")],  className="hdr-check"),
                         html.Hr(className="hdr-sep"),
