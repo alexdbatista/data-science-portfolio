@@ -1,0 +1,29 @@
+# ============================================================
+# HPLC Metabolomics — Biomarker Discovery with Explainable AI
+# ============================================================
+# Python 3.12.3+
+# 
+# Installation: pip install -r requirements.txt
+# 
+# Note: Versions pinned to ensure reproducibility.
+# Tested on Ubuntu 22.04 LTS (January 2026)
+# ============================================================
+
+# Core Data Science
+pandas==2.3.3
+numpy==2.4.1
+scipy==1.17.0
+
+# Machine Learning
+scikit-learn==1.8.0
+
+# Explainable AI
+shap==0.45.1
+
+# Visualization
+matplotlib==3.10.8
+seaborn==0.13.2
+
+# Jupyter
+jupyter==1.1.1
+ipykernel==7.1.0
