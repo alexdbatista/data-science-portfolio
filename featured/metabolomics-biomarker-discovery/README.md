@@ -67,12 +67,12 @@ Standard transformation protocols for liquid chromatography-mass spectrometry pe
 ### 2. Multivariate Feature Selection
 Benchmarked sparse linear models (L1 regularization) against ensemble methods:
 
-| Model Structure | CV Accuracy | ROC-AUC | Rationale |
-|-----------------|-------------|---------|-----------|
-| **Lasso (L1 Logistic)** | **57.9%** | **0.668** | Handles p >> n regimes; forces strict sparsity |
-| Random Forest | 48.6% | 0.498 | Overfits heavily on heavily noisy, small-n cohorts |
+| Model Structure | Balanced Accuracy | ROC-AUC | Rationale |
+|-----------------|-------------------|---------|-----------|
+| **Lasso (L1 Logistic)** | **64.2%** | **0.668** | Handles p >> n regimes; forces strict sparsity |
+| Random Forest | 49.3% | 0.498 | Overfits heavily on highly noisy, small-n cohorts |
 
-*Note on performance:* A ~58% accuracy on a highly noisy n=76 dataset is metabolomically typical. The objective here is feature ranking, not clinical deployment. 
+*Note on performance:* Due to significant class imbalance (47 cachexia vs. 29 control), we evaluate using balanced accuracy rather than simple accuracy (which would report ~62% just by predicting the majority class). The objective here is feature ranking and signal isolation, not immediate clinical deployment. 
 
 ### 3. SHAP Interpretation for Assay Prioritization
 Lasso coefficients only tell part of the story. Extracting exact SHAP values maps the marginal contribution of each metabolite to the diagnostic output.
