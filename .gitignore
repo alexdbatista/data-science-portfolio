@@ -61,3 +61,9 @@ DUNIA_APPLICATION_GUIDE.md
 
 # Generated outputs (notebooks generate these, no need to track)
 */outputs/*.md
+
+# Archive/Old versions
+archive/
+Archive/
+.archive/
+
