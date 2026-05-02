@@ -174,7 +174,11 @@ def analyze_compound(compound_name: str, is_smiles: bool = False) -> dict:
 
                 # --- B. AI PREDICTIONS (Random Forest) ---
                 # 1. Generate Morgan Fingerprint (2048 bits)
-                fp = AllChem.GetMorganFingerprintAsBitVect(mol, 2, nBits=2048)
+                try:
+                    fp = AllChem.GetMorganFingerprintAsBitVect(mol, 2, nBits=2048)
+                except AttributeError:
+                    generator = AllChem.GetMorganGenerator(radius=2, fpSize=2048)
+                    fp = generator.GetFingerprint(mol)
                 fp_array = np.array(fp).reshape(1, -1)
 
                 # 2. Run Models
@@ -188,7 +192,8 @@ def analyze_compound(compound_name: str, is_smiles: bool = False) -> dict:
                 if models['tox']:
                     prob = models['tox'].predict_proba(fp_array)[0][1]
                     result["Tox_Prob"] = prob
-                    result["Tox_Class"] = "Safe" if prob > 0.6 else "Toxic"
+                    # ClinTox dataset labels: 1 = FDA Approved (Safe), 0 = Clinical Trial Failed (Toxic)
+                    result["Tox_Class"] = "Safe" if prob > 0.5 else "Toxic"
 
                 # BBB (Brain)
                 if models['bbb']:
