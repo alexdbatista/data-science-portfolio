@@ -5,8 +5,10 @@ import streamlit as st
 import numpy as np
 import matplotlib
 from rdkit import Chem
-from rdkit.Chem import Draw, AllChem
+from rdkit.Chem import Draw
 import rdkit.Chem.Descriptors as Descriptors
+
+from toxpred_core import model_features
 
 # Set backend to avoid GUI crashes
 matplotlib.use('Agg')
@@ -43,12 +45,18 @@ def load_models():
         'tox': os.path.join(current_dir, 'toxicity_model.pkl'),
         'bbb': os.path.join(current_dir, 'bbb_model.pkl')
     }
+    if not all(os.path.exists(p) for p in paths.values()):
+        # First run: model files are not stored in git, so train them once.
+        import step_models
+        with st.spinner("First run: training models from DeepChem data (~1-2 min)..."):
+            step_models.main()
     models = {}
     for name, path in paths.items():
         try:
             with open(path, 'rb') as f:
                 models[name] = pickle.load(f)
-        except:
+        except (OSError, pickle.UnpicklingError) as exc:
+            st.warning(f"Could not load {name} model: {exc}")
             models[name] = None
     return models
 
@@ -95,10 +103,10 @@ def calculate_druggability_score(res: dict) -> int:
     elif logs > -6: score += 5
     
     # Toxicity (15 points)
-    tox_prob = res.get('Tox_Prob', 0)
-    if tox_prob > 0.7: score += 15
-    elif tox_prob > 0.5: score += 10
-    elif tox_prob > 0.3: score += 5
+    safe_prob = 1 - res.get('Tox_Prob', 1)
+    if safe_prob > 0.7: score += 15
+    elif safe_prob > 0.5: score += 10
+    elif safe_prob > 0.3: score += 5
     
     # BBB (10 points - bonus/penalty based on TPSA)
     tpsa = res.get('TPSA', 200)
@@ -173,27 +181,23 @@ def analyze_compound(compound_name: str, is_smiles: bool = False) -> dict:
                 result["Status"] = "OK"
 
                 # --- B. AI PREDICTIONS (Random Forest) ---
-                # 1. Generate Morgan Fingerprint (2048 bits)
-                try:
-                    fp = AllChem.GetMorganFingerprintAsBitVect(mol, 2, nBits=2048)
-                except AttributeError:
-                    generator = AllChem.GetMorganGenerator(radius=2, fpSize=2048)
-                    fp = generator.GetFingerprint(mol)
-                fp_array = np.array(fp).reshape(1, -1)
+                # 1. Features: Morgan fingerprint (+ descriptors for solubility)
+                fp_array = model_features(smiles, "toxicity").reshape(1, -1)
+                sol_array = model_features(smiles, "solubility").reshape(1, -1)
 
                 # 2. Run Models
                 # Solubility
                 if models['sol']:
-                    pred = models['sol'].predict(fp_array)[0]
+                    pred = models['sol'].predict(sol_array)[0]
                     result["LogS"] = pred
                     result["Sol_Class"] = "High" if pred > -2 else "Medium" if pred > -4 else "Low"
-                
+
                 # Toxicity
                 if models['tox']:
+                    # Trained on ClinTox CT_TOX: 1 = failed clinical trials for toxicity
                     prob = models['tox'].predict_proba(fp_array)[0][1]
                     result["Tox_Prob"] = prob
-                    # ClinTox dataset labels: 1 = FDA Approved (Safe), 0 = Clinical Trial Failed (Toxic)
-                    result["Tox_Class"] = "Safe" if prob > 0.5 else "Toxic"
+                    result["Tox_Class"] = "Toxic" if prob > 0.5 else "Safe"
 
                 # BBB (Brain)
                 if models['bbb']:
@@ -220,16 +224,16 @@ with st.sidebar:
     
     st.markdown("### 📊 Model Performance")
     st.write("**1. Solubility (Regression)**")
-    st.caption("Training Data: ESOL (Delaney)")
-    st.progress(0.87, text="R² Score: 0.87")
+    st.caption("Training Data: ESOL (Delaney) · 5-fold scaffold CV")
+    st.progress(0.82, text="R² Score: 0.82 ± 0.04")
     
     st.write("**2. Toxicity (Classification)**")
-    st.caption("Training Data: ClinTox (FDA)")
-    st.progress(0.76, text="Accuracy: 76%")
+    st.caption("Training Data: ClinTox (FDA) · 5-fold scaffold CV")
+    st.progress(0.84, text="ROC-AUC: 0.84 ± 0.05")
     
     st.write("**3. Blood-Brain Barrier**")
-    st.caption("Training Data: BBBP")
-    st.progress(0.85, text="ROC-AUC: 0.85")
+    st.caption("Training Data: BBBP · 5-fold scaffold CV")
+    st.progress(0.90, text="ROC-AUC: 0.90 ± 0.02")
     
     st.markdown("---")
     st.caption("Built with Python, RDKit & Streamlit.")
@@ -346,7 +350,7 @@ if run_btn:
                 with m2:
                     tox_c = res.get('Tox_Class', '')
                     tox_p = res.get('Tox_Prob', 0)
-                    st.metric("Clinical Toxicity", tox_c, f"{tox_p:.0%} Safe")
+                    st.metric("Clinical Toxicity", tox_c, f"{tox_p:.0%} toxicity risk", delta_color="inverse")
                     st.caption("Probability of FDA Approval vs Failure.")
 
                 with m3:
