@@ -1,5 +1,4 @@
 # ── Large raw / processed data (multi-GB) ────────────────────────────────────
-# Ignore the CONTENTS (not the dirs) so !-negations below can unblock demo files
 data/raw/
 data/processed/*
 data/labels/*
@@ -9,21 +8,9 @@ figures/
 *.hdr
 *.envi
 
-# ── Force-include the 5 demo cubes so the app works without downloading data ──
-!data/processed/001_pca.npy
-!data/processed/002_pca.npy
-!data/processed/003_pca.npy
-!data/processed/004_pca.npy
-!data/processed/005_pca.npy
-!data/labels/001_labels.npy
-!data/labels/002_labels.npy
-!data/labels/003_labels.npy
-!data/labels/004_labels.npy
-!data/labels/005_labels.npy
-
-# ── Model checkpoints — all blocked EXCEPT the best checkpoint ───────────────
+# ── Demo cubes + best checkpoint are hosted on Hugging Face, not in git ──────
+# Fetch them with:  python scripts/download_artifacts.py
 models/*.pth
-!models/best_unet_qcl.pth
 
 # ── Python ───────────────────────────────────────────────────────────────────
 __pycache__/

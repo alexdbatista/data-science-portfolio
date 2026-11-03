@@ -27,17 +27,22 @@ pinned: false
 ## 🚀 Quick Start
 
 ```bash
-# 5 demo cubes and the trained model checkpoint are included — runs immediately
 git clone https://github.com/alexdbatista/data-science-portfolio.git
-cd data-science-portfolio/qcl-breast-cancer-diagnostics
+cd data-science-portfolio/featured/qcl-breast-cancer-diagnostics
 pip install -r requirements_dash.txt
+python scripts/download_artifacts.py   # ~100 MB: 5 demo cubes + trained U-Net (SHA-256 verified)
 python app_dash.py
 # → open http://localhost:8050
 ```
 
+> The demo data cubes and model checkpoint are hosted on the
+> [Hugging Face Space](https://huggingface.co/spaces/alexdbatista/qcl-breast-cancer-diagnostics)
+> rather than Git LFS, so the repository stays small and clones cleanly.
+
 Or with Docker (Hugging Face Spaces / Render compatible):
 
 ```bash
+python scripts/download_artifacts.py   # the image bundles data/ and models/
 docker build -t qcl-diagnostics .
 docker run -p 7860:7860 qcl-diagnostics
 # → open http://localhost:7860
