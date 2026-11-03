@@ -34,7 +34,15 @@ from pathlib import Path
 from typing import Tuple, Dict, List
 
 # Local architecture import
-from spatial_cnn_segmentation import HyperspectralUNet  # noqa: F401
+import importlib.util as _ilu
+
+# The U-Net lives in a numbered module file, so it can't be imported by name
+_spec = _ilu.spec_from_file_location(
+    "spatial_cnn_segmentation", Path(__file__).parent / "03_spatial_cnn_segmentation.py"
+)
+_mod = _ilu.module_from_spec(_spec)
+_spec.loader.exec_module(_mod)
+HyperspectralUNet = _mod.HyperspectralUNet
 
 
 # ---------------------------------------------------------------------------

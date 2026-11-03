@@ -1,0 +1,10 @@
+line-length = 100
+extend-exclude = ["archive", "*.ipynb"]
+
+[lint]
+# Errors that indicate broken code: syntax errors, undefined names, invalid comparisons
+select = ["E9", "F63", "F7", "F82"]
+
+[lint.per-file-ignores]
+"tests/*" = ["E402"]
+
