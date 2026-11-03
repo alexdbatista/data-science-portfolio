@@ -14,10 +14,10 @@
 
 I built ToxPred to tackle a classic problem in early-stage drug discovery: confidently filtering out non-viable candidates before investing in costly wet-lab synthesis.
 
-This project packages a complete end-to-end cheminformatics workflow. It parses molecular SMILES into 2048-bit Morgan fingerprints using `RDKit`, then feeds them through pre-trained Random Forest architectures to predict aqueous solubility, clinical toxicity bounds, and BBB (Blood-Brain Barrier) permeability. It's fully wrapped in a production-ready Streamlit interface that actively validates candidates against Lipinski's Rule of Five.
+This project packages a complete end-to-end cheminformatics workflow. It parses molecular SMILES into 2048-bit Morgan fingerprints using `RDKit`, then feeds them through pre-trained Random Forest architectures to predict aqueous solubility, clinical toxicity bounds, and BBB (Blood-Brain Barrier) permeability. It's wrapped in an interactive Streamlit app that actively validates candidates against Lipinski's Rule of Five.
 
 * **Tech Stack:** Python, RDKit, scikit-learn, Streamlit, PyTest
-* **Key Results:** Achieved an R² ≈ 0.87 for solubility mapping (Delaney ESOL) and 76% accuracy predicting clinical trial failures (ClinTox).
+* **Key Results (5-fold scaffold-split CV):** Solubility R² 0.82 ± 0.04 (ESOL), clinical-toxicity ROC-AUC 0.84 ± 0.05 / PR-AUC 0.40 vs. 0.08 chance (ClinTox), BBB permeability ROC-AUC 0.90 ± 0.02 (BBBP), each benchmarked against linear and trivial baselines.
 
 ---
 

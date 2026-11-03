@@ -9,19 +9,28 @@
 
 ## 🚀 Key Features
 
-* **💧 Solubility Prediction (LogS):** Rigorous regressor trained on the **Delaney (ESOL)** dataset predicting aqueous solubility boundaries.
+* **💧 Solubility Prediction (LogS):** Random Forest regressor on the **Delaney (ESOL)** dataset using Morgan fingerprints plus 10 physicochemical descriptors (logP, TPSA, MW, …).
 * **☠️ Toxicity Screening:** Binary classifier trained on the **ClinTox (FDA)** dataset to flag structural motifs associated with clinical trial failures.
 * **🧠 Blood-Brain Barrier (BBB) Permeability:** Classifier trained on **BBBP** data to predict CNS penetration—a critical assay for neuropharmacology.
 * **💊 Drug-Likeness:** Automatic calculation of **Lipinski’s Rule of Five** to assess oral bioavailability.
-* **🧬 Structural Intelligence:** Uses **Morgan Fingerprints (ECFP4)** to analyze chemical substructures (2,048-bit vectors) rather than simple molecular weights.
+* **🧬 Structural Intelligence:** Uses **Morgan Fingerprints (ECFP4)** to analyze chemical substructures (2,048-bit vectors) for the classifiers; solubility combines them with descriptors.
 
 ## 📊 Model Performance
 
-| Model | Dataset | Algorithm | Metric |
-| :--- | :--- | :--- | :--- |
-| **Solubility** | Delaney (ESOL) | Random Forest Regressor | R² ≈ 0.87 |
-| **Toxicity** | ClinTox (FDA) | Random Forest Classifier | Acc ≈ 76% |
-| **BBB Permeability** | BBBP | Random Forest Classifier | ROC-AUC ≈ 0.85 |
+All numbers are **5-fold scaffold-split cross-validation** (mean ± std): molecules are grouped by Bemis–Murcko scaffold so every test fold contains chemotypes the model has never seen. This is harder and more realistic than a random split. Reproduce with `python evaluate.py`.
+
+| Model | Dataset | Random Forest | Simple baseline | Trivial baseline |
+| :--- | :--- | :--- | :--- | :--- |
+| **Solubility** (LogS) | ESOL, n = 1,128 | R² 0.82 ± 0.04 · RMSE 0.84 | Ridge: R² 0.78 | Mean: R² −0.21 |
+| **Toxicity** | ClinTox, n = 1,480 (7.6 % toxic) | ROC-AUC 0.84 ± 0.05 · PR-AUC 0.40 | LogReg: ROC-AUC 0.83 · PR-AUC 0.43 | Majority: PR-AUC 0.08 |
+| **BBB Permeability** | BBBP, n = 2,039 | ROC-AUC 0.90 ± 0.02 · Bal. Acc 0.79 | LogReg: ROC-AUC 0.88 | Majority: ROC-AUC 0.50 |
+
+**Why not accuracy?** ClinTox is highly imbalanced: a model that always predicts "non-toxic" scores 92 % accuracy while being useless. ROC-AUC and PR-AUC (vs. a 0.08 chance level) are the meaningful metrics.
+
+**Honest takeaways**
+- Fingerprints alone generalise poorly for solubility on new scaffolds (R² ≈ 0.1); adding physicochemical descriptors lifts it to 0.82.
+- On toxicity the Random Forest is on par with logistic regression, so the gain comes from the representation, not model complexity.
+- ClinTox labels *clinical-trial* toxicity failures (many are approved oncology drugs), not general toxicity — predictions outside drug-like chemical space (e.g. pesticides) should be treated with caution.
 
 ## 🛠️ Tech Stack
 
@@ -53,13 +62,10 @@ flowchart LR
     D --> E[Interactive Pharmacokinetics Report]:::ui
 ```
 
-The repository contains pre-trained Random Forest models serialized via joblib in the `*.pkl` format. While model artifacts are typically housed in blob storage rather than git, tracking these specific baseline models (~18MB total) enables:
-- **Zero-cold-start inference** in Streamlit Cloud environments.
-- Immediate deterministic reproducibility without requiring users to pull from DeepChem.
-
-To safely retrain the architecture locally via the data pipeline:
+Model files (`*.pkl`, ~18 MB) are **not stored in git**. The app trains them automatically on first launch (about 1–2 minutes), or you can build them up front:
 ```bash
-python step_models.py  # Fetches DeepChem datasets & rebuilds RF ensembles (~2-5 minutes)
+python step_models.py   # downloads DeepChem datasets and trains the 3 models
+python evaluate.py      # scaffold-split benchmark → evaluation_results.csv
 ```
 
 ## 💻 Installation & Usage
@@ -67,7 +73,7 @@ python step_models.py  # Fetches DeepChem datasets & rebuilds RF ensembles (~2-5
 1.  **Clone the repository:**
     ```bash
     git clone https://github.com/alexdbatista/data-science-portfolio.git
-    cd data-science-portfolio/toxpred
+    cd data-science-portfolio/featured/toxpred-explainable
     ```
 
 2.  **Install dependencies:**
@@ -75,23 +81,19 @@ python step_models.py  # Fetches DeepChem datasets & rebuilds RF ensembles (~2-5
     pip install -r requirements.txt
     ```
 
-3.  **Run the App** (models are pre-trained and included):
+3.  **Run the App** (models are trained automatically on first launch):
     ```bash
     streamlit run toxpred_app.py
     ```
 
-4.  **(Optional) Regenerate models from scratch:**
+4.  **(Optional) Pre-train models and run the benchmark:**
     ```bash
     python step_models.py
+    python evaluate.py
     ```
-    
-    **Note:** This downloads datasets from DeepChem and trains three Random Forest models:
-    - `solubility_model.pkl` (~9 MB)
-    - `toxicity_model.pkl` (~3 MB)
-    - `bbb_model.pkl` (~5 MB)
 
 ## 🧪 Example Use Cases
 
-* **Aspirin:** Predicted as **Safe** and **Soluble**.
-* **Dopamine:** Predicted as **BBB Impermeable** (correctly identifying the pharmacokinetic barrier that necessitates L-DOPA delivery systems in Parkinson's).
-* **Dieldrin (Pesticide):** Explicitly flagged as **Toxic**, driven by the highly chlorinated ring substructures recognized by the structural fingerprint.
+* **Caffeine:** Predicted **BBB permeable** (93 %), consistent with its well-known CNS stimulant activity.
+* **Dopamine:** Predicted **BBB impermeable** (5 %), correctly identifying the pharmacokinetic barrier that necessitates L-DOPA delivery in Parkinson's disease.
+* **Aspirin (a dataset caveat):** Flagged as high clinical-toxicity risk because ClinTox itself labels aspirin as a clinical-trial toxicity failure. A good reminder that a model can only be as reliable as its labels.
