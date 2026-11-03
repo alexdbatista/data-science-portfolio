@@ -49,8 +49,6 @@ Thumbs.db
 *.h5
 *.joblib
 
-# Exception: ToxPred models are needed for Streamlit Cloud deployment
-!toxpred/*.pkl
 
 # Logs
 *.log

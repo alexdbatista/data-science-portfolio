@@ -44,6 +44,17 @@ This project spotlights heavy data engineering: it includes an out-of-core strea
 
 ---
 
+## Archive
+
+Earlier projects, kept for reference in [`archive/`](./archive/). They are not maintained and some use synthetic data.
+
+- [GuardianCGM](./archive/GuardianCGM/) — glucose forecasting from CGM signals, with bias and drift-monitoring notebooks
+- [Gas Sensor Drift Monitoring](./archive/gas-sensor-drift-monitoring/) — concept-drift detection and model decay on the UCI gas sensor array data
+- [Electrocatalyst Data Analysis](./archive/electrocatalyst-data-analysis/) — quality control and comparison of electrocatalyst screening campaigns (synthetic data)
+- [Sugarcane Canopy Weed Emergence Predictor](./archive/Sugarcane%20Canopy%20Weed%20Emergence%20Predictor/) — microclimate-driven weed emergence model with a dashboard
+
+---
+
 ## Technical Background
 
 My background is grounded in **10+ years** of hands-on analytical chemistry. Navigating messy instrument data (LC–MS, spectrophotometry, electrochemistry) drove me toward building rigorous computational pipelines. Today, my architecture emphasizes transparency and structural compliance.
