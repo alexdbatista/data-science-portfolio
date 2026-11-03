@@ -21,14 +21,14 @@ This project packages a complete end-to-end cheminformatics workflow. It parses 
 
 ---
 
-### 2. 🔬 [Metabolomics Biomarker Discovery via LC–MS](./featured/metabolomics-biomarker-discovery/)
+### 2. 🔬 [Urinary Metabolomics Biomarker Discovery (Cancer Cachexia)](./featured/metabolomics-biomarker-discovery/)
 
-When designing clinical diagnostics, it's essential to narrow down a massive feature space to a handful of biologically critical targets to reduce assay R&D costs. 
+When designing clinical diagnostics, it's essential to narrow a large feature space down to a handful of analytes worth building a targeted assay for, without fooling yourself on a small cohort.
 
-In this repository, I outline the process of finding candidate biomarkers from high-dimensional LC–MS metabolomics data. Rather than just relying on black-box accuracy, I benchmarked sparse linear models (Lasso) against tree-based ensembles and coupled them with SHAP. This ensures that the global and local explanations are biologically sound and comprehensible to medical stakeholders in the loop.
+Using real ¹H-NMR urinary metabolomics data from 77 cancer patients (Eisner et al., 2011), I benchmarked sparse (Lasso), dense (ridge) and tree-based models with repeated, nested cross-validation and explained the best model with SHAP. The chemometric check mattered most: cachexic urine is globally about 2× more concentrated. That alone separates the groups (AUC 0.75), and after dilution correction only 2 of the 54 "significant" metabolites remain.
 
-* **Tech Stack:** Python, Pandas, scikit-learn, SHAP, Jupyter
-* **Key Output:** A reproducible, chemometric pipeline ensuring clear biomarker prioritization, validated by straightforward SHAP decision plots.
+* **Tech Stack:** Python, pandas, scikit-learn, statsmodels, SHAP, Jupyter
+* **Key Results:** ROC-AUC 0.78 ± 0.10 (ridge logistic, 5-fold × 10 CV) against a 0.75 dilution-only baseline. FDR hits drop from 54 to 2 after PQN normalisation (uracil, isoleucine). Delivers a 9-metabolite SHAP shortlist for targeted validation.
 
 ---
 
