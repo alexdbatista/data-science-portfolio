@@ -1,32 +1,55 @@
-# Metabolomics Biomarker Discovery
-## Using SHAP to Prioritize What to Validate Next
+# Urinary Metabolomics Biomarker Discovery for Cancer Cachexia
+## Explainable ML, with the chemometric due diligence that usually gets skipped
 
-[![Python](https://img.shields.io/badge/Python-3.10-blue.svg)](https://www.python.org/)
-[![SHAP](https://img.shields.io/badge/SHAP-0.45+-red.svg)](https://github.com/slundberg/shap)
-[![scikit-learn](https://img.shields.io/badge/scikit--learn-1.3+-orange.svg)](https://scikit-learn.org/)
-
----
-
-## 🔬 The Challenge: High-Dimensionality in LC-MS Biomarker Discovery
-
-In targeted and untargeted metabolomics, the core analytical challenge isn't acquiring the data—it's managing the curse of dimensionality. Validating candidate biomarkers through targeted assays (e.g., MRM/SRM on triple quadrupole instruments) or broader clinical cohorts is cost-prohibitive. The standard chemometric approach (univariate t-tests with FDR correction) often fails because it fundamentally ignores the metabolic network structure.
-
-This pipeline demonstrates a multivariate approach to prioritize LC-MS features. By training regularized surrogate models and extracting SHAP (SHapley Additive exPlanations) values, we can move beyond single-analyte significance to identify the feature sets that actually drive separability between clinical phenotypes.
+[![Python](https://img.shields.io/badge/Python-3.11-blue.svg)](https://www.python.org/)
+[![SHAP](https://img.shields.io/badge/SHAP-0.51-red.svg)](https://github.com/shap/shap)
+[![scikit-learn](https://img.shields.io/badge/scikit--learn-1.9-orange.svg)](https://scikit-learn.org/)
 
 ---
+
+## The question
+
+Cachexia (cancer-associated muscle wasting) is usually recognised only after substantial muscle has been lost. Can a **urine metabolite profile** flag it, and which metabolites are worth building a targeted assay for?
 
 ## Dataset
 
-Human cachexia study (muscle wasting syndrome in cancer patients):
-- 76 samples (47 cachexia, 29 control)
-- 63 metabolites measured by LC-MS
-- Anonymized identifiers (Metabolite_1, Metabolite_2, etc.)
+Real, public ¹H-NMR urinary metabolomics data:
+- **77 cancer patients**: 47 cachexic, 30 non-cachexic controls
+- **63 quantified metabolites** (concentrations, µM), no missing values
+- Eisner R. *et al.* (2011) "Learning to predict cancer-associated skeletal muscle wasting from ¹H-NMR profiles of urinary metabolites", *Metabolomics* 7, 25–34. [doi:10.1007/s11306-010-0232-9](https://doi.org/10.1007/s11306-010-0232-9). Distributed as an example dataset by [MetaboAnalyst](https://www.metaboanalyst.ca/).
 
-Small dataset, high dimensionality—exactly the situation where feature prioritization matters most.
+The CSV is stored in [`../../data/human_cachexia.csv`](../../data/human_cachexia.csv). Notebook 01 downloads it from MetaboAnalyst automatically if it is missing.
 
 ---
 
-## 🛠️ Pipeline Architecture
+## Key results
+
+| | Result |
+|---|---|
+| Best model (ridge logistic, 5-fold × 10 repeated CV) | **ROC-AUC 0.78 ± 0.10**, balanced accuracy 0.75 ± 0.10 |
+| Urine dilution factor alone (1 feature) | ROC-AUC 0.75 ± 0.11 |
+| Same model after PQN dilution correction | ROC-AUC 0.74 ± 0.10 |
+| Sparse Lasso (nested CV) | ROC-AUC 0.71 ± 0.12, ~8 metabolites per fold |
+| FDR-significant metabolites (raw → PQN-corrected) | **54 → 2** (uracil, isoleucine) |
+| SHAP shortlist for a targeted assay | uracil, isoleucine, creatine, glucose, leucine, quinolinate, 3-hydroxyisovalerate, myo-inositol, acetate |
+
+### The main finding: check the dilution factor first
+
+Cachexic patients' urine is **globally about 2× more concentrated** (PQN dilution factor 1.53 vs 0.79, Mann–Whitney p ≈ 2 × 10⁻⁴). As a result:
+
+- Without normalisation, 54 of 63 metabolites look significantly "up" in cachexia. That uniform shift is the fingerprint of a dilution difference, not 54 independent biomarkers.
+- After probabilistic quotient normalisation (PQN), only **uracil** and **isoleucine** remain significant, and both are relatively *lower* in cachexia.
+- A one-number model (overall urine concentration) reaches AUC 0.75. The full metabolite profile adds a little on top (0.78).
+
+Whether the concentration difference is biology or pre-analytical (hydration, collection time) can't be resolved from these data. A naive ML pipeline would report it as a large biomarker panel.
+
+![Volcano plots before and after dilution correction](figures/volcano.png)
+
+![Cross-validated ROC-AUC](figures/cv_auc.png)
+
+---
+
+## Pipeline
 
 ```mermaid
 flowchart TD
@@ -35,57 +58,35 @@ flowchart TD
     classDef model fill:#450a0a,stroke:#ef4444,stroke-width:2px,color:#fff
     classDef output fill:#14532d,stroke:#22c55e,stroke-width:2px,color:#fff
 
-    A[LC-MS Targeted Intensities]:::data --> B(01: Chemometric Preprocessing):::process
-    
-    subgraph QC & Normalization
-        direction TB
-        B1[Log2 Variance Stabilization]:::data
-        B2[PCA Batch Effect Check]:::data
-        B3[Volcano Plot Baseline]:::data
-    end
-    B --> B1 & B2 & B3
-    B1 & B2 & B3 --> C(02: Multivariate Feature Selection):::process
-    
-    subgraph Predictive Modeling
-        C1[Lasso L1 Logistic]:::model
-        C2[Random Forest]:::model
-    end
-    
-    C --> C1 & C2
-    C1 -->|Sparse Topology| D(03: SHAP Interpretation):::process
-    
-    D --> E[Top 10 Biomarker Candidates]:::output
-    E -->|Orthogonal Validation| F[Targeted MRM Assay Optimization]:::output
+    A[1H-NMR urinary metabolite concentrations]:::data --> B(01: Data quality & chemometrics):::process
+    B --> B1[log2 transform]:::data
+    B --> B2[PQN dilution check]:::data
+    B --> B3[PCA + FDR volcano, raw vs PQN]:::data
+    B1 & B2 & B3 --> C(02: Repeated, nested CV):::process
+    C --> C1[Ridge / Lasso / RF]:::model
+    C --> C2[Dilution-only & majority baselines]:::model
+    C1 --> D(03: SHAP + FDR + Lasso stability):::process
+    D --> E[Prioritised shortlist for a targeted assay]:::output
 ```
 
-### 1. Chemometric Preprocessing
-Standard transformation protocols for liquid chromatography-mass spectrometry peak intensities:
-- Log₂ transformation to stabilize variance (standardizing multiplicative noise in MS detectors)
-- Principal Component Analysis (PCA) for initial QC and batch-effect checking.
-- Univariate differential analysis (Volcano plots) to baseline against classical methods. Current dataset yields 35 initially "significant" candidates—still too broad for efficient targeted validation.
+1. **`01_chemometric_eda.ipynb`**: QC, log₂ transform, PQN dilution analysis, PCA, Welch t-tests with Benjamini–Hochberg FDR before and after dilution correction.
+2. **`02_biomarker_ml.ipynb`**: repeated stratified 5-fold CV (50 test folds). All preprocessing sits inside a scikit-learn `Pipeline`, and the Lasso strength is tuned by an inner CV. Models are compared with majority-class and dilution-only baselines. Includes Lasso selection stability.
+3. **`03_shap_interpretation.ipynb`**: `shap.LinearExplainer` on the best model, a beeswarm plot, a single-patient waterfall, and a ranking that combines SHAP, FDR q-values (raw and PQN) and Lasso selection frequency.
 
-### 2. Multivariate Feature Selection
-Benchmarked sparse linear models (L1 regularization) against ensemble methods:
+![SHAP beeswarm](figures/shap_beeswarm.png)
 
-| Model Structure | Balanced Accuracy | ROC-AUC | Rationale |
-|-----------------|-------------------|---------|-----------|
-| **Lasso (L1 Logistic)** | **64.2%** | **0.668** | Handles p >> n regimes; forces strict sparsity |
-| Random Forest | 49.3% | 0.498 | Overfits heavily on highly noisy, small-n cohorts |
-
-*Note on performance:* Due to significant class imbalance (47 cachexia vs. 29 control), we evaluate using balanced accuracy rather than simple accuracy (which would report ~62% just by predicting the majority class). The objective here is feature ranking and signal isolation, not immediate clinical deployment. 
-
-### 3. SHAP Interpretation for Assay Prioritization
-Lasso coefficients only tell part of the story. Extracting exact SHAP values maps the marginal contribution of each metabolite to the diagnostic output.
-
-**Key Analytical Finding:** The top 10 highly-ranked metabolites capture >80% of the predictive signal space. Translating this to the lab: a targeted MRM method requires optimization for only 10 analytes instead of 63, drastically reducing method development time and standard costs.
+**How to read the SHAP plot.** Several top features (pantothenate, uracil) have *negative* weights, even though their raw levels are higher in cachexia. Because every metabolite rises with urine concentration, the model learns contrasts: uracil that is low *relative to everything else* points towards cachexia. This agrees with the PQN analysis.
 
 ---
 
-## 🔬 Clinical Validations & Limitations
+## Limitations
 
-- **Multivariate context vs. Univariate limits:** SHAP identifies critical analytes that fail simple biological thresholding but act as key network suppressors or amplifiers in the pathway.
-- **Directional insight:** Unlike standard Gini impurity in Random Forests, SHAP's topological mapping immediately demonstrates if an upregulated analyte correlates with the pathological state.
-- **Statistical Power Limits:** With n=76, the model parameters lack tight convergence bounds. Prioritization from this pipeline strictly requires orthogonal targeted-MS validation on an independent biological cohort.
+- n = 77 from a single study. Fold-to-fold AUC varies by about ±0.10, which is the honest uncertainty.
+- The dominant signal, global urine concentration, may be biological or pre-analytical.
+- Correlated metabolites share credit in SHAP, and the Lasso picks among them unstably (about 8 per fold, only 7 selected in ≥ 50 % of folds).
+- The shortlist is a prioritisation for validation, not evidence of diagnostic value.
+
+**Next experimental steps:** standardise urine collection and record specific gravity or osmolality, run a targeted absolute-quantification assay for the shortlist, then validate in an independent cohort with a pre-registered threshold.
 
 ---
 
@@ -93,56 +94,35 @@ Lasso coefficients only tell part of the story. Extracting exact SHAP values map
 
 ```
 metabolomics-biomarker-discovery/
-├── 01_chemometric_eda.ipynb       # Data quality, PCA, volcano plot
-├── 02_biomarker_ml.ipynb          # Model training and comparison
-├── 03_shap_interpretation.ipynb   # SHAP analysis and rankings
-└── README.md
+├── 01_chemometric_eda.ipynb      # QC, dilution analysis, PCA, FDR volcano plots
+├── 02_biomarker_ml.ipynb         # Repeated nested CV, baselines, Lasso stability
+├── 03_shap_interpretation.ipynb  # SHAP + biomarker ranking
+├── figures/                      # Figures saved by the notebooks
+├── univariate_results.csv        # Notebook 01 output
+├── model_comparison.csv          # Notebook 02 output
+├── lasso_stability.csv           # Notebook 02 output
+├── biomarker_ranking.csv         # Notebook 03 output
+└── requirements.txt
 ```
 
----
-
-## Running It
+## Running it
 
 ```bash
-cd metabolomics-biomarker-discovery
-python -m venv .venv
-source .venv/bin/activate
+cd featured/metabolomics-biomarker-discovery
+python -m venv .venv && source .venv/bin/activate
 pip install -r requirements.txt
-jupyter notebook
+jupyter notebook   # run 01 → 02 → 03 (each takes under 2 minutes)
 ```
 
-Run notebooks in order: 01 → 02 → 03
-
 ---
 
-## 🧪 Domain Expertise Context
+## Domain context
 
-Data output from LC-MS systems is not generic tabular data—it is fundamentally subject to the physics of electrospray ionization, matrix suppression effects, and chromatographic resolution limits. 
-
-My 10+ years of laboratory background in analytical chemistry and LC-MS method development informs this ML pipeline:
-- **Missing Data Physics:** In mass spec, a `NaN` is rarely random (MCAR); it often represents an analyte falling below the Limit of Detection (LOD), requiring specialized biological imputation.
-- **Signal-to-Noise Reality:** Knowing which low-intensity features are likely chemical noise vs. authentic metabolites guides model sparsity parameters.
-- **Batch Effects:** Recognizing the drift characteristics of LC columns and tuning chemometric normalization to account for instrument variation before passing tensors to a machine learning estimator.
-
----
-
-## Tech Stack
-
-- Python 3.10+
-- pandas, numpy, scikit-learn
-- SHAP 0.45+
-- matplotlib, seaborn
-
-Runs in <2 minutes on a laptop.
-
----
+From 10+ years of analytical chemistry: metabolomics data is not generic tabular data. Urine in particular varies several-fold in concentration with hydration, so a dilution check (PQN, creatinine or osmolality) belongs **before** any statistics or ML. In this dataset, skipping it would turn one global effect into dozens of "biomarkers".
 
 ## References
 
-**SHAP:**
-- Lundberg & Lee (2017), [NIPS paper](https://arxiv.org/abs/1705.07874)
-- [GitHub: slundberg/shap](https://github.com/slundberg/shap)
-
-**Metabolomics Standards:**
-- [Metabolomics Standards Initiative](http://www.metabolomics-msi.org/)
-- [HMDB (Human Metabolome Database)](https://hmdb.ca/)
+- Eisner R. *et al.* (2011), *Metabolomics* 7, 25–34: [doi:10.1007/s11306-010-0232-9](https://doi.org/10.1007/s11306-010-0232-9)
+- Dieterle F. *et al.* (2006), probabilistic quotient normalisation, *Anal. Chem.* 78, 4281–4290: [doi:10.1021/ac051632c](https://doi.org/10.1021/ac051632c)
+- Lundberg S. & Lee S.-I. (2017), SHAP: [arXiv:1705.07874](https://arxiv.org/abs/1705.07874)
+- [MetaboAnalyst](https://www.metaboanalyst.ca/) · [HMDB](https://hmdb.ca/)
