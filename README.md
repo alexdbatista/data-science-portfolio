@@ -1,5 +1,7 @@
 # Alex Batista — Scientific Data & AI Portfolio
 
+[![CI](https://github.com/alexdbatista/data-science-portfolio/actions/workflows/ci.yml/badge.svg)](https://github.com/alexdbatista/data-science-portfolio/actions/workflows/ci.yml)
+
 **PhD analytical chemist** transitioning into applied machine learning, focusing on chemistry, biomarker discovery, and biomedical diagnostics. 
 
 **Core Focus:** Data Quality • Cheminformatics • Explainable Machine Learning • Scientific Tooling
@@ -50,7 +52,7 @@ My background is grounded in **10+ years** of hands-on analytical chemistry. Nav
 
 - **ML & Explainability:** scikit-learn, SHAP, dimensional reduction, uncertainty quantification.
 - **Chemistry Analytics:** `RDKit`, molecular mapping, spectroscopy feature engineering.
-- **Engineering Principles:** Automated `pytest` workflows, Docker containerization, strict PEP8, explicit virtual environments.
+- **Engineering Principles:** `pytest` suite run on every push via GitHub Actions (CPU-only, with `ruff` linting), Docker image for the QCL dashboard, pinned per-project requirements.
 - **Translational Bridge:** Turning complex, abstract statistics into actionable, domain-relevant insights.
 
 **Languages:** Portuguese (Native) | English (Full Professional) | German (B1)
